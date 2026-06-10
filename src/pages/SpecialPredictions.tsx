@@ -1,7 +1,8 @@
 import { useEffect, useState, type FormEvent } from 'react'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { useAuth } from '../context/auth-context'
 import { useFixtureData } from '../hooks/useFixtureData'
-import { supabase } from '../lib/supabase'
+import { db } from '../lib/firebase'
 import { isLockExpired, POINTS_CHAMPION, POINTS_RUNNER_UP, POINTS_TOP_SCORER } from '../lib/scoring'
 import { formatDay, formatTime } from '../lib/format'
 import type { AppSettings, SpecialPrediction } from '../types'
@@ -19,19 +20,24 @@ export default function SpecialPredictions() {
 
   useEffect(() => {
     if (!user) return
-    Promise.all([
-      supabase.from('app_settings').select('*').maybeSingle(),
-      supabase.from('special_predictions').select('*').eq('user_id', user.id).maybeSingle(),
-    ]).then(([settingsRes, predRes]) => {
-      setSettings(settingsRes.data as AppSettings | null)
-      const pred = predRes.data as SpecialPrediction | null
-      if (pred) {
-        setChampionId(pred.champion_team_id?.toString() ?? '')
-        setRunnerUpId(pred.runner_up_team_id?.toString() ?? '')
-        setTopScorer(pred.top_scorer ?? '')
+    const uid = user.uid
+    let cancelled = false
+    Promise.all([getDoc(doc(db, 'appSettings', 'main')), getDoc(doc(db, 'specialPredictions', uid))]).then(
+      ([settingsSnap, predSnap]) => {
+        if (cancelled) return
+        setSettings(settingsSnap.exists() ? (settingsSnap.data() as AppSettings) : null)
+        if (predSnap.exists()) {
+          const pred = predSnap.data() as SpecialPrediction
+          setChampionId(pred.champion_team_id?.toString() ?? '')
+          setRunnerUpId(pred.runner_up_team_id?.toString() ?? '')
+          setTopScorer(pred.top_scorer ?? '')
+        }
+        setLoading(false)
       }
-      setLoading(false)
-    })
+    )
+    return () => {
+      cancelled = true
+    }
   }, [user])
 
   const locked = settings ? isLockExpired(settings.special_predictions_lock_at) : false
@@ -42,22 +48,19 @@ export default function SpecialPredictions() {
     setSaving(true)
     setMessage(null)
 
-    const { error } = await supabase.from('special_predictions').upsert(
-      {
-        user_id: user.id,
+    try {
+      await setDoc(doc(db, 'specialPredictions', user.uid), {
+        user_id: user.uid,
         champion_team_id: championId ? Number(championId) : null,
         runner_up_team_id: runnerUpId ? Number(runnerUpId) : null,
         top_scorer: topScorer.trim() || null,
         updated_at: new Date().toISOString(),
-      },
-      { onConflict: 'user_id' }
-    )
-
-    setSaving(false)
-    if (error) {
-      setMessage({ type: 'error', text: error.message })
-    } else {
+      })
       setMessage({ type: 'success', text: '¡Pronósticos especiales guardados!' })
+    } catch (err) {
+      setMessage({ type: 'error', text: err instanceof Error ? err.message : 'Error al guardar' })
+    } finally {
+      setSaving(false)
     }
   }
 

@@ -1,6 +1,15 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../lib/firebase'
+
+const ERROR_MESSAGES: Record<string, string> = {
+  'auth/invalid-credential': 'Email o contraseña incorrectos.',
+  'auth/invalid-email': 'El email no es válido.',
+  'auth/user-not-found': 'No existe una cuenta con ese email.',
+  'auth/wrong-password': 'Contraseña incorrecta.',
+  'auth/too-many-requests': 'Demasiados intentos. Probá de nuevo en unos minutos.',
+}
 
 export default function Login() {
   const navigate = useNavigate()
@@ -14,14 +23,16 @@ export default function Login() {
     e.preventDefault()
     setError(null)
     setLoading(true)
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
-    setLoading(false)
-    if (error) {
-      setError(error.message)
-      return
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+      const from = (location.state as { from?: Location })?.from?.pathname ?? '/dashboard'
+      navigate(from, { replace: true })
+    } catch (err) {
+      const code = err instanceof Error && 'code' in err ? (err as { code: string }).code : ''
+      setError(ERROR_MESSAGES[code] ?? 'No se pudo iniciar sesión. Intentá de nuevo.')
+    } finally {
+      setLoading(false)
     }
-    const from = (location.state as { from?: Location })?.from?.pathname ?? '/dashboard'
-    navigate(from, { replace: true })
   }
 
   return (

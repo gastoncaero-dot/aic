@@ -29,6 +29,7 @@ export interface Match {
   away_placeholder: string | null
   venue: string | null
   kickoff_at: string
+  lock_at: string
   home_score: number | null
   away_score: number | null
   status: MatchStatus
@@ -46,13 +47,8 @@ export interface League {
   name: string
   code: string
   owner_id: string
+  member_ids: string[]
   created_at: string
-}
-
-export interface LeagueMember {
-  league_id: string
-  user_id: string
-  joined_at: string
 }
 
 export interface Prediction {
@@ -72,7 +68,6 @@ export interface SpecialPrediction {
 }
 
 export interface AppSettings {
-  id: boolean
   special_predictions_lock_at: string
   champion_team_id: number | null
   runner_up_team_id: number | null

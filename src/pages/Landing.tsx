@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { doc, getDoc } from 'firebase/firestore'
 import { useAuth } from '../context/auth-context'
-import { supabase } from '../lib/supabase'
+import { db } from '../lib/firebase'
 import Countdown from '../components/Countdown'
 import { POINTS_EXACT, POINTS_RESULT } from '../lib/scoring'
+import type { Match } from '../types'
 
 const FALLBACK_KICKOFF = '2026-06-11T13:00:00.000Z'
 
@@ -12,14 +14,15 @@ export default function Landing() {
   const [kickoff, setKickoff] = useState(FALLBACK_KICKOFF)
 
   useEffect(() => {
-    supabase
-      .from('matches')
-      .select('kickoff_at')
-      .eq('id', 1)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (data?.kickoff_at) setKickoff(data.kickoff_at)
-      })
+    let cancelled = false
+    getDoc(doc(db, 'matches', '1')).then((snap) => {
+      if (cancelled) return
+      const data = snap.data() as Match | undefined
+      if (data?.kickoff_at) setKickoff(data.kickoff_at)
+    })
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   return (

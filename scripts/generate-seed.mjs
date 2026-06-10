@@ -1,4 +1,4 @@
-// Generates supabase/seed.sql with the 48 World Cup 2026 teams and the
+// Generates src/data/seedData.ts with the 48 World Cup 2026 teams and the
 // 104-match schedule (72 group stage + 32 knockout placeholders).
 //
 // Group stage dates/times are best-effort placeholders based on the publicly
@@ -40,17 +40,20 @@ const flags = {
 }
 
 const groupLetters = Object.keys(groups) // A..L
+const PREDICTION_LOCK_MINUTES = 60
+
+function lockAt(kickoffIso) {
+  return new Date(new Date(kickoffIso).getTime() - PREDICTION_LOCK_MINUTES * 60 * 1000).toISOString()
+}
 
 // --- Teams ---
-const teamRows = []
+const teams = []
 const teamId = {} // "A1".."L4" -> numeric id
 let id = 1
 for (const letter of groupLetters) {
   groups[letter].forEach((name, idx) => {
     teamId[`${letter}${idx + 1}`] = id
-    const flag = flags[name].replace(/'/g, "''")
-    const escName = name.replace(/'/g, "''")
-    teamRows.push(`(${id}, '${escName}', '${flag}', '${letter}')`)
+    teams.push({ id, name, flag: flags[name], group_letter: letter })
     id++
   })
 }
@@ -68,8 +71,29 @@ function dateUTC(y, m, d, h) {
   return new Date(Date.UTC(y, m - 1, d, h, 0, 0)).toISOString()
 }
 
-const matchRows = []
+const matches = []
 let matchId = 1
+
+function pushMatch(fields) {
+  const kickoff_at = fields.kickoff_at
+  matches.push({
+    id: matchId,
+    phase: fields.phase,
+    group_letter: fields.group_letter ?? null,
+    matchday: fields.matchday ?? null,
+    home_team_id: fields.home_team_id ?? null,
+    away_team_id: fields.away_team_id ?? null,
+    home_placeholder: fields.home_placeholder ?? null,
+    away_placeholder: fields.away_placeholder ?? null,
+    venue: null,
+    kickoff_at,
+    lock_at: lockAt(kickoff_at),
+    home_score: null,
+    away_score: null,
+    status: 'scheduled',
+  })
+  matchId++
+}
 
 for (let md = 0; md < 3; md++) {
   for (let g = 0; g < groupLetters.length; g++) {
@@ -103,22 +127,15 @@ for (let md = 0; md < 3; md++) {
       kickoffB = ko
     }
 
-    matchRows.push(
-      `(${matchId}, 'group', '${letter}', ${md + 1}, ${homeA}, ${awayA}, null, null, null, '${kickoffA}', null, null, 'scheduled')`
-    )
-    matchId++
-    matchRows.push(
-      `(${matchId}, 'group', '${letter}', ${md + 1}, ${homeB}, ${awayB}, null, null, null, '${kickoffB}', null, null, 'scheduled')`
-    )
-    matchId++
+    pushMatch({ phase: 'group', group_letter: letter, matchday: md + 1, home_team_id: homeA, away_team_id: awayA, kickoff_at: kickoffA })
+    pushMatch({ phase: 'group', group_letter: letter, matchday: md + 1, home_team_id: homeB, away_team_id: awayB, kickoff_at: kickoffB })
   }
 }
 
 // --- Knockout stage placeholders (32) ---
-// Self-consistent single-elimination bracket (R32 -> R16 -> QF -> SF -> Final),
+// Self-consistent single-elimination bracket (R32 -> R16 -> QF -> Final),
 // independent of the final FIFA cross-group bracket assignment. Update teams
 // via the admin panel once group standings (and FIFA's official bracket) are known.
-const koRows = []
 
 // Round of 32: matches 73-88 (16), Jun 28 - Jul 3
 for (let n = 1; n <= 16; n++) {
@@ -128,10 +145,7 @@ for (let n = 1; n <= 16; n++) {
   const realDay = day <= 30 ? day : day - 30
   const slot = (n - 1) % 4
   const ko = dateUTC(2026, month, realDay, 12 + slot * 3)
-  koRows.push(
-    `(${matchId}, 'r32', null, null, null, null, 'Por definir', 'Por definir', null, '${ko}', null, null, 'scheduled')`
-  )
-  matchId++
+  pushMatch({ phase: 'r32', kickoff_at: ko, home_placeholder: 'Por definir', away_placeholder: 'Por definir' })
 }
 
 // Round of 16: matches 89-96 (8), Jul 4-7, two per day
@@ -141,10 +155,7 @@ for (let n = 1; n <= 8; n++) {
   const ko = dateUTC(2026, 7, day, 15 + slot * 4)
   const r32a = 73 + (n - 1) * 2
   const r32b = r32a + 1
-  koRows.push(
-    `(${matchId}, 'r16', null, null, null, null, 'Ganador Partido ${r32a}', 'Ganador Partido ${r32b}', null, '${ko}', null, null, 'scheduled')`
-  )
-  matchId++
+  pushMatch({ phase: 'r16', kickoff_at: ko, home_placeholder: `Ganador Partido ${r32a}`, away_placeholder: `Ganador Partido ${r32b}` })
 }
 
 // Quarterfinals: matches 97-100 (4), Jul 9-10, two per day
@@ -154,10 +165,7 @@ for (let n = 1; n <= 4; n++) {
   const ko = dateUTC(2026, 7, day, 15 + slot * 4)
   const r16a = 89 + (n - 1) * 2
   const r16b = r16a + 1
-  koRows.push(
-    `(${matchId}, 'qf', null, null, null, null, 'Ganador Partido ${r16a}', 'Ganador Partido ${r16b}', null, '${ko}', null, null, 'scheduled')`
-  )
-  matchId++
+  pushMatch({ phase: 'qf', kickoff_at: ko, home_placeholder: `Ganador Partido ${r16a}`, away_placeholder: `Ganador Partido ${r16b}` })
 }
 
 // Semifinals: matches 101-102, Jul 14 and Jul 15
@@ -166,43 +174,24 @@ for (let n = 1; n <= 2; n++) {
   const ko = dateUTC(2026, 7, day, 19)
   const qfa = 97 + (n - 1) * 2
   const qfb = qfa + 1
-  koRows.push(
-    `(${matchId}, 'sf', null, null, null, null, 'Ganador Partido ${qfa}', 'Ganador Partido ${qfb}', null, '${ko}', null, null, 'scheduled')`
-  )
-  matchId++
+  pushMatch({ phase: 'sf', kickoff_at: ko, home_placeholder: `Ganador Partido ${qfa}`, away_placeholder: `Ganador Partido ${qfb}` })
 }
 
 // Third place: match 103, Jul 18
-{
-  const ko = dateUTC(2026, 7, 18, 16)
-  koRows.push(
-    `(${matchId}, '3rd', null, null, null, null, 'Perdedor Partido 101', 'Perdedor Partido 102', null, '${ko}', null, null, 'scheduled')`
-  )
-  matchId++
-}
+pushMatch({ phase: '3rd', kickoff_at: dateUTC(2026, 7, 18, 16), home_placeholder: 'Perdedor Partido 101', away_placeholder: 'Perdedor Partido 102' })
 
 // Final: match 104, Jul 19
-{
-  const ko = dateUTC(2026, 7, 19, 16)
-  koRows.push(
-    `(${matchId}, 'final', null, null, null, null, 'Ganador Partido 101', 'Ganador Partido 102', null, '${ko}', null, null, 'scheduled')`
-  )
-  matchId++
-}
+pushMatch({ phase: 'final', kickoff_at: dateUTC(2026, 7, 19, 16), home_placeholder: 'Ganador Partido 101', away_placeholder: 'Ganador Partido 102' })
 
-const sql = `-- =========================================================
--- Prode Mundial 2026 - Datos iniciales (equipos + fixture)
--- Generado por scripts/generate-seed.mjs - editable desde /admin
--- =========================================================
+const ts = `// Datos iniciales (48 equipos + 104 partidos) del Prode Mundial 2026.
+// Generado por scripts/generate-seed.mjs - se carga una sola vez desde el
+// panel de Admin (botón "Cargar datos iniciales") y luego se edita desde ahí.
+import type { Match, Team } from '../types'
 
-insert into public.teams (id, name, flag, group_letter) values
-${teamRows.join(',\n')}
-on conflict (id) do nothing;
+export const seedTeams: Team[] = ${JSON.stringify(teams, null, 2)}
 
-insert into public.matches (id, phase, group_letter, matchday, home_team_id, away_team_id, home_placeholder, away_placeholder, venue, kickoff_at, home_score, away_score, status) values
-${[...matchRows, ...koRows].join(',\n')}
-on conflict (id) do nothing;
+export const seedMatches: Match[] = ${JSON.stringify(matches, null, 2)}
 `
 
-writeFileSync(new URL('../supabase/seed.sql', import.meta.url), sql)
-console.log(`Generated ${teamRows.length} teams and ${matchRows.length + koRows.length} matches.`)
+writeFileSync(new URL('../src/data/seedData.ts', import.meta.url), ts)
+console.log(`Generated ${teams.length} teams and ${matches.length} matches.`)

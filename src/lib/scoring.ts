@@ -1,5 +1,6 @@
 // Sistema de puntos del Prode Mundial 2026.
-// Mantené esto sincronizado con las vistas SQL de supabase/schema.sql.
+// Mantené esto sincronizado con el cálculo de la tabla de posiciones en
+// src/pages/LeagueDetail.tsx.
 export const POINTS_EXACT = 5
 export const POINTS_RESULT = 2
 export const POINTS_CHAMPION = 20

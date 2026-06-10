@@ -1,56 +1,36 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import type { Session } from '@supabase/supabase-js'
-import { supabase } from '../lib/supabase'
+import { onAuthStateChanged, type User } from 'firebase/auth'
+import { doc, getDoc } from 'firebase/firestore'
+import { auth, db } from '../lib/firebase'
 import type { Profile } from '../types'
 import { AuthContext } from './auth-context'
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [session, setSession] = useState<Session | null>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
 
-  async function loadProfile(userId: string) {
-    const { data } = await supabase.from('profiles').select('*').eq('id', userId).maybeSingle()
-    setProfile(data)
+  async function loadProfile(uid: string) {
+    const snap = await getDoc(doc(db, 'users', uid))
+    setProfile(snap.exists() ? ({ id: snap.id, ...snap.data() } as Profile) : null)
   }
 
   useEffect(() => {
-    let active = true
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!active) return
-      setSession(session)
-      if (session?.user) {
-        loadProfile(session.user.id).finally(() => setLoading(false))
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser)
+      if (firebaseUser) {
+        loadProfile(firebaseUser.uid).finally(() => setLoading(false))
       } else {
+        setProfile(null)
         setLoading(false)
       }
     })
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-      if (session?.user) {
-        loadProfile(session.user.id)
-      } else {
-        setProfile(null)
-      }
-    })
-
-    return () => {
-      active = false
-      subscription.unsubscribe()
-    }
+    return unsubscribe
   }, [])
 
   async function refreshProfile() {
-    if (session?.user) await loadProfile(session.user.id)
+    if (user) await loadProfile(user.uid)
   }
 
-  return (
-    <AuthContext.Provider value={{ session, user: session?.user ?? null, profile, loading, refreshProfile }}>
-      {children}
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={{ user, profile, loading, refreshProfile }}>{children}</AuthContext.Provider>
 }

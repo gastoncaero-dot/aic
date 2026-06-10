@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
+import { doc, getDoc, setDoc, updateDoc, writeBatch } from 'firebase/firestore'
 import { useFixtureData } from '../hooks/useFixtureData'
-import { supabase } from '../lib/supabase'
+import { db } from '../lib/firebase'
 import AdminMatchEditor from '../components/AdminMatchEditor'
 import { toDateTimeLocal } from '../lib/format'
+import { PREDICTION_LOCK_MINUTES } from '../lib/scoring'
+import { seedMatches, seedTeams } from '../data/seedData'
 import { PHASE_LABELS, type AppSettings, type Match, type MatchPhase } from '../types'
 
 const GROUP_LETTERS = 'ABCDEFGHIJKL'.split('')
@@ -23,26 +26,34 @@ export default function Admin() {
   const [topScorer, setTopScorer] = useState('')
   const [savingSettings, setSavingSettings] = useState(false)
   const [settingsMsg, setSettingsMsg] = useState<string | null>(null)
+  const [seeding, setSeeding] = useState(false)
+  const [seedMsg, setSeedMsg] = useState<string | null>(null)
+
+  const effectiveView = !loading && teams.length === 0 ? 'settings' : view
 
   useEffect(() => {
-    supabase
-      .from('app_settings')
-      .select('*')
-      .maybeSingle()
-      .then(({ data }) => {
-        const s = data as AppSettings | null
-        if (s) {
-          setLockAt(toDateTimeLocal(s.special_predictions_lock_at))
-          setChampionId(s.champion_team_id?.toString() ?? '')
-          setRunnerUpId(s.runner_up_team_id?.toString() ?? '')
-          setTopScorer(s.top_scorer ?? '')
-        }
-      })
+    let cancelled = false
+    getDoc(doc(db, 'appSettings', 'main')).then((snap) => {
+      if (cancelled) return
+      if (snap.exists()) {
+        const s = snap.data() as AppSettings
+        setLockAt(toDateTimeLocal(s.special_predictions_lock_at))
+        setChampionId(s.champion_team_id?.toString() ?? '')
+        setRunnerUpId(s.runner_up_team_id?.toString() ?? '')
+        setTopScorer(s.top_scorer ?? '')
+      }
+    })
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   async function handleSaveMatch(matchId: number, updates: Partial<Match>) {
-    const { error } = await supabase.from('matches').update(updates).eq('id', matchId)
-    if (error) throw error
+    const data: Partial<Match> = { ...updates }
+    if (updates.kickoff_at) {
+      data.lock_at = new Date(new Date(updates.kickoff_at).getTime() - PREDICTION_LOCK_MINUTES * 60 * 1000).toISOString()
+    }
+    await updateDoc(doc(db, 'matches', matchId.toString()), data)
     await reload()
   }
 
@@ -50,17 +61,53 @@ export default function Admin() {
     e.preventDefault()
     setSavingSettings(true)
     setSettingsMsg(null)
-    const { error } = await supabase
-      .from('app_settings')
-      .update({
+    try {
+      await setDoc(doc(db, 'appSettings', 'main'), {
         special_predictions_lock_at: new Date(lockAt).toISOString(),
         champion_team_id: championId ? Number(championId) : null,
         runner_up_team_id: runnerUpId ? Number(runnerUpId) : null,
         top_scorer: topScorer.trim() || null,
       })
-      .eq('id', true)
-    setSavingSettings(false)
-    setSettingsMsg(error ? error.message : '✓ Configuración guardada')
+      setSettingsMsg('✓ Configuración guardada')
+    } catch (err) {
+      setSettingsMsg(err instanceof Error ? err.message : 'Error al guardar')
+    } finally {
+      setSavingSettings(false)
+    }
+  }
+
+  async function handleSeed() {
+    if (
+      !window.confirm(
+        'Esto carga los 48 equipos y los 104 partidos del fixture inicial. Si ya hay datos cargados, se van a sobrescribir. ¿Continuar?'
+      )
+    ) {
+      return
+    }
+    setSeeding(true)
+    setSeedMsg(null)
+    try {
+      const batch = writeBatch(db)
+      for (const team of seedTeams) batch.set(doc(db, 'teams', team.id.toString()), team)
+      for (const match of seedMatches) batch.set(doc(db, 'matches', match.id.toString()), match)
+      batch.set(
+        doc(db, 'appSettings', 'main'),
+        {
+          special_predictions_lock_at: '2026-06-11T13:00:00.000Z',
+          champion_team_id: null,
+          runner_up_team_id: null,
+          top_scorer: null,
+        },
+        { merge: true }
+      )
+      await batch.commit()
+      setSeedMsg('✓ Datos iniciales cargados')
+      await reload()
+    } catch (err) {
+      setSeedMsg(err instanceof Error ? err.message : 'Error al cargar los datos iniciales')
+    } finally {
+      setSeeding(false)
+    }
   }
 
   const groupedByGroup = useMemo(() => {
@@ -105,80 +152,100 @@ export default function Admin() {
         </button>
       </div>
 
-      {view === 'settings' && (
-        <form onSubmit={handleSaveSettings} className="max-w-lg space-y-4 rounded-xl border border-slate-200 bg-white p-5">
-          <h2 className="font-semibold text-slate-800">Pronósticos especiales</h2>
-          <div>
-            <label className="mb-1 block text-sm font-medium text-slate-700">Cierre de pronósticos especiales</label>
-            <input
-              type="datetime-local"
-              value={lockAt}
-              onChange={(e) => setLockAt(e.target.value)}
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
-            />
-          </div>
+      {effectiveView === 'settings' && (
+        <div className="space-y-4">
+          {teams.length === 0 && (
+            <div className="max-w-lg space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-5">
+              <h2 className="font-semibold text-amber-900">Datos iniciales</h2>
+              <p className="text-sm text-amber-800">
+                Todavía no hay equipos ni partidos cargados. Hacé click para cargar los 48 equipos y los 104
+                partidos del fixture inicial.
+              </p>
+              <button
+                onClick={handleSeed}
+                disabled={seeding}
+                className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50"
+              >
+                {seeding ? 'Cargando...' : 'Cargar datos iniciales'}
+              </button>
+              {seedMsg && <p className="text-sm text-amber-800">{seedMsg}</p>}
+            </div>
+          )}
 
-          <h2 className="pt-2 font-semibold text-slate-800">Resultados finales del torneo</h2>
-          <p className="text-xs text-slate-500">
-            Completá esto cuando termine el Mundial para liquidar los puntos especiales.
-          </p>
-          <div>
-            <label className="mb-1 block text-sm font-medium text-slate-700">🏆 Campeón</label>
-            <select
-              value={championId}
-              onChange={(e) => setChampionId(e.target.value)}
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
-            >
-              <option value="">Sin definir</option>
-              {teams.map((t) => (
-                <option key={t.id} value={t.id}>
-                  {t.flag} {t.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="mb-1 block text-sm font-medium text-slate-700">🥈 Subcampeón</label>
-            <select
-              value={runnerUpId}
-              onChange={(e) => setRunnerUpId(e.target.value)}
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
-            >
-              <option value="">Sin definir</option>
-              {teams.map((t) => (
-                <option key={t.id} value={t.id}>
-                  {t.flag} {t.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="mb-1 block text-sm font-medium text-slate-700">👟 Goleador / Balón de Oro</label>
-            <input
-              type="text"
-              value={topScorer}
-              onChange={(e) => setTopScorer(e.target.value)}
-              placeholder="Nombre y apellido del jugador"
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
-            />
-            <p className="mt-1 text-xs text-slate-400">
-              Debe coincidir (sin importar mayúsculas) con lo que escribieron los jugadores.
+          <form onSubmit={handleSaveSettings} className="max-w-lg space-y-4 rounded-xl border border-slate-200 bg-white p-5">
+            <h2 className="font-semibold text-slate-800">Pronósticos especiales</h2>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Cierre de pronósticos especiales</label>
+              <input
+                type="datetime-local"
+                value={lockAt}
+                onChange={(e) => setLockAt(e.target.value)}
+                className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
+              />
+            </div>
+
+            <h2 className="pt-2 font-semibold text-slate-800">Resultados finales del torneo</h2>
+            <p className="text-xs text-slate-500">
+              Completá esto cuando termine el Mundial para liquidar los puntos especiales.
             </p>
-          </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">🏆 Campeón</label>
+              <select
+                value={championId}
+                onChange={(e) => setChampionId(e.target.value)}
+                className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
+              >
+                <option value="">Sin definir</option>
+                {teams.map((t) => (
+                  <option key={t.id} value={t.id}>
+                    {t.flag} {t.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">🥈 Subcampeón</label>
+              <select
+                value={runnerUpId}
+                onChange={(e) => setRunnerUpId(e.target.value)}
+                className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
+              >
+                <option value="">Sin definir</option>
+                {teams.map((t) => (
+                  <option key={t.id} value={t.id}>
+                    {t.flag} {t.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">👟 Goleador / Balón de Oro</label>
+              <input
+                type="text"
+                value={topScorer}
+                onChange={(e) => setTopScorer(e.target.value)}
+                placeholder="Nombre y apellido del jugador"
+                className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
+              />
+              <p className="mt-1 text-xs text-slate-400">
+                Debe coincidir (sin importar mayúsculas) con lo que escribieron los jugadores.
+              </p>
+            </div>
 
-          {settingsMsg && <p className="text-sm text-slate-600">{settingsMsg}</p>}
+            {settingsMsg && <p className="text-sm text-slate-600">{settingsMsg}</p>}
 
-          <button
-            type="submit"
-            disabled={savingSettings}
-            className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50"
-          >
-            {savingSettings ? 'Guardando...' : 'Guardar configuración'}
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={savingSettings}
+              className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50"
+            >
+              {savingSettings ? 'Guardando...' : 'Guardar configuración'}
+            </button>
+          </form>
+        </div>
       )}
 
-      {view === 'group' && (
+      {effectiveView === 'group' && (
         <div className="space-y-8">
           {GROUP_LETTERS.map((letter) => (
             <div key={letter}>
@@ -193,7 +260,7 @@ export default function Admin() {
         </div>
       )}
 
-      {view === 'knockout' && (
+      {effectiveView === 'knockout' && (
         <div className="space-y-8">
           {KNOCKOUT_PHASES.map((phase) => (
             <div key={phase}>

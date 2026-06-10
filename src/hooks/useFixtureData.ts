@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { supabase } from '../lib/supabase'
+import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import { db } from '../lib/firebase'
 import type { Match, Team } from '../types'
 
 export function useFixtureData() {
@@ -14,15 +15,20 @@ export function useFixtureData() {
 
     async function load() {
       setLoading(true)
-      const [teamsRes, matchesRes] = await Promise.all([
-        supabase.from('teams').select('*').order('id'),
-        supabase.from('matches').select('*').order('id'),
-      ])
-      if (cancelled) return
-      setError(teamsRes.error?.message ?? matchesRes.error?.message ?? null)
-      setTeams((teamsRes.data as Team[]) ?? [])
-      setMatches((matchesRes.data as Match[]) ?? [])
-      setLoading(false)
+      try {
+        const [teamsSnap, matchesSnap] = await Promise.all([
+          getDocs(query(collection(db, 'teams'), orderBy('id'))),
+          getDocs(query(collection(db, 'matches'), orderBy('id'))),
+        ])
+        if (cancelled) return
+        setTeams(teamsSnap.docs.map((d) => d.data() as Team))
+        setMatches(matchesSnap.docs.map((d) => d.data() as Match))
+        setError(null)
+      } catch (err) {
+        if (!cancelled) setError(err instanceof Error ? err.message : 'Error al cargar datos')
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
     }
 
     load()

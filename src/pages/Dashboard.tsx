@@ -1,11 +1,20 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { arrayUnion, collection, doc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore'
 import { useAuth } from '../context/auth-context'
-import { supabase } from '../lib/supabase'
+import { db } from '../lib/firebase'
 import type { League } from '../types'
 
 interface LeagueWithCount extends League {
   member_count: number
+}
+
+const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+
+function generateCode(): string {
+  let code = ''
+  for (let i = 0; i < 6; i++) code += CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)]
+  return code
 }
 
 export default function Dashboard() {
@@ -22,32 +31,18 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!user) return
-    const userId = user.id
+    const uid = user.uid
     let cancelled = false
 
     async function load() {
       setLoading(true)
-      const { data: memberRows } = await supabase
-        .from('league_members')
-        .select('leagues(id, name, code, owner_id, created_at)')
-        .eq('user_id', userId)
-
-      const leagueList = ((memberRows as unknown as { leagues: League }[]) ?? [])
-        .map((row) => row.leagues)
-        .filter((l): l is League => Boolean(l))
-
-      const withCounts = await Promise.all(
-        leagueList.map(async (league) => {
-          const { count } = await supabase
-            .from('league_members')
-            .select('user_id', { count: 'exact', head: true })
-            .eq('league_id', league.id)
-          return { ...league, member_count: count ?? 0 }
-        })
-      )
-
+      const snap = await getDocs(query(collection(db, 'leagues'), where('member_ids', 'array-contains', uid)))
       if (cancelled) return
-      setLeagues(withCounts.sort((a, b) => a.name.localeCompare(b.name)))
+      const leagueList = snap.docs.map((d) => {
+        const data = d.data() as League
+        return { ...data, id: d.id, member_count: data.member_ids?.length ?? 0 }
+      })
+      setLeagues(leagueList.sort((a, b) => a.name.localeCompare(b.name)))
       setLoading(false)
     }
 
@@ -60,33 +55,58 @@ export default function Dashboard() {
   async function handleCreate(e: FormEvent) {
     e.preventDefault()
     setError(null)
-    if (!newLeagueName.trim()) return
+    const name = newLeagueName.trim()
+    if (!name || !user) return
     setCreating(true)
-    const { data, error } = await supabase.rpc('create_league', { p_name: newLeagueName.trim() })
-    setCreating(false)
-    if (error) {
-      setError(error.message)
-      return
+    try {
+      let code = generateCode()
+      let existing = await getDocs(query(collection(db, 'leagues'), where('code', '==', code)))
+      while (!existing.empty) {
+        code = generateCode()
+        existing = await getDocs(query(collection(db, 'leagues'), where('code', '==', code)))
+      }
+
+      const ref = doc(collection(db, 'leagues'))
+      await setDoc(ref, {
+        name,
+        code,
+        owner_id: user.uid,
+        member_ids: [user.uid],
+        created_at: new Date().toISOString(),
+      })
+
+      setNewLeagueName('')
+      setReloadIndex((i) => i + 1)
+      navigate(`/leagues/${ref.id}`)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error al crear la liga')
+    } finally {
+      setCreating(false)
     }
-    setNewLeagueName('')
-    setReloadIndex((i) => i + 1)
-    if (data) navigate(`/leagues/${(data as League).id}`)
   }
 
   async function handleJoin(e: FormEvent) {
     e.preventDefault()
     setError(null)
-    if (!joinCode.trim()) return
+    const code = joinCode.trim().toUpperCase()
+    if (!code || !user) return
     setJoining(true)
-    const { data, error } = await supabase.rpc('join_league', { p_code: joinCode.trim() })
-    setJoining(false)
-    if (error) {
-      setError(error.message)
-      return
+    try {
+      const snap = await getDocs(query(collection(db, 'leagues'), where('code', '==', code)))
+      if (snap.empty) {
+        setError('El código de liga ingresado no existe')
+        return
+      }
+      const leagueDoc = snap.docs[0]
+      await updateDoc(leagueDoc.ref, { member_ids: arrayUnion(user.uid) })
+      setJoinCode('')
+      setReloadIndex((i) => i + 1)
+      navigate(`/leagues/${leagueDoc.id}`)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error al sumarte a la liga')
+    } finally {
+      setJoining(false)
     }
-    setJoinCode('')
-    setReloadIndex((i) => i + 1)
-    if (data) navigate(`/leagues/${(data as League).id}`)
   }
 
   return (

@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
+import { signOut } from 'firebase/auth'
 import { useAuth } from '../context/auth-context'
-import { supabase } from '../lib/supabase'
+import { auth } from '../lib/firebase'
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `rounded-md px-3 py-2 text-sm font-medium transition-colors ${
@@ -13,7 +14,7 @@ export default function Layout() {
   const [open, setOpen] = useState(false)
 
   async function handleLogout() {
-    await supabase.auth.signOut()
+    await signOut(auth)
     setOpen(false)
   }
 

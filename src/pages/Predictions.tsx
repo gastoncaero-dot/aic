@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
+import { collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore'
 import { useFixtureData } from '../hooks/useFixtureData'
 import { useAuth } from '../context/auth-context'
-import { supabase } from '../lib/supabase'
+import { db } from '../lib/firebase'
 import MatchRow from '../components/MatchRow'
 import { PHASE_LABELS, type Match, type MatchPhase, type Prediction } from '../types'
 
@@ -23,40 +24,36 @@ export default function Predictions() {
 
   useEffect(() => {
     if (!user) return
-    supabase
-      .from('predictions')
-      .select('*')
-      .eq('user_id', user.id)
-      .then(({ data }) => {
-        const map = new Map<number, Prediction>()
-        for (const p of (data as Prediction[]) ?? []) map.set(p.match_id, p)
-        setPredictions(map)
-        setPredLoading(false)
-      })
+    const uid = user.uid
+    let cancelled = false
+    getDocs(query(collection(db, 'predictions'), where('user_id', '==', uid))).then((snap) => {
+      if (cancelled) return
+      const map = new Map<number, Prediction>()
+      for (const d of snap.docs) {
+        const p = d.data() as Prediction
+        map.set(p.match_id, p)
+      }
+      setPredictions(map)
+      setPredLoading(false)
+    })
+    return () => {
+      cancelled = true
+    }
   }, [user])
 
   async function handleSave(matchId: number, home: number, away: number) {
     if (!user) return
-    const { error } = await supabase.from('predictions').upsert(
-      {
-        user_id: user.id,
-        match_id: matchId,
-        home_score: home,
-        away_score: away,
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: 'user_id,match_id' }
-    )
-    if (error) throw error
+    const data: Prediction = {
+      user_id: user.uid,
+      match_id: matchId,
+      home_score: home,
+      away_score: away,
+      updated_at: new Date().toISOString(),
+    }
+    await setDoc(doc(db, 'predictions', `${user.uid}_${matchId}`), data)
     setPredictions((prev) => {
       const next = new Map(prev)
-      next.set(matchId, {
-        user_id: user.id,
-        match_id: matchId,
-        home_score: home,
-        away_score: away,
-        updated_at: new Date().toISOString(),
-      })
+      next.set(matchId, data)
       return next
     })
   }

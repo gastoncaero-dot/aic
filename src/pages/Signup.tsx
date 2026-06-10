@@ -1,6 +1,14 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { doc, setDoc } from 'firebase/firestore'
+import { auth, db } from '../lib/firebase'
+
+const ERROR_MESSAGES: Record<string, string> = {
+  'auth/email-already-in-use': 'Ya existe una cuenta con ese email.',
+  'auth/invalid-email': 'El email no es válido.',
+  'auth/weak-password': 'La contraseña debe tener al menos 6 caracteres.',
+}
 
 export default function Signup() {
   const navigate = useNavigate()
@@ -8,13 +16,11 @@ export default function Signup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const [info, setInfo] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setError(null)
-    setInfo(null)
 
     const cleanUsername = username.trim()
     if (cleanUsername.length < 3) {
@@ -23,22 +29,20 @@ export default function Signup() {
     }
 
     setLoading(true)
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: { username: cleanUsername } },
-    })
-    setLoading(false)
-
-    if (error) {
-      setError(error.message)
-      return
-    }
-
-    if (data.session) {
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, password)
+      await updateProfile(cred.user, { displayName: cleanUsername })
+      await setDoc(doc(db, 'users', cred.user.uid), {
+        username: cleanUsername,
+        is_admin: false,
+        created_at: new Date().toISOString(),
+      })
       navigate('/dashboard', { replace: true })
-    } else {
-      setInfo('¡Listo! Revisá tu correo para confirmar la cuenta y después iniciá sesión.')
+    } catch (err) {
+      const code = err instanceof Error && 'code' in err ? (err as { code: string }).code : ''
+      setError(ERROR_MESSAGES[code] ?? 'No se pudo crear la cuenta. Intentá de nuevo.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -83,7 +87,6 @@ export default function Signup() {
         </div>
 
         {error && <p className="text-sm text-red-600">{error}</p>}
-        {info && <p className="text-sm text-emerald-600">{info}</p>}
 
         <button
           type="submit"
