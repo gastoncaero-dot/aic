@@ -1,4 +1,4 @@
-rules_version = '2';
+rules_version = "2";
 
 // Reglas de seguridad de Firestore para Prode Mundial 2026.
 // Pegar este archivo completo en Firebase Console > Firestore Database > Reglas.
@@ -59,7 +59,7 @@ service cloud.firestore {
       allow read: if isSignedIn();
       allow create, update: if isSignedIn()
         && request.resource.data.user_id == request.auth.uid
-        && predId == request.auth.uid + '_' + string(request.resource.data.match_id)
+        && predId == request.auth.uid + "_" + string(request.resource.data.match_id)
         && request.resource.data.home_score is int
         && request.resource.data.home_score >= 0 && request.resource.data.home_score <= 99
         && request.resource.data.away_score is int
@@ -96,7 +96,7 @@ service cloud.firestore {
       allow update: if isSignedIn()
         && request.auth.uid in request.resource.data.member_ids
         && request.resource.data.member_ids.hasAll(resource.data.member_ids)
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['member_ids']);
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["member_ids"]);
     }
   }
 }
