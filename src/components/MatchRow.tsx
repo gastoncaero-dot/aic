@@ -3,6 +3,7 @@ import type { Match, Prediction, Team } from '../types'
 import { calculateMatchPoints, isPredictionLocked, POINTS_EXACT, POINTS_RESULT } from '../lib/scoring'
 import { formatKickoff } from '../lib/format'
 import TeamLabel from './TeamLabel'
+import ProbabilityBar from './ProbabilityBar'
 
 interface Props {
   match: Match
@@ -115,6 +116,8 @@ export default function MatchRow({ match, homeTeam, awayTeam, prediction, onSave
         )}
         {finished && !prediction && <span className="text-slate-400">Sin pronóstico</span>}
       </div>
+
+      {!finished && homeTeam && awayTeam && <ProbabilityBar homeTeam={homeTeam} awayTeam={awayTeam} />}
     </div>
   )
 }

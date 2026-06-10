@@ -16,6 +16,7 @@ export interface Team {
   name: string
   flag: string
   group_letter: string | null
+  rating: number
 }
 
 export interface Match {

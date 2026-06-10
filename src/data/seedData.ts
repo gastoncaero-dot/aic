@@ -8,289 +8,337 @@ export const seedTeams: Team[] = [
     "id": 1,
     "name": "México",
     "flag": "🇲🇽",
-    "group_letter": "A"
+    "group_letter": "A",
+    "rating": 1672
   },
   {
     "id": 2,
     "name": "Sudáfrica",
     "flag": "🇿🇦",
-    "group_letter": "A"
+    "group_letter": "A",
+    "rating": 1330
   },
   {
     "id": 3,
     "name": "Corea del Sur",
     "flag": "🇰🇷",
-    "group_letter": "A"
+    "group_letter": "A",
+    "rating": 1530
   },
   {
     "id": 4,
     "name": "República Checa",
     "flag": "🇨🇿",
-    "group_letter": "A"
+    "group_letter": "A",
+    "rating": 1530
   },
   {
     "id": 5,
     "name": "Canadá",
     "flag": "🇨🇦",
-    "group_letter": "B"
+    "group_letter": "B",
+    "rating": 1564
   },
   {
     "id": 6,
     "name": "Bosnia y Herzegovina",
     "flag": "🇧🇦",
-    "group_letter": "B"
+    "group_letter": "B",
+    "rating": 1480
   },
   {
     "id": 7,
     "name": "Qatar",
     "flag": "🇶🇦",
-    "group_letter": "B"
+    "group_letter": "B",
+    "rating": 1427
   },
   {
     "id": 8,
     "name": "Suiza",
     "flag": "🇨🇭",
-    "group_letter": "B"
+    "group_letter": "B",
+    "rating": 1623
   },
   {
     "id": 9,
     "name": "Brasil",
     "flag": "🇧🇷",
-    "group_letter": "C"
+    "group_letter": "C",
+    "rating": 1776
   },
   {
     "id": 10,
     "name": "Marruecos",
     "flag": "🇲🇦",
-    "group_letter": "C"
+    "group_letter": "C",
+    "rating": 1694
   },
   {
     "id": 11,
     "name": "Haití",
     "flag": "🇭🇹",
-    "group_letter": "C"
+    "group_letter": "C",
+    "rating": 1230
   },
   {
     "id": 12,
     "name": "Escocia",
     "flag": "🏴",
-    "group_letter": "C"
+    "group_letter": "C",
+    "rating": 1556
   },
   {
     "id": 13,
     "name": "Estados Unidos",
     "flag": "🇺🇸",
-    "group_letter": "D"
+    "group_letter": "D",
+    "rating": 1652
   },
   {
     "id": 14,
     "name": "Paraguay",
     "flag": "🇵🇾",
-    "group_letter": "D"
+    "group_letter": "D",
+    "rating": 1545
   },
   {
     "id": 15,
     "name": "Australia",
     "flag": "🇦🇺",
-    "group_letter": "D"
+    "group_letter": "D",
+    "rating": 1495
   },
   {
     "id": 16,
     "name": "Turquía",
     "flag": "🇹🇷",
-    "group_letter": "D"
+    "group_letter": "D",
+    "rating": 1560
   },
   {
     "id": 17,
     "name": "Alemania",
     "flag": "🇩🇪",
-    "group_letter": "E"
+    "group_letter": "E",
+    "rating": 1716
   },
   {
     "id": 18,
     "name": "Curazao",
     "flag": "🇨🇼",
-    "group_letter": "E"
+    "group_letter": "E",
+    "rating": 1190
   },
   {
     "id": 19,
     "name": "Costa de Marfil",
     "flag": "🇨🇮",
-    "group_letter": "E"
+    "group_letter": "E",
+    "rating": 1530
   },
   {
     "id": 20,
     "name": "Ecuador",
     "flag": "🇪🇨",
-    "group_letter": "E"
+    "group_letter": "E",
+    "rating": 1641
   },
   {
     "id": 21,
     "name": "Países Bajos",
     "flag": "🇳🇱",
-    "group_letter": "F"
+    "group_letter": "F",
+    "rating": 1746
   },
   {
     "id": 22,
     "name": "Japón",
     "flag": "🇯🇵",
-    "group_letter": "F"
+    "group_letter": "F",
+    "rating": 1652
   },
   {
     "id": 23,
     "name": "Suecia",
     "flag": "🇸🇪",
-    "group_letter": "F"
+    "group_letter": "F",
+    "rating": 1470
   },
   {
     "id": 24,
     "name": "Túnez",
     "flag": "🇹🇳",
-    "group_letter": "F"
+    "group_letter": "F",
+    "rating": 1500
   },
   {
     "id": 25,
     "name": "Bélgica",
     "flag": "🇧🇪",
-    "group_letter": "G"
+    "group_letter": "G",
+    "rating": 1735
   },
   {
     "id": 26,
     "name": "Egipto",
     "flag": "🇪🇬",
-    "group_letter": "G"
+    "group_letter": "G",
+    "rating": 1517
   },
   {
     "id": 27,
     "name": "Irán",
     "flag": "🇮🇷",
-    "group_letter": "G"
+    "group_letter": "G",
+    "rating": 1637
   },
   {
     "id": 28,
     "name": "Nueva Zelanda",
     "flag": "🇳🇿",
-    "group_letter": "G"
+    "group_letter": "G",
+    "rating": 1200
   },
   {
     "id": 29,
     "name": "España",
     "flag": "🇪🇸",
-    "group_letter": "H"
+    "group_letter": "H",
+    "rating": 1881
   },
   {
     "id": 30,
     "name": "Cabo Verde",
     "flag": "🇨🇻",
-    "group_letter": "H"
+    "group_letter": "H",
+    "rating": 1340
   },
   {
     "id": 31,
     "name": "Arabia Saudita",
     "flag": "🇸🇦",
-    "group_letter": "H"
+    "group_letter": "H",
+    "rating": 1428
   },
   {
     "id": 32,
     "name": "Uruguay",
     "flag": "🇺🇾",
-    "group_letter": "H"
+    "group_letter": "H",
+    "rating": 1729
   },
   {
     "id": 33,
     "name": "Francia",
     "flag": "🇫🇷",
-    "group_letter": "I"
+    "group_letter": "I",
+    "rating": 1862
   },
   {
     "id": 34,
     "name": "Senegal",
     "flag": "🇸🇳",
-    "group_letter": "I"
+    "group_letter": "I",
+    "rating": 1670
   },
   {
     "id": 35,
     "name": "Irak",
     "flag": "🇮🇶",
-    "group_letter": "I"
+    "group_letter": "I",
+    "rating": 1310
   },
   {
     "id": 36,
     "name": "Noruega",
     "flag": "🇳🇴",
-    "group_letter": "I"
+    "group_letter": "I",
+    "rating": 1500
   },
   {
     "id": 37,
     "name": "Argentina",
     "flag": "🇦🇷",
-    "group_letter": "J"
+    "group_letter": "J",
+    "rating": 1873
   },
   {
     "id": 38,
     "name": "Argelia",
     "flag": "🇩🇿",
-    "group_letter": "J"
+    "group_letter": "J",
+    "rating": 1571
   },
   {
     "id": 39,
     "name": "Austria",
     "flag": "🇦🇹",
-    "group_letter": "J"
+    "group_letter": "J",
+    "rating": 1580
   },
   {
     "id": 40,
     "name": "Jordania",
     "flag": "🇯🇴",
-    "group_letter": "J"
+    "group_letter": "J",
+    "rating": 1400
   },
   {
     "id": 41,
     "name": "Portugal",
     "flag": "🇵🇹",
-    "group_letter": "K"
+    "group_letter": "K",
+    "rating": 1751
   },
   {
     "id": 42,
     "name": "RD Congo",
     "flag": "🇨🇩",
-    "group_letter": "K"
+    "group_letter": "K",
+    "rating": 1380
   },
   {
     "id": 43,
     "name": "Uzbekistán",
     "flag": "🇺🇿",
-    "group_letter": "K"
+    "group_letter": "K",
+    "rating": 1300
   },
   {
     "id": 44,
     "name": "Colombia",
     "flag": "🇨🇴",
-    "group_letter": "K"
+    "group_letter": "K",
+    "rating": 1679
   },
   {
     "id": 45,
     "name": "Inglaterra",
     "flag": "🏴",
-    "group_letter": "L"
+    "group_letter": "L",
+    "rating": 1819
   },
   {
     "id": 46,
     "name": "Croacia",
     "flag": "🇭🇷",
-    "group_letter": "L"
+    "group_letter": "L",
+    "rating": 1698
   },
   {
     "id": 47,
     "name": "Ghana",
     "flag": "🇬🇭",
-    "group_letter": "L"
+    "group_letter": "L",
+    "rating": 1430
   },
   {
     "id": 48,
     "name": "Panamá",
     "flag": "🇵🇦",
-    "group_letter": "L"
+    "group_letter": "L",
+    "rating": 1530
   }
 ]
 

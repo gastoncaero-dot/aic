@@ -39,6 +39,24 @@ const flags = {
   'Inglaterra': '🏴', 'Croacia': '🇭🇷', 'Ghana': '🇬🇭', 'Panamá': '🇵🇦',
 }
 
+// Rating aproximado de cada selección (basado en el ranking FIFA ~2025).
+// Se usa solo para estimar las probabilidades informativas de cada partido
+// (src/lib/probability.ts), no afecta el puntaje del prode.
+const ratings = {
+  'México': 1672, 'Sudáfrica': 1330, 'Corea del Sur': 1530, 'República Checa': 1530,
+  'Canadá': 1564, 'Bosnia y Herzegovina': 1480, 'Qatar': 1427, 'Suiza': 1623,
+  'Brasil': 1776, 'Marruecos': 1694, 'Haití': 1230, 'Escocia': 1556,
+  'Estados Unidos': 1652, 'Paraguay': 1545, 'Australia': 1495, 'Turquía': 1560,
+  'Alemania': 1716, 'Curazao': 1190, 'Costa de Marfil': 1530, 'Ecuador': 1641,
+  'Países Bajos': 1746, 'Japón': 1652, 'Suecia': 1470, 'Túnez': 1500,
+  'Bélgica': 1735, 'Egipto': 1517, 'Irán': 1637, 'Nueva Zelanda': 1200,
+  'España': 1881, 'Cabo Verde': 1340, 'Arabia Saudita': 1428, 'Uruguay': 1729,
+  'Francia': 1862, 'Senegal': 1670, 'Irak': 1310, 'Noruega': 1500,
+  'Argentina': 1873, 'Argelia': 1571, 'Austria': 1580, 'Jordania': 1400,
+  'Portugal': 1751, 'RD Congo': 1380, 'Uzbekistán': 1300, 'Colombia': 1679,
+  'Inglaterra': 1819, 'Croacia': 1698, 'Ghana': 1430, 'Panamá': 1530,
+}
+
 const groupLetters = Object.keys(groups) // A..L
 const PREDICTION_LOCK_MINUTES = 60
 
@@ -53,7 +71,7 @@ let id = 1
 for (const letter of groupLetters) {
   groups[letter].forEach((name, idx) => {
     teamId[`${letter}${idx + 1}`] = id
-    teams.push({ id, name, flag: flags[name], group_letter: letter })
+    teams.push({ id, name, flag: flags[name], group_letter: letter, rating: ratings[name] })
     id++
   })
 }
