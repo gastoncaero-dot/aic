@@ -11,9 +11,10 @@ interface Props {
   awayTeam: Team | null
   prediction?: Prediction
   onSave?: (matchId: number, home: number, away: number) => Promise<void>
+  groupLabel?: string
 }
 
-export default function MatchRow({ match, homeTeam, awayTeam, prediction, onSave }: Props) {
+export default function MatchRow({ match, homeTeam, awayTeam, prediction, onSave, groupLabel }: Props) {
   const [home, setHome] = useState(prediction?.home_score?.toString() ?? '')
   const [away, setAway] = useState(prediction?.away_score?.toString() ?? '')
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
@@ -54,7 +55,10 @@ export default function MatchRow({ match, homeTeam, awayTeam, prediction, onSave
   return (
     <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-sm transition-shadow hover:shadow-md">
       <div className="mb-2 flex items-center justify-between text-xs text-slate-400">
-        <span>{formatKickoff(match.kickoff_at)}</span>
+        <span className="flex items-center gap-2">
+          {formatKickoff(match.kickoff_at)}
+          {groupLabel && <span className="rounded-full bg-slate-100 px-2 py-0.5 text-slate-500">{groupLabel}</span>}
+        </span>
         {finished && (
           <span className="font-semibold text-slate-500">
             Final: {match.home_score} - {match.away_score}
