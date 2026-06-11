@@ -1,13 +1,15 @@
 // Generates src/data/seedData.ts with the 48 World Cup 2026 teams and the
 // 104-match schedule (72 group stage + 32 knockout placeholders).
 //
-// Group stage dates/times are best-effort placeholders based on the publicly
-// announced windows (Matchday 1: Jun 11-13, Matchday 2: Jun 17-19,
-// Matchday 3: Jun 24-27, simultaneous within each group). Re-run this script
-// after editing the data below if the commissioner needs to correct dates
-// against the official FIFA calendar -- or just edit them later from the
-// admin panel.
-import { writeFileSync } from 'fs'
+// Kickoff dates/times come from scripts/wc2026-schedule-data.json, which has
+// the official date, local kickoff time and venue (with UTC offset) for each
+// of the 36 group-stage matchday slots and the 32 knockout slots, cross
+// checked against FIFA's published calendar. Re-run this script after
+// updating that JSON if the commissioner needs to correct dates -- or just
+// edit them later from the admin panel.
+import { readFileSync, writeFileSync } from 'fs'
+
+const schedule = JSON.parse(readFileSync(new URL('./wc2026-schedule-data.json', import.meta.url), 'utf-8'))
 
 const groups = {
   A: ['México', 'Sudáfrica', 'Corea del Sur', 'República Checa'],
@@ -85,8 +87,35 @@ const pattern = [
   [[4, 1], [2, 3]],
 ]
 
-function dateUTC(y, m, d, h) {
-  return new Date(Date.UTC(y, m - 1, d, h, 0, 0)).toISOString()
+/** Extrae ["Equipo1", "Equipo2"] de un texto tipo "...(Equipo1 vs Equipo2)" o "...: Equipo1 vs Equipo2,...". */
+function extractTeamPair(text) {
+  const m = text.match(/([\p{L}ñÑáéíóúü\s.]+?)\s+vs\s+([\p{L}ñÑáéíóúü\s.]+?)(?:[,)]|$)/u)
+  if (!m) return null
+  return [m[1].trim(), m[2].trim()]
+}
+
+/**
+ * Determina qué horario (kickoff_at_utc / second_kickoff_at_utc) corresponde
+ * al par A y cuál al par B de una fecha de grupo.
+ *
+ * Normalmente el campo "venue" identifica el partido "principal"
+ * (kickoff_at_utc) entre paréntesis, p.ej. "... (Equipo1 vs Equipo2)". Cuando
+ * "venue" no incluye equipos (ej. fecha 1 del Grupo A), el campo "note"
+ * identifica en cambio al partido "secundario" (second_kickoff_at_utc).
+ */
+function resolveKickoffs(entry, teamsA, teamsB) {
+  const venuePair = extractTeamPair(entry.venue)
+  if (venuePair && teamsA.has(venuePair[0]) && teamsA.has(venuePair[1])) {
+    return { kickoffA: entry.kickoff_at_utc, kickoffB: entry.second_kickoff_at_utc }
+  }
+  if (venuePair && teamsB.has(venuePair[0]) && teamsB.has(venuePair[1])) {
+    return { kickoffA: entry.second_kickoff_at_utc, kickoffB: entry.kickoff_at_utc }
+  }
+  const notePair = extractTeamPair(entry.note)
+  if (notePair && teamsA.has(notePair[0]) && teamsA.has(notePair[1])) {
+    return { kickoffA: entry.second_kickoff_at_utc, kickoffB: entry.kickoff_at_utc }
+  }
+  return { kickoffA: entry.kickoff_at_utc, kickoffB: entry.second_kickoff_at_utc }
 }
 
 const matches = []
@@ -122,28 +151,13 @@ for (let md = 0; md < 3; md++) {
     const homeB = teamId[`${letter}${pairB[0]}`]
     const awayB = teamId[`${letter}${pairB[1]}`]
 
-    let kickoffA, kickoffB
-    if (md === 0) {
-      // Matchday 1: Jun 11 (groups A-D), Jun 12 (E-H), Jun 13 (I-L)
-      const day = 11 + Math.floor(g / 4)
-      const slot = g % 4
-      kickoffA = dateUTC(2026, 6, day, 19 + slot * 3)
-      kickoffB = dateUTC(2026, 6, day, 19 + slot * 3)
-    } else if (md === 1) {
-      // Matchday 2: Jun 17 (A-D), Jun 18 (E-H), Jun 19 (I-L)
-      const day = 17 + Math.floor(g / 4)
-      const slot = g % 4
-      kickoffA = dateUTC(2026, 6, day, 19 + slot * 3)
-      kickoffB = dateUTC(2026, 6, day, 19 + slot * 3)
-    } else {
-      // Matchday 3: Jun 24 (A-C), Jun 25 (D-F), Jun 26 (G-I), Jun 27 (J-L)
-      // Both matches of the same group kick off simultaneously.
-      const day = 24 + Math.floor(g / 3)
-      const slot = g % 3
-      const ko = dateUTC(2026, 6, day, 20 + slot * 3)
-      kickoffA = ko
-      kickoffB = ko
-    }
+    // El JSON trae el horario "principal" (kickoff_at_utc) y el del segundo
+    // partido de la fecha (second_kickoff_at_utc), identificados por los
+    // equipos que enfrenta. Lo asignamos al par A o B según corresponda.
+    const entry = schedule.groups[letter][md]
+    const teamsA = new Set([groups[letter][pairA[0] - 1], groups[letter][pairA[1] - 1]])
+    const teamsB = new Set([groups[letter][pairB[0] - 1], groups[letter][pairB[1] - 1]])
+    const { kickoffA, kickoffB } = resolveKickoffs(entry, teamsA, teamsB)
 
     pushMatch({ phase: 'group', group_letter: letter, matchday: md + 1, home_team_id: homeA, away_team_id: awayA, kickoff_at: kickoffA })
     pushMatch({ phase: 'group', group_letter: letter, matchday: md + 1, home_team_id: homeB, away_team_id: awayB, kickoff_at: kickoffB })
@@ -153,53 +167,65 @@ for (let md = 0; md < 3; md++) {
 // --- Knockout stage placeholders (32) ---
 // Self-consistent single-elimination bracket (R32 -> R16 -> QF -> Final),
 // independent of the final FIFA cross-group bracket assignment. Update teams
-// via the admin panel once group standings (and FIFA's official bracket) are known.
+// via the admin panel once group standings (and FIFA's official bracket) are
+// known. Dates/times come from schedule.knockout, in chronological order.
 
-// Round of 32: matches 73-88 (16), Jun 28 - Jul 3
-for (let n = 1; n <= 16; n++) {
-  const dayOffset = Math.floor(((n - 1) * 6) / 16) // 0..5 -> Jun 28..Jul 3
-  const day = 28 + dayOffset
-  const month = day <= 30 ? 6 : 7
-  const realDay = day <= 30 ? day : day - 30
-  const slot = (n - 1) % 4
-  const ko = dateUTC(2026, month, realDay, 18 + slot * 3)
-  pushMatch({ phase: 'r32', kickoff_at: ko, home_placeholder: 'Por definir', away_placeholder: 'Por definir' })
+// Round of 32: matches 73-88 (16)
+for (const entry of schedule.knockout.r32) {
+  pushMatch({ phase: 'r32', kickoff_at: entry.kickoff_at_utc, home_placeholder: 'Por definir', away_placeholder: 'Por definir' })
 }
 
-// Round of 16: matches 89-96 (8), Jul 4-7, two per day
+// Round of 16: matches 89-96 (8)
 for (let n = 1; n <= 8; n++) {
-  const day = 4 + Math.floor((n - 1) / 2)
-  const slot = (n - 1) % 2
-  const ko = dateUTC(2026, 7, day, 21 + slot * 4)
   const r32a = 73 + (n - 1) * 2
   const r32b = r32a + 1
-  pushMatch({ phase: 'r16', kickoff_at: ko, home_placeholder: `Ganador Partido ${r32a}`, away_placeholder: `Ganador Partido ${r32b}` })
+  pushMatch({
+    phase: 'r16',
+    kickoff_at: schedule.knockout.r16[n - 1].kickoff_at_utc,
+    home_placeholder: `Ganador Partido ${r32a}`,
+    away_placeholder: `Ganador Partido ${r32b}`,
+  })
 }
 
-// Quarterfinals: matches 97-100 (4), Jul 9-10, two per day
+// Quarterfinals: matches 97-100 (4)
 for (let n = 1; n <= 4; n++) {
-  const day = 9 + Math.floor((n - 1) / 2)
-  const slot = (n - 1) % 2
-  const ko = dateUTC(2026, 7, day, 21 + slot * 4)
   const r16a = 89 + (n - 1) * 2
   const r16b = r16a + 1
-  pushMatch({ phase: 'qf', kickoff_at: ko, home_placeholder: `Ganador Partido ${r16a}`, away_placeholder: `Ganador Partido ${r16b}` })
+  pushMatch({
+    phase: 'qf',
+    kickoff_at: schedule.knockout.qf[n - 1].kickoff_at_utc,
+    home_placeholder: `Ganador Partido ${r16a}`,
+    away_placeholder: `Ganador Partido ${r16b}`,
+  })
 }
 
-// Semifinals: matches 101-102, Jul 14 and Jul 15
+// Semifinals: matches 101-102
 for (let n = 1; n <= 2; n++) {
-  const day = 14 + (n - 1)
-  const ko = dateUTC(2026, 7, day, 25)
   const qfa = 97 + (n - 1) * 2
   const qfb = qfa + 1
-  pushMatch({ phase: 'sf', kickoff_at: ko, home_placeholder: `Ganador Partido ${qfa}`, away_placeholder: `Ganador Partido ${qfb}` })
+  pushMatch({
+    phase: 'sf',
+    kickoff_at: schedule.knockout.sf[n - 1].kickoff_at_utc,
+    home_placeholder: `Ganador Partido ${qfa}`,
+    away_placeholder: `Ganador Partido ${qfb}`,
+  })
 }
 
-// Third place: match 103, Jul 18
-pushMatch({ phase: '3rd', kickoff_at: dateUTC(2026, 7, 18, 22), home_placeholder: 'Perdedor Partido 101', away_placeholder: 'Perdedor Partido 102' })
+// Third place: match 103
+pushMatch({
+  phase: '3rd',
+  kickoff_at: schedule.knockout['3rd'][0].kickoff_at_utc,
+  home_placeholder: 'Perdedor Partido 101',
+  away_placeholder: 'Perdedor Partido 102',
+})
 
-// Final: match 104, Jul 19
-pushMatch({ phase: 'final', kickoff_at: dateUTC(2026, 7, 19, 22), home_placeholder: 'Ganador Partido 101', away_placeholder: 'Ganador Partido 102' })
+// Final: match 104
+pushMatch({
+  phase: 'final',
+  kickoff_at: schedule.knockout.final[0].kickoff_at_utc,
+  home_placeholder: 'Ganador Partido 101',
+  away_placeholder: 'Ganador Partido 102',
+})
 
 const ts = `// Datos iniciales (48 equipos + 104 partidos) del Prode Mundial 2026.
 // Generado por scripts/generate-seed.mjs - se carga una sola vez desde el

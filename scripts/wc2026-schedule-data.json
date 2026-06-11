@@ -1,0 +1,660 @@
+{
+  "groups": {
+    "A": [
+      {
+        "matchday": 1,
+        "date": "2026-06-11",
+        "kickoff_local": "13:00",
+        "utc_offset": -6,
+        "venue": "Estadio Azteca, Ciudad de México",
+        "kickoff_at_utc": "2026-06-11T19:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-12T02:00:00.000Z",
+        "note": "Second MD1 match: Corea del Sur vs República Checa, Estadio Akron (Guadalajara), 20:00 local (UTC-6)"
+      },
+      {
+        "matchday": 2,
+        "date": "2026-06-18",
+        "kickoff_local": "12:00",
+        "utc_offset": -4,
+        "venue": "Mercedes-Benz Stadium, Atlanta (República Checa vs Sudáfrica)",
+        "kickoff_at_utc": "2026-06-18T16:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-19T03:00:00.000Z",
+        "note": "Second MD2 match: México vs Corea del Sur, Estadio Akron (Guadalajara), 21:00 local (UTC-6)"
+      },
+      {
+        "matchday": 3,
+        "date": "2026-06-24",
+        "kickoff_local": "21:00",
+        "utc_offset": -6,
+        "venue": "Estadio Azteca, Ciudad de México (República Checa vs México)",
+        "kickoff_at_utc": "2026-06-25T03:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-25T03:00:00.000Z",
+        "note": "Simultaneous MD3 match: Sudáfrica vs Corea del Sur, Estadio BBVA (Monterrey), 21:00 local (UTC-6) - same UTC instant"
+      }
+    ],
+    "B": [
+      {
+        "matchday": 1,
+        "date": "2026-06-12",
+        "kickoff_local": "15:00",
+        "utc_offset": -4,
+        "venue": "BMO Field, Toronto (Canadá vs Bosnia y Herzegovina)",
+        "kickoff_at_utc": "2026-06-12T19:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-13T22:00:00.000Z",
+        "note": "Second MD1 match: Qatar vs Suiza, Levi's Stadium (Santa Clara), June 13 15:00 local (UTC-7)"
+      },
+      {
+        "matchday": 2,
+        "date": "2026-06-18",
+        "kickoff_local": "12:00",
+        "utc_offset": -7,
+        "venue": "SoFi Stadium, Inglewood (Suiza vs Bosnia y Herzegovina)",
+        "kickoff_at_utc": "2026-06-18T19:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-18T22:00:00.000Z",
+        "note": "Second MD2 match: Canadá vs Qatar, BC Place (Vancouver), 15:00 local (UTC-7)"
+      },
+      {
+        "matchday": 3,
+        "date": "2026-06-24",
+        "kickoff_local": "12:00",
+        "utc_offset": -7,
+        "venue": "BC Place, Vancouver (Suiza vs Canadá)",
+        "kickoff_at_utc": "2026-06-24T19:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-24T19:00:00.000Z",
+        "note": "Simultaneous MD3 match: Bosnia y Herzegovina vs Qatar, Lumen Field (Seattle), 12:00 local (UTC-7) - same UTC instant"
+      }
+    ],
+    "C": [
+      {
+        "matchday": 1,
+        "date": "2026-06-13",
+        "kickoff_local": "18:00",
+        "utc_offset": -4,
+        "venue": "MetLife Stadium, East Rutherford NJ (Brasil vs Marruecos)",
+        "kickoff_at_utc": "2026-06-13T22:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-14T01:00:00.000Z",
+        "note": "Second MD1 match: Haití vs Escocia, Gillette Stadium (Foxborough), 21:00 local (UTC-4)"
+      },
+      {
+        "matchday": 2,
+        "date": "2026-06-19",
+        "kickoff_local": "18:00",
+        "utc_offset": -4,
+        "venue": "Gillette Stadium, Foxborough (Escocia vs Marruecos)",
+        "kickoff_at_utc": "2026-06-19T22:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-20T01:00:00.000Z",
+        "note": "Second MD2 match: Brasil vs Haití, Lincoln Financial Field (Philadelphia), 21:00 local (UTC-4)"
+      },
+      {
+        "matchday": 3,
+        "date": "2026-06-24",
+        "kickoff_local": "18:00",
+        "utc_offset": -4,
+        "venue": "Hard Rock Stadium, Miami (Escocia vs Brasil)",
+        "kickoff_at_utc": "2026-06-24T22:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-24T22:00:00.000Z",
+        "note": "Simultaneous MD3 match: Marruecos vs Haití, Mercedes-Benz Stadium (Atlanta), 18:00 local (UTC-4) - same UTC instant"
+      }
+    ],
+    "D": [
+      {
+        "matchday": 1,
+        "date": "2026-06-12",
+        "kickoff_local": "18:00",
+        "utc_offset": -7,
+        "venue": "SoFi Stadium, Inglewood (Estados Unidos vs Paraguay)",
+        "kickoff_at_utc": "2026-06-13T01:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-14T04:00:00.000Z",
+        "note": "Second MD1 match: Australia vs Turquía, BC Place (Vancouver), June 13 21:00 local (UTC-7) = June 14 04:00 UTC"
+      },
+      {
+        "matchday": 2,
+        "date": "2026-06-19",
+        "kickoff_local": "12:00",
+        "utc_offset": -7,
+        "venue": "Lumen Field, Seattle (Estados Unidos vs Australia)",
+        "kickoff_at_utc": "2026-06-19T19:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-20T04:00:00.000Z",
+        "note": "Second MD2 match: Turquía vs Paraguay, Levi's Stadium (Santa Clara), 21:00 local (UTC-7) = June 20 04:00 UTC"
+      },
+      {
+        "matchday": 3,
+        "date": "2026-06-25",
+        "kickoff_local": "19:00",
+        "utc_offset": -7,
+        "venue": "SoFi Stadium, Inglewood (Turquía vs Estados Unidos)",
+        "kickoff_at_utc": "2026-06-26T02:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-26T02:00:00.000Z",
+        "note": "Simultaneous MD3 match: Paraguay vs Australia, Levi's Stadium (San Francisco Bay Area / Santa Clara), 19:00 local (UTC-7) - same UTC instant"
+      }
+    ],
+    "E": [
+      {
+        "matchday": 1,
+        "date": "2026-06-14",
+        "kickoff_local": "12:00",
+        "utc_offset": -5,
+        "venue": "NRG Stadium, Houston (Alemania vs Curazao)",
+        "kickoff_at_utc": "2026-06-14T17:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-14T23:00:00.000Z",
+        "note": "Second MD1 match: Costa de Marfil vs Ecuador, Lincoln Financial Field (Philadelphia), 19:00 local (UTC-4)"
+      },
+      {
+        "matchday": 2,
+        "date": "2026-06-20",
+        "kickoff_local": "16:00",
+        "utc_offset": -4,
+        "venue": "BMO Field, Toronto (Alemania vs Costa de Marfil)",
+        "kickoff_at_utc": "2026-06-20T20:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-21T00:00:00.000Z",
+        "note": "Second MD2 match: Ecuador vs Curazao, Arrowhead Stadium (Kansas City), 19:00 local (UTC-5)"
+      },
+      {
+        "matchday": 3,
+        "date": "2026-06-25",
+        "kickoff_local": "16:00",
+        "utc_offset": -4,
+        "venue": "MetLife Stadium, East Rutherford NJ (Ecuador vs Alemania)",
+        "kickoff_at_utc": "2026-06-25T20:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-25T20:00:00.000Z",
+        "note": "Simultaneous MD3 match: Curazao vs Costa de Marfil, Lincoln Financial Field (Philadelphia), 16:00 local (UTC-4) - same UTC instant"
+      }
+    ],
+    "F": [
+      {
+        "matchday": 1,
+        "date": "2026-06-14",
+        "kickoff_local": "15:00",
+        "utc_offset": -5,
+        "venue": "AT&T Stadium, Arlington (Países Bajos vs Japón)",
+        "kickoff_at_utc": "2026-06-14T20:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-15T02:00:00.000Z",
+        "note": "Second MD1 match: Suecia vs Túnez, Estadio BBVA (Monterrey/Guadalupe), 20:00 local (UTC-6)"
+      },
+      {
+        "matchday": 2,
+        "date": "2026-06-20",
+        "kickoff_local": "12:00",
+        "utc_offset": -5,
+        "venue": "NRG Stadium, Houston (Países Bajos vs Suecia)",
+        "kickoff_at_utc": "2026-06-20T17:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-21T04:00:00.000Z",
+        "note": "Second MD2 match: Túnez vs Japón, Estadio BBVA (Monterrey/Guadalupe), 22:00 local (UTC-6) = June 21 04:00 UTC"
+      },
+      {
+        "matchday": 3,
+        "date": "2026-06-25",
+        "kickoff_local": "18:00",
+        "utc_offset": -5,
+        "venue": "AT&T Stadium, Arlington (Japón vs Suecia)",
+        "kickoff_at_utc": "2026-06-25T23:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-25T23:00:00.000Z",
+        "note": "Simultaneous MD3 match: Túnez vs Países Bajos, Arrowhead Stadium (Kansas City), 18:00 local (UTC-5) - same UTC instant"
+      }
+    ],
+    "G": [
+      {
+        "matchday": 1,
+        "date": "2026-06-15",
+        "kickoff_local": "15:00",
+        "utc_offset": -7,
+        "venue": "Lumen Field, Seattle (Bélgica vs Egipto)",
+        "kickoff_at_utc": "2026-06-15T22:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-16T04:00:00.000Z",
+        "note": "Second MD1 match: Irán vs Nueva Zelanda, SoFi Stadium (Inglewood), 21:00 local (UTC-7) = June 16 04:00 UTC"
+      },
+      {
+        "matchday": 2,
+        "date": "2026-06-21",
+        "kickoff_local": "12:00",
+        "utc_offset": -7,
+        "venue": "SoFi Stadium, Inglewood (Bélgica vs Irán)",
+        "kickoff_at_utc": "2026-06-21T19:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-22T01:00:00.000Z",
+        "note": "Second MD2 match: Nueva Zelanda vs Egipto, BC Place (Vancouver), 18:00 local (UTC-7) = June 22 01:00 UTC"
+      },
+      {
+        "matchday": 3,
+        "date": "2026-06-26",
+        "kickoff_local": "20:00",
+        "utc_offset": -7,
+        "venue": "Lumen Field, Seattle (Egipto vs Irán)",
+        "kickoff_at_utc": "2026-06-27T03:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-27T03:00:00.000Z",
+        "note": "Simultaneous MD3 match: Nueva Zelanda vs Bélgica, BC Place (Vancouver), 20:00 local (UTC-7) - same UTC instant"
+      }
+    ],
+    "H": [
+      {
+        "matchday": 1,
+        "date": "2026-06-15",
+        "kickoff_local": "12:00",
+        "utc_offset": -4,
+        "venue": "Mercedes-Benz Stadium, Atlanta (España vs Cabo Verde)",
+        "kickoff_at_utc": "2026-06-15T16:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-15T22:00:00.000Z",
+        "note": "Second MD1 match: Arabia Saudita vs Uruguay, Hard Rock Stadium (Miami), 18:00 local (UTC-4)"
+      },
+      {
+        "matchday": 2,
+        "date": "2026-06-21",
+        "kickoff_local": "12:00",
+        "utc_offset": -4,
+        "venue": "Mercedes-Benz Stadium, Atlanta (España vs Arabia Saudita)",
+        "kickoff_at_utc": "2026-06-21T16:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-21T22:00:00.000Z",
+        "note": "Second MD2 match: Uruguay vs Cabo Verde, Hard Rock Stadium (Miami), 18:00 local (UTC-4)"
+      },
+      {
+        "matchday": 3,
+        "date": "2026-06-26",
+        "kickoff_local": "19:00",
+        "utc_offset": -5,
+        "venue": "NRG Stadium, Houston (Cabo Verde vs Arabia Saudita)",
+        "kickoff_at_utc": "2026-06-27T00:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-27T00:00:00.000Z",
+        "note": "Simultaneous MD3 match: Uruguay vs España, Estadio Akron (Guadalajara/Zapopan), 18:00 local (UTC-6) - same UTC instant"
+      }
+    ],
+    "I": [
+      {
+        "matchday": 1,
+        "date": "2026-06-16",
+        "kickoff_local": "15:00",
+        "utc_offset": -4,
+        "venue": "MetLife Stadium, East Rutherford NJ (Francia vs Senegal)",
+        "kickoff_at_utc": "2026-06-16T19:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-16T22:00:00.000Z",
+        "note": "Second MD1 match: Irak vs Noruega, Gillette Stadium (Foxborough), 18:00 local (UTC-4)"
+      },
+      {
+        "matchday": 2,
+        "date": "2026-06-22",
+        "kickoff_local": "17:00",
+        "utc_offset": -4,
+        "venue": "Lincoln Financial Field, Philadelphia (Francia vs Irak)",
+        "kickoff_at_utc": "2026-06-22T21:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-23T00:00:00.000Z",
+        "note": "Second MD2 match: Noruega vs Senegal, MetLife Stadium (East Rutherford), 20:00 local (UTC-4)"
+      },
+      {
+        "matchday": 3,
+        "date": "2026-06-26",
+        "kickoff_local": "15:00",
+        "utc_offset": -4,
+        "venue": "Gillette Stadium, Foxborough (Noruega vs Francia)",
+        "kickoff_at_utc": "2026-06-26T19:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-26T19:00:00.000Z",
+        "note": "Simultaneous MD3 match: Senegal vs Irak, BMO Field (Toronto), 15:00 local (UTC-4) - same UTC instant"
+      }
+    ],
+    "J": [
+      {
+        "matchday": 1,
+        "date": "2026-06-16",
+        "kickoff_local": "21:00",
+        "utc_offset": -5,
+        "venue": "Arrowhead Stadium, Kansas City (Argentina vs Argelia)",
+        "kickoff_at_utc": "2026-06-17T02:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-17T04:00:00.000Z",
+        "note": "Second MD1 match: Austria vs Jordania, Levi's Stadium (Santa Clara), 21:00 local (UTC-7) = June 17 04:00 UTC"
+      },
+      {
+        "matchday": 2,
+        "date": "2026-06-22",
+        "kickoff_local": "12:00",
+        "utc_offset": -5,
+        "venue": "AT&T Stadium, Arlington (Argentina vs Austria)",
+        "kickoff_at_utc": "2026-06-22T17:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-23T03:00:00.000Z",
+        "note": "Second MD2 match: Jordania vs Argelia, Levi's Stadium (Santa Clara), 20:00 local (UTC-7) = June 23 03:00 UTC"
+      },
+      {
+        "matchday": 3,
+        "date": "2026-06-27",
+        "kickoff_local": "21:00",
+        "utc_offset": -5,
+        "venue": "Arrowhead Stadium, Kansas City (Argelia vs Austria)",
+        "kickoff_at_utc": "2026-06-28T02:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-28T02:00:00.000Z",
+        "note": "Simultaneous MD3 match: Jordania vs Argentina, AT&T Stadium (Arlington), 21:00 local (UTC-5) - same UTC instant"
+      }
+    ],
+    "K": [
+      {
+        "matchday": 1,
+        "date": "2026-06-17",
+        "kickoff_local": "13:00",
+        "utc_offset": -5,
+        "venue": "NRG Stadium, Houston (Portugal vs RD Congo)",
+        "kickoff_at_utc": "2026-06-17T18:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-18T02:00:00.000Z",
+        "note": "Second MD1 match: Uzbekistán vs Colombia, Estadio Azteca (Ciudad de México), 20:00 local (UTC-6) = June 18 02:00 UTC"
+      },
+      {
+        "matchday": 2,
+        "date": "2026-06-23",
+        "kickoff_local": "13:00",
+        "utc_offset": -5,
+        "venue": "NRG Stadium, Houston (Portugal vs Uzbekistán)",
+        "kickoff_at_utc": "2026-06-23T18:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-24T04:00:00.000Z",
+        "note": "Second MD2 match: Colombia vs RD Congo, Estadio Akron (Guadalajara), 22:00 local (UTC-6) = June 24 04:00 UTC"
+      },
+      {
+        "matchday": 3,
+        "date": "2026-06-27",
+        "kickoff_local": "19:30",
+        "utc_offset": -4,
+        "venue": "Hard Rock Stadium, Miami (Colombia vs Portugal)",
+        "kickoff_at_utc": "2026-06-27T23:30:00.000Z",
+        "second_kickoff_at_utc": "2026-06-27T23:30:00.000Z",
+        "note": "Simultaneous MD3 match: RD Congo vs Uzbekistán, Mercedes-Benz Stadium (Atlanta), 19:30 local (UTC-4) - same UTC instant"
+      }
+    ],
+    "L": [
+      {
+        "matchday": 1,
+        "date": "2026-06-17",
+        "kickoff_local": "15:00",
+        "utc_offset": -5,
+        "venue": "AT&T Stadium, Arlington (Inglaterra vs Croacia)",
+        "kickoff_at_utc": "2026-06-17T20:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-17T23:00:00.000Z",
+        "note": "Second MD1 match: Ghana vs Panamá, BMO Field (Toronto), 19:00 local (UTC-4)"
+      },
+      {
+        "matchday": 2,
+        "date": "2026-06-23",
+        "kickoff_local": "16:00",
+        "utc_offset": -4,
+        "venue": "Gillette Stadium, Foxborough (Inglaterra vs Ghana)",
+        "kickoff_at_utc": "2026-06-23T20:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-23T23:00:00.000Z",
+        "note": "Second MD2 match: Panamá vs Croacia, BMO Field (Toronto), 19:00 local (UTC-4)"
+      },
+      {
+        "matchday": 3,
+        "date": "2026-06-27",
+        "kickoff_local": "17:00",
+        "utc_offset": -4,
+        "venue": "MetLife Stadium, East Rutherford NJ (Panamá vs Inglaterra)",
+        "kickoff_at_utc": "2026-06-27T21:00:00.000Z",
+        "second_kickoff_at_utc": "2026-06-27T21:00:00.000Z",
+        "note": "Simultaneous MD3 match: Croacia vs Ghana, Lincoln Financial Field (Philadelphia), 17:00 local (UTC-4) - same UTC instant"
+      }
+    ]
+  },
+  "knockout": {
+    "r32": [
+      {
+        "order": 1,
+        "date": "2026-06-28",
+        "kickoff_local": "12:00",
+        "utc_offset": -7,
+        "venue": "SoFi Stadium, Inglewood (Los Angeles) - Match 73: 2nd Group A vs 2nd Group B",
+        "kickoff_at_utc": "2026-06-28T19:00:00.000Z"
+      },
+      {
+        "order": 2,
+        "date": "2026-06-29",
+        "kickoff_local": "13:00",
+        "utc_offset": -5,
+        "venue": "NRG Stadium, Houston - Match 76: Winner Group C vs Runner-up Group F",
+        "kickoff_at_utc": "2026-06-29T18:00:00.000Z"
+      },
+      {
+        "order": 3,
+        "date": "2026-06-29",
+        "kickoff_local": "16:30",
+        "utc_offset": -4,
+        "venue": "Gillette Stadium, Foxborough (Boston) - Match 74: Winner Group E vs 3rd A/B/C/D/F",
+        "kickoff_at_utc": "2026-06-29T20:30:00.000Z"
+      },
+      {
+        "order": 4,
+        "date": "2026-06-29",
+        "kickoff_local": "19:00",
+        "utc_offset": -6,
+        "venue": "Estadio BBVA, Monterrey - Match 75: Winner Group F vs Runner-up Group C",
+        "kickoff_at_utc": "2026-06-30T01:00:00.000Z",
+        "confidence": "medium"
+      },
+      {
+        "order": 5,
+        "date": "2026-06-30",
+        "kickoff_local": "13:00",
+        "utc_offset": -5,
+        "venue": "AT&T Stadium, Arlington (Dallas) - Match 78: Runner-up Group E vs Runner-up Group I",
+        "kickoff_at_utc": "2026-06-30T18:00:00.000Z"
+      },
+      {
+        "order": 6,
+        "date": "2026-06-30",
+        "kickoff_local": "17:00",
+        "utc_offset": -4,
+        "venue": "MetLife Stadium, East Rutherford NJ (New York/New Jersey) - Match 77: Winner Group I vs 3rd C/D/F/G/H",
+        "kickoff_at_utc": "2026-06-30T21:00:00.000Z"
+      },
+      {
+        "order": 7,
+        "date": "2026-06-30",
+        "kickoff_local": "21:00",
+        "utc_offset": -6,
+        "venue": "Estadio Azteca, Ciudad de México - Match 79: Winner Group A vs 3rd C/E/F/H/I",
+        "kickoff_at_utc": "2026-07-01T03:00:00.000Z"
+      },
+      {
+        "order": 8,
+        "date": "2026-07-01",
+        "kickoff_local": "12:00",
+        "utc_offset": -4,
+        "venue": "Mercedes-Benz Stadium, Atlanta - Match 80: Winner Group L vs 3rd E/H/I/J/K",
+        "kickoff_at_utc": "2026-07-01T16:00:00.000Z"
+      },
+      {
+        "order": 9,
+        "date": "2026-07-01",
+        "kickoff_local": "13:00",
+        "utc_offset": -7,
+        "venue": "Lumen Field, Seattle - Match 82: Winner Group G vs 3rd A/E/H/I/J",
+        "kickoff_at_utc": "2026-07-01T20:00:00.000Z"
+      },
+      {
+        "order": 10,
+        "date": "2026-07-01",
+        "kickoff_local": "17:00",
+        "utc_offset": -7,
+        "venue": "Levi's Stadium, Santa Clara (San Francisco Bay Area) - Match 81: Winner Group D vs 3rd B/E/F/I/J",
+        "kickoff_at_utc": "2026-07-02T00:00:00.000Z"
+      },
+      {
+        "order": 11,
+        "date": "2026-07-02",
+        "kickoff_local": "12:00",
+        "utc_offset": -7,
+        "venue": "SoFi Stadium, Inglewood (Los Angeles) - Match 84: Winner Group H vs Runner-up Group J",
+        "kickoff_at_utc": "2026-07-02T19:00:00.000Z"
+      },
+      {
+        "order": 12,
+        "date": "2026-07-02",
+        "kickoff_local": "19:00",
+        "utc_offset": -4,
+        "venue": "BMO Field, Toronto - Match 83: Runner-up Group K vs Runner-up Group L",
+        "kickoff_at_utc": "2026-07-02T23:00:00.000Z"
+      },
+      {
+        "order": 13,
+        "date": "2026-07-02",
+        "kickoff_local": "20:00",
+        "utc_offset": -7,
+        "venue": "BC Place, Vancouver - Match 85: Winner Group B vs 3rd E/F/G/I/J",
+        "kickoff_at_utc": "2026-07-03T03:00:00.000Z"
+      },
+      {
+        "order": 14,
+        "date": "2026-07-03",
+        "kickoff_local": "14:00",
+        "utc_offset": -5,
+        "venue": "AT&T Stadium, Arlington (Dallas) - Match 88: Runner-up Group D vs Runner-up Group G",
+        "kickoff_at_utc": "2026-07-03T19:00:00.000Z"
+      },
+      {
+        "order": 15,
+        "date": "2026-07-03",
+        "kickoff_local": "18:00",
+        "utc_offset": -4,
+        "venue": "Hard Rock Stadium, Miami - Match 86: Winner Group J vs Runner-up Group H",
+        "kickoff_at_utc": "2026-07-03T22:00:00.000Z"
+      },
+      {
+        "order": 16,
+        "date": "2026-07-03",
+        "kickoff_local": "20:30",
+        "utc_offset": -5,
+        "venue": "Arrowhead Stadium, Kansas City - Match 87: Winner Group K vs 3rd D/E/I/J/L",
+        "kickoff_at_utc": "2026-07-04T01:30:00.000Z",
+        "confidence": "medium"
+      }
+    ],
+    "r16": [
+      {
+        "order": 1,
+        "date": "2026-07-04",
+        "kickoff_local": "12:00",
+        "utc_offset": -5,
+        "venue": "NRG Stadium, Houston",
+        "kickoff_at_utc": "2026-07-04T17:00:00.000Z"
+      },
+      {
+        "order": 2,
+        "date": "2026-07-04",
+        "kickoff_local": "17:00",
+        "utc_offset": -4,
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "kickoff_at_utc": "2026-07-04T21:00:00.000Z"
+      },
+      {
+        "order": 3,
+        "date": "2026-07-05",
+        "kickoff_local": "16:00",
+        "utc_offset": -4,
+        "venue": "MetLife Stadium, East Rutherford NJ (New York/New Jersey)",
+        "kickoff_at_utc": "2026-07-05T20:00:00.000Z"
+      },
+      {
+        "order": 4,
+        "date": "2026-07-05",
+        "kickoff_local": "18:00",
+        "utc_offset": -6,
+        "venue": "Estadio Azteca, Ciudad de México",
+        "kickoff_at_utc": "2026-07-06T00:00:00.000Z"
+      },
+      {
+        "order": 5,
+        "date": "2026-07-06",
+        "kickoff_local": "14:00",
+        "utc_offset": -5,
+        "venue": "AT&T Stadium, Arlington (Dallas)",
+        "kickoff_at_utc": "2026-07-06T19:00:00.000Z"
+      },
+      {
+        "order": 6,
+        "date": "2026-07-06",
+        "kickoff_local": "14:00",
+        "utc_offset": -7,
+        "venue": "Lumen Field, Seattle",
+        "kickoff_at_utc": "2026-07-06T21:00:00.000Z"
+      },
+      {
+        "order": 7,
+        "date": "2026-07-07",
+        "kickoff_local": "12:00",
+        "utc_offset": -4,
+        "venue": "Mercedes-Benz Stadium, Atlanta",
+        "kickoff_at_utc": "2026-07-07T16:00:00.000Z"
+      },
+      {
+        "order": 8,
+        "date": "2026-07-07",
+        "kickoff_local": "13:00",
+        "utc_offset": -7,
+        "venue": "BC Place, Vancouver",
+        "kickoff_at_utc": "2026-07-07T20:00:00.000Z"
+      }
+    ],
+    "qf": [
+      {
+        "order": 1,
+        "date": "2026-07-09",
+        "kickoff_local": "16:00",
+        "utc_offset": -4,
+        "venue": "Gillette Stadium, Foxborough (Boston)",
+        "kickoff_at_utc": "2026-07-09T20:00:00.000Z"
+      },
+      {
+        "order": 2,
+        "date": "2026-07-10",
+        "kickoff_local": "12:00",
+        "utc_offset": -7,
+        "venue": "SoFi Stadium, Inglewood (Los Angeles)",
+        "kickoff_at_utc": "2026-07-10T19:00:00.000Z"
+      },
+      {
+        "order": 3,
+        "date": "2026-07-11",
+        "kickoff_local": "17:00",
+        "utc_offset": -4,
+        "venue": "Hard Rock Stadium, Miami",
+        "kickoff_at_utc": "2026-07-11T21:00:00.000Z"
+      },
+      {
+        "order": 4,
+        "date": "2026-07-11",
+        "kickoff_local": "20:00",
+        "utc_offset": -5,
+        "venue": "Arrowhead Stadium, Kansas City",
+        "kickoff_at_utc": "2026-07-12T01:00:00.000Z"
+      }
+    ],
+    "sf": [
+      {
+        "order": 1,
+        "date": "2026-07-14",
+        "kickoff_local": "15:00",
+        "utc_offset": -5,
+        "venue": "AT&T Stadium, Arlington (Dallas)",
+        "kickoff_at_utc": "2026-07-14T20:00:00.000Z"
+      },
+      {
+        "order": 2,
+        "date": "2026-07-15",
+        "kickoff_local": "15:00",
+        "utc_offset": -4,
+        "venue": "Mercedes-Benz Stadium, Atlanta",
+        "kickoff_at_utc": "2026-07-15T19:00:00.000Z"
+      }
+    ],
+    "3rd": [
+      {
+        "order": 1,
+        "date": "2026-07-18",
+        "kickoff_local": "17:00",
+        "utc_offset": -4,
+        "venue": "Hard Rock Stadium, Miami",
+        "kickoff_at_utc": "2026-07-18T21:00:00.000Z"
+      }
+    ],
+    "final": [
+      {
+        "order": 1,
+        "date": "2026-07-19",
+        "kickoff_local": "15:00",
+        "utc_offset": -4,
+        "venue": "MetLife Stadium, East Rutherford NJ (New York/New Jersey)",
+        "kickoff_at_utc": "2026-07-19T19:00:00.000Z"
+      }
+    ]
+  }
+}
