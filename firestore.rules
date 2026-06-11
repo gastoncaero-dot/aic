@@ -27,7 +27,7 @@ service cloud.firestore {
 
     // ---------------------------------------------------------
     // Equipos y partidos: lectura pública, edición solo admin.
-    // matches/{id} incluye kickoff_at y lock_at (kickoff - 60min).
+    // matches/{id} incluye kickoff_at y lock_at (kickoff - 5min).
     // ---------------------------------------------------------
     match /teams/{teamId} {
       allow read: if true;

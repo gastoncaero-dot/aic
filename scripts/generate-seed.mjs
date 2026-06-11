@@ -60,7 +60,7 @@ const ratings = {
 }
 
 const groupLetters = Object.keys(groups) // A..L
-const PREDICTION_LOCK_MINUTES = 60
+const PREDICTION_LOCK_MINUTES = 5
 
 function lockAt(kickoffIso) {
   return new Date(new Date(kickoffIso).getTime() - PREDICTION_LOCK_MINUTES * 60 * 1000).toISOString()

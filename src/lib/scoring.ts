@@ -8,7 +8,7 @@ export const POINTS_RESULT = 2
 export const POINTS_CHAMPION = 20
 export const POINTS_RUNNER_UP = 10
 export const POINTS_TOP_SCORER = 10
-export const PREDICTION_LOCK_MINUTES = 60
+export const PREDICTION_LOCK_MINUTES = 5
 
 // Duración estimada de un partido (90' + entretiempo + adicionales) para
 // mostrar el indicador "EN VIVO" mientras no se cargue el resultado final.

@@ -4,7 +4,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { useAuth } from '../context/auth-context'
 import { db } from '../lib/firebase'
 import Countdown from '../components/Countdown'
-import { POINTS_EXACT, POINTS_RESULT } from '../lib/scoring'
+import { POINTS_EXACT, POINTS_RESULT, PREDICTION_LOCK_MINUTES } from '../lib/scoring'
 import type { Match } from '../types'
 
 const FALLBACK_KICKOFF = '2026-06-11T13:00:00.000Z'
@@ -104,8 +104,8 @@ export default function Landing() {
               1
             </span>
             <p className="text-sm text-slate-600">
-              Cargá el resultado que creés para cada partido. Podés cambiarlo hasta 60 minutos antes
-              de que arranque.
+              Cargá el resultado que creés para cada partido. Podés cambiarlo hasta {PREDICTION_LOCK_MINUTES} minutos
+              antes de que arranque.
             </p>
           </div>
           <div className="flex gap-3">

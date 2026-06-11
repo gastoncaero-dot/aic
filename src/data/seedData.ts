@@ -354,7 +354,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-11T19:00:00.000Z",
-    "lock_at": "2026-06-11T18:00:00.000Z",
+    "lock_at": "2026-06-11T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -370,7 +370,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-12T02:00:00.000Z",
-    "lock_at": "2026-06-12T01:00:00.000Z",
+    "lock_at": "2026-06-12T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -386,7 +386,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-12T19:00:00.000Z",
-    "lock_at": "2026-06-12T18:00:00.000Z",
+    "lock_at": "2026-06-12T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -402,7 +402,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-13T22:00:00.000Z",
-    "lock_at": "2026-06-13T21:00:00.000Z",
+    "lock_at": "2026-06-13T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -418,7 +418,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-13T22:00:00.000Z",
-    "lock_at": "2026-06-13T21:00:00.000Z",
+    "lock_at": "2026-06-13T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -434,7 +434,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-14T01:00:00.000Z",
-    "lock_at": "2026-06-14T00:00:00.000Z",
+    "lock_at": "2026-06-14T00:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -450,7 +450,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-13T01:00:00.000Z",
-    "lock_at": "2026-06-13T00:00:00.000Z",
+    "lock_at": "2026-06-13T00:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -466,7 +466,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-14T04:00:00.000Z",
-    "lock_at": "2026-06-14T03:00:00.000Z",
+    "lock_at": "2026-06-14T03:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -482,7 +482,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-14T17:00:00.000Z",
-    "lock_at": "2026-06-14T16:00:00.000Z",
+    "lock_at": "2026-06-14T16:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -498,7 +498,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-14T23:00:00.000Z",
-    "lock_at": "2026-06-14T22:00:00.000Z",
+    "lock_at": "2026-06-14T22:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -514,7 +514,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-14T20:00:00.000Z",
-    "lock_at": "2026-06-14T19:00:00.000Z",
+    "lock_at": "2026-06-14T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -530,7 +530,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-15T02:00:00.000Z",
-    "lock_at": "2026-06-15T01:00:00.000Z",
+    "lock_at": "2026-06-15T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -546,7 +546,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-15T22:00:00.000Z",
-    "lock_at": "2026-06-15T21:00:00.000Z",
+    "lock_at": "2026-06-15T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -562,7 +562,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-16T04:00:00.000Z",
-    "lock_at": "2026-06-16T03:00:00.000Z",
+    "lock_at": "2026-06-16T03:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -578,7 +578,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-15T16:00:00.000Z",
-    "lock_at": "2026-06-15T15:00:00.000Z",
+    "lock_at": "2026-06-15T15:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -594,7 +594,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-15T22:00:00.000Z",
-    "lock_at": "2026-06-15T21:00:00.000Z",
+    "lock_at": "2026-06-15T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -610,7 +610,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-16T19:00:00.000Z",
-    "lock_at": "2026-06-16T18:00:00.000Z",
+    "lock_at": "2026-06-16T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -626,7 +626,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-16T22:00:00.000Z",
-    "lock_at": "2026-06-16T21:00:00.000Z",
+    "lock_at": "2026-06-16T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -642,7 +642,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-17T02:00:00.000Z",
-    "lock_at": "2026-06-17T01:00:00.000Z",
+    "lock_at": "2026-06-17T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -658,7 +658,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-17T04:00:00.000Z",
-    "lock_at": "2026-06-17T03:00:00.000Z",
+    "lock_at": "2026-06-17T03:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -674,7 +674,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-17T18:00:00.000Z",
-    "lock_at": "2026-06-17T17:00:00.000Z",
+    "lock_at": "2026-06-17T17:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -690,7 +690,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-18T02:00:00.000Z",
-    "lock_at": "2026-06-18T01:00:00.000Z",
+    "lock_at": "2026-06-18T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -706,7 +706,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-17T20:00:00.000Z",
-    "lock_at": "2026-06-17T19:00:00.000Z",
+    "lock_at": "2026-06-17T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -722,7 +722,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-17T23:00:00.000Z",
-    "lock_at": "2026-06-17T22:00:00.000Z",
+    "lock_at": "2026-06-17T22:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -738,7 +738,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-19T03:00:00.000Z",
-    "lock_at": "2026-06-19T02:00:00.000Z",
+    "lock_at": "2026-06-19T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -754,7 +754,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-18T16:00:00.000Z",
-    "lock_at": "2026-06-18T15:00:00.000Z",
+    "lock_at": "2026-06-18T15:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -770,7 +770,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-18T22:00:00.000Z",
-    "lock_at": "2026-06-18T21:00:00.000Z",
+    "lock_at": "2026-06-18T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -786,7 +786,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-18T19:00:00.000Z",
-    "lock_at": "2026-06-18T18:00:00.000Z",
+    "lock_at": "2026-06-18T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -802,7 +802,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-20T01:00:00.000Z",
-    "lock_at": "2026-06-20T00:00:00.000Z",
+    "lock_at": "2026-06-20T00:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -818,7 +818,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-19T22:00:00.000Z",
-    "lock_at": "2026-06-19T21:00:00.000Z",
+    "lock_at": "2026-06-19T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -834,7 +834,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-19T19:00:00.000Z",
-    "lock_at": "2026-06-19T18:00:00.000Z",
+    "lock_at": "2026-06-19T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -850,7 +850,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-20T04:00:00.000Z",
-    "lock_at": "2026-06-20T03:00:00.000Z",
+    "lock_at": "2026-06-20T03:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -866,7 +866,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-20T20:00:00.000Z",
-    "lock_at": "2026-06-20T19:00:00.000Z",
+    "lock_at": "2026-06-20T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -882,7 +882,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-21T00:00:00.000Z",
-    "lock_at": "2026-06-20T23:00:00.000Z",
+    "lock_at": "2026-06-20T23:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -898,7 +898,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-20T17:00:00.000Z",
-    "lock_at": "2026-06-20T16:00:00.000Z",
+    "lock_at": "2026-06-20T16:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -914,7 +914,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-21T04:00:00.000Z",
-    "lock_at": "2026-06-21T03:00:00.000Z",
+    "lock_at": "2026-06-21T03:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -930,7 +930,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-21T19:00:00.000Z",
-    "lock_at": "2026-06-21T18:00:00.000Z",
+    "lock_at": "2026-06-21T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -946,7 +946,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-22T01:00:00.000Z",
-    "lock_at": "2026-06-22T00:00:00.000Z",
+    "lock_at": "2026-06-22T00:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -962,7 +962,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-21T16:00:00.000Z",
-    "lock_at": "2026-06-21T15:00:00.000Z",
+    "lock_at": "2026-06-21T15:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -978,7 +978,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-21T22:00:00.000Z",
-    "lock_at": "2026-06-21T21:00:00.000Z",
+    "lock_at": "2026-06-21T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -994,7 +994,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-22T21:00:00.000Z",
-    "lock_at": "2026-06-22T20:00:00.000Z",
+    "lock_at": "2026-06-22T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1010,7 +1010,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-23T00:00:00.000Z",
-    "lock_at": "2026-06-22T23:00:00.000Z",
+    "lock_at": "2026-06-22T23:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1026,7 +1026,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-22T17:00:00.000Z",
-    "lock_at": "2026-06-22T16:00:00.000Z",
+    "lock_at": "2026-06-22T16:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1042,7 +1042,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-23T03:00:00.000Z",
-    "lock_at": "2026-06-23T02:00:00.000Z",
+    "lock_at": "2026-06-23T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1058,7 +1058,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-23T18:00:00.000Z",
-    "lock_at": "2026-06-23T17:00:00.000Z",
+    "lock_at": "2026-06-23T17:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1074,7 +1074,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-24T04:00:00.000Z",
-    "lock_at": "2026-06-24T03:00:00.000Z",
+    "lock_at": "2026-06-24T03:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1090,7 +1090,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-23T20:00:00.000Z",
-    "lock_at": "2026-06-23T19:00:00.000Z",
+    "lock_at": "2026-06-23T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1106,7 +1106,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-23T23:00:00.000Z",
-    "lock_at": "2026-06-23T22:00:00.000Z",
+    "lock_at": "2026-06-23T22:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1122,7 +1122,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-25T03:00:00.000Z",
-    "lock_at": "2026-06-25T02:00:00.000Z",
+    "lock_at": "2026-06-25T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1138,7 +1138,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-25T03:00:00.000Z",
-    "lock_at": "2026-06-25T02:00:00.000Z",
+    "lock_at": "2026-06-25T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1154,7 +1154,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-24T19:00:00.000Z",
-    "lock_at": "2026-06-24T18:00:00.000Z",
+    "lock_at": "2026-06-24T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1170,7 +1170,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-24T19:00:00.000Z",
-    "lock_at": "2026-06-24T18:00:00.000Z",
+    "lock_at": "2026-06-24T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1186,7 +1186,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-24T22:00:00.000Z",
-    "lock_at": "2026-06-24T21:00:00.000Z",
+    "lock_at": "2026-06-24T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1202,7 +1202,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-24T22:00:00.000Z",
-    "lock_at": "2026-06-24T21:00:00.000Z",
+    "lock_at": "2026-06-24T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1218,7 +1218,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-26T02:00:00.000Z",
-    "lock_at": "2026-06-26T01:00:00.000Z",
+    "lock_at": "2026-06-26T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1234,7 +1234,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-26T02:00:00.000Z",
-    "lock_at": "2026-06-26T01:00:00.000Z",
+    "lock_at": "2026-06-26T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1250,7 +1250,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-25T20:00:00.000Z",
-    "lock_at": "2026-06-25T19:00:00.000Z",
+    "lock_at": "2026-06-25T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1266,7 +1266,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-25T20:00:00.000Z",
-    "lock_at": "2026-06-25T19:00:00.000Z",
+    "lock_at": "2026-06-25T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1282,7 +1282,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-25T23:00:00.000Z",
-    "lock_at": "2026-06-25T22:00:00.000Z",
+    "lock_at": "2026-06-25T22:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1298,7 +1298,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-25T23:00:00.000Z",
-    "lock_at": "2026-06-25T22:00:00.000Z",
+    "lock_at": "2026-06-25T22:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1314,7 +1314,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-27T03:00:00.000Z",
-    "lock_at": "2026-06-27T02:00:00.000Z",
+    "lock_at": "2026-06-27T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1330,7 +1330,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-27T03:00:00.000Z",
-    "lock_at": "2026-06-27T02:00:00.000Z",
+    "lock_at": "2026-06-27T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1346,7 +1346,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-27T00:00:00.000Z",
-    "lock_at": "2026-06-26T23:00:00.000Z",
+    "lock_at": "2026-06-26T23:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1362,7 +1362,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-27T00:00:00.000Z",
-    "lock_at": "2026-06-26T23:00:00.000Z",
+    "lock_at": "2026-06-26T23:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1378,7 +1378,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-26T19:00:00.000Z",
-    "lock_at": "2026-06-26T18:00:00.000Z",
+    "lock_at": "2026-06-26T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1394,7 +1394,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-26T19:00:00.000Z",
-    "lock_at": "2026-06-26T18:00:00.000Z",
+    "lock_at": "2026-06-26T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1410,7 +1410,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-28T02:00:00.000Z",
-    "lock_at": "2026-06-28T01:00:00.000Z",
+    "lock_at": "2026-06-28T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1426,7 +1426,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-28T02:00:00.000Z",
-    "lock_at": "2026-06-28T01:00:00.000Z",
+    "lock_at": "2026-06-28T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1442,7 +1442,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-27T23:30:00.000Z",
-    "lock_at": "2026-06-27T22:30:00.000Z",
+    "lock_at": "2026-06-27T23:25:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1458,7 +1458,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-27T23:30:00.000Z",
-    "lock_at": "2026-06-27T22:30:00.000Z",
+    "lock_at": "2026-06-27T23:25:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1474,7 +1474,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-27T21:00:00.000Z",
-    "lock_at": "2026-06-27T20:00:00.000Z",
+    "lock_at": "2026-06-27T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1490,7 +1490,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": null,
     "venue": null,
     "kickoff_at": "2026-06-27T21:00:00.000Z",
-    "lock_at": "2026-06-27T20:00:00.000Z",
+    "lock_at": "2026-06-27T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1506,7 +1506,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-06-28T19:00:00.000Z",
-    "lock_at": "2026-06-28T18:00:00.000Z",
+    "lock_at": "2026-06-28T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1522,7 +1522,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-06-29T18:00:00.000Z",
-    "lock_at": "2026-06-29T17:00:00.000Z",
+    "lock_at": "2026-06-29T17:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1538,7 +1538,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-06-29T20:30:00.000Z",
-    "lock_at": "2026-06-29T19:30:00.000Z",
+    "lock_at": "2026-06-29T20:25:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1554,7 +1554,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-06-30T01:00:00.000Z",
-    "lock_at": "2026-06-30T00:00:00.000Z",
+    "lock_at": "2026-06-30T00:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1570,7 +1570,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-06-30T18:00:00.000Z",
-    "lock_at": "2026-06-30T17:00:00.000Z",
+    "lock_at": "2026-06-30T17:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1586,7 +1586,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-06-30T21:00:00.000Z",
-    "lock_at": "2026-06-30T20:00:00.000Z",
+    "lock_at": "2026-06-30T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1602,7 +1602,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-07-01T03:00:00.000Z",
-    "lock_at": "2026-07-01T02:00:00.000Z",
+    "lock_at": "2026-07-01T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1618,7 +1618,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-07-01T16:00:00.000Z",
-    "lock_at": "2026-07-01T15:00:00.000Z",
+    "lock_at": "2026-07-01T15:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1634,7 +1634,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-07-01T20:00:00.000Z",
-    "lock_at": "2026-07-01T19:00:00.000Z",
+    "lock_at": "2026-07-01T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1650,7 +1650,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-07-02T00:00:00.000Z",
-    "lock_at": "2026-07-01T23:00:00.000Z",
+    "lock_at": "2026-07-01T23:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1666,7 +1666,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-07-02T19:00:00.000Z",
-    "lock_at": "2026-07-02T18:00:00.000Z",
+    "lock_at": "2026-07-02T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1682,7 +1682,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-07-02T23:00:00.000Z",
-    "lock_at": "2026-07-02T22:00:00.000Z",
+    "lock_at": "2026-07-02T22:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1698,7 +1698,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-07-03T03:00:00.000Z",
-    "lock_at": "2026-07-03T02:00:00.000Z",
+    "lock_at": "2026-07-03T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1714,7 +1714,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-07-03T19:00:00.000Z",
-    "lock_at": "2026-07-03T18:00:00.000Z",
+    "lock_at": "2026-07-03T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1730,7 +1730,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-07-03T22:00:00.000Z",
-    "lock_at": "2026-07-03T21:00:00.000Z",
+    "lock_at": "2026-07-03T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1746,7 +1746,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Por definir",
     "venue": null,
     "kickoff_at": "2026-07-04T01:30:00.000Z",
-    "lock_at": "2026-07-04T00:30:00.000Z",
+    "lock_at": "2026-07-04T01:25:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1762,7 +1762,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 74",
     "venue": null,
     "kickoff_at": "2026-07-04T17:00:00.000Z",
-    "lock_at": "2026-07-04T16:00:00.000Z",
+    "lock_at": "2026-07-04T16:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1778,7 +1778,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 76",
     "venue": null,
     "kickoff_at": "2026-07-04T21:00:00.000Z",
-    "lock_at": "2026-07-04T20:00:00.000Z",
+    "lock_at": "2026-07-04T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1794,7 +1794,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 78",
     "venue": null,
     "kickoff_at": "2026-07-05T20:00:00.000Z",
-    "lock_at": "2026-07-05T19:00:00.000Z",
+    "lock_at": "2026-07-05T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1810,7 +1810,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 80",
     "venue": null,
     "kickoff_at": "2026-07-06T00:00:00.000Z",
-    "lock_at": "2026-07-05T23:00:00.000Z",
+    "lock_at": "2026-07-05T23:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1826,7 +1826,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 82",
     "venue": null,
     "kickoff_at": "2026-07-06T19:00:00.000Z",
-    "lock_at": "2026-07-06T18:00:00.000Z",
+    "lock_at": "2026-07-06T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1842,7 +1842,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 84",
     "venue": null,
     "kickoff_at": "2026-07-06T21:00:00.000Z",
-    "lock_at": "2026-07-06T20:00:00.000Z",
+    "lock_at": "2026-07-06T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1858,7 +1858,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 86",
     "venue": null,
     "kickoff_at": "2026-07-07T16:00:00.000Z",
-    "lock_at": "2026-07-07T15:00:00.000Z",
+    "lock_at": "2026-07-07T15:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1874,7 +1874,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 88",
     "venue": null,
     "kickoff_at": "2026-07-07T20:00:00.000Z",
-    "lock_at": "2026-07-07T19:00:00.000Z",
+    "lock_at": "2026-07-07T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1890,7 +1890,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 90",
     "venue": null,
     "kickoff_at": "2026-07-09T20:00:00.000Z",
-    "lock_at": "2026-07-09T19:00:00.000Z",
+    "lock_at": "2026-07-09T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1906,7 +1906,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 92",
     "venue": null,
     "kickoff_at": "2026-07-10T19:00:00.000Z",
-    "lock_at": "2026-07-10T18:00:00.000Z",
+    "lock_at": "2026-07-10T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1922,7 +1922,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 94",
     "venue": null,
     "kickoff_at": "2026-07-11T21:00:00.000Z",
-    "lock_at": "2026-07-11T20:00:00.000Z",
+    "lock_at": "2026-07-11T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1938,7 +1938,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 96",
     "venue": null,
     "kickoff_at": "2026-07-12T01:00:00.000Z",
-    "lock_at": "2026-07-12T00:00:00.000Z",
+    "lock_at": "2026-07-12T00:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1954,7 +1954,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 98",
     "venue": null,
     "kickoff_at": "2026-07-14T20:00:00.000Z",
-    "lock_at": "2026-07-14T19:00:00.000Z",
+    "lock_at": "2026-07-14T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1970,7 +1970,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 100",
     "venue": null,
     "kickoff_at": "2026-07-15T19:00:00.000Z",
-    "lock_at": "2026-07-15T18:00:00.000Z",
+    "lock_at": "2026-07-15T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -1986,7 +1986,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Perdedor Partido 102",
     "venue": null,
     "kickoff_at": "2026-07-18T21:00:00.000Z",
-    "lock_at": "2026-07-18T20:00:00.000Z",
+    "lock_at": "2026-07-18T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"
@@ -2002,7 +2002,7 @@ export const seedMatches: Match[] = [
     "away_placeholder": "Ganador Partido 102",
     "venue": null,
     "kickoff_at": "2026-07-19T19:00:00.000Z",
-    "lock_at": "2026-07-19T18:00:00.000Z",
+    "lock_at": "2026-07-19T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
     "status": "scheduled"

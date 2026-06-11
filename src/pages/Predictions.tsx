@@ -5,6 +5,7 @@ import { useAuth } from '../context/auth-context'
 import { db } from '../lib/firebase'
 import MatchRow from '../components/MatchRow'
 import MatchesByDate from '../components/MatchesByDate'
+import { PREDICTION_LOCK_MINUTES } from '../lib/scoring'
 import { PHASE_LABELS, type Match, type MatchPhase, type Prediction } from '../types'
 
 const GROUP_LETTERS = 'ABCDEFGHIJKL'.split('')
@@ -86,7 +87,7 @@ export default function Predictions() {
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Mis pronósticos</h1>
         <p className="mt-1 text-sm text-slate-500">
-          {loaded} / {total} partidos pronosticados. Se cierran 60 minutos antes de cada partido.
+          {loaded} / {total} partidos pronosticados. Se cierran {PREDICTION_LOCK_MINUTES} minutos antes de cada partido.
         </p>
         <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-200">
           <div
