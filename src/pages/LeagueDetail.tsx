@@ -7,6 +7,7 @@ import { db } from '../lib/firebase'
 import { formatTime } from '../lib/format'
 import {
   calculateMatchPoints,
+  isMatchFinished,
   POINTS_CHAMPION,
   POINTS_RESULT,
   POINTS_RUNNER_UP,
@@ -96,7 +97,7 @@ export default function LeagueDetail() {
         let hitCount = 0
         for (const p of preds) {
           const m = matchesById.get(p.match_id)
-          if (!m || m.status !== 'finished') continue
+          if (!m || !isMatchFinished(m)) continue
           const points = calculateMatchPoints(p.home_score, p.away_score, m.home_score, m.away_score)
           if (points === null) continue
           matchPoints += points

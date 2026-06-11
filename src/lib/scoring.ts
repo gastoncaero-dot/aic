@@ -14,9 +14,18 @@ export const PREDICTION_LOCK_MINUTES = 5
 // mostrar el indicador "EN VIVO" mientras no se cargue el resultado final.
 const MATCH_LIVE_MINUTES = 125
 
+/**
+ * Devuelve true si el partido ya tiene resultado cargado, ya sea porque el
+ * admin lo marcó como "Finalizado" o porque ya cargó ambos goles (esto
+ * último cubre el caso de que se cargue el resultado sin cambiar el estado).
+ */
+export function isMatchFinished(match: Pick<Match, 'status' | 'home_score' | 'away_score'>): boolean {
+  return match.status === 'finished' || (match.home_score !== null && match.away_score !== null)
+}
+
 /** Devuelve true si el partido ya arrancó y todavía no se cargó como finalizado. */
-export function isMatchLive(match: Pick<Match, 'kickoff_at' | 'status'>): boolean {
-  if (match.status === 'finished') return false
+export function isMatchLive(match: Pick<Match, 'kickoff_at' | 'status' | 'home_score' | 'away_score'>): boolean {
+  if (isMatchFinished(match)) return false
   const start = new Date(match.kickoff_at).getTime()
   const now = Date.now()
   return now >= start && now < start + MATCH_LIVE_MINUTES * 60 * 1000
