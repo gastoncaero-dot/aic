@@ -93,7 +93,7 @@ export default function Admin() {
       batch.set(
         doc(db, 'appSettings', 'main'),
         {
-          special_predictions_lock_at: '2026-06-11T13:00:00.000Z',
+          special_predictions_lock_at: seedMatches[0].kickoff_at,
           champion_team_id: null,
           runner_up_team_id: null,
           top_scorer: null,
