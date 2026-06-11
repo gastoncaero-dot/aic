@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { PHASE_LABELS, type Match, type MatchStatus, type Team } from '../types'
-import { toDateTimeLocal } from '../lib/format'
+import { fromArgentinaDateTimeLocal, toDateTimeLocal } from '../lib/format'
 
 interface Props {
   match: Match
@@ -37,7 +37,7 @@ export default function AdminMatchEditor({ match, teams, onSave }: Props) {
         away_team_id: awayTeamId ? Number(awayTeamId) : null,
         home_placeholder: homeTeamId ? null : homePlaceholder.trim() || null,
         away_placeholder: awayTeamId ? null : awayPlaceholder.trim() || null,
-        kickoff_at: new Date(kickoff).toISOString(),
+        kickoff_at: fromArgentinaDateTimeLocal(kickoff),
         home_score: homeScore === '' ? null : Number(homeScore),
         away_score: awayScore === '' ? null : Number(awayScore),
         status,
@@ -101,12 +101,15 @@ export default function AdminMatchEditor({ match, teams, onSave }: Props) {
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        <input
-          type="datetime-local"
-          value={kickoff}
-          onChange={(e) => setKickoff(e.target.value)}
-          className={`${inputClass} w-auto`}
-        />
+        <div className="flex flex-col">
+          <input
+            type="datetime-local"
+            value={kickoff}
+            onChange={(e) => setKickoff(e.target.value)}
+            className={`${inputClass} w-auto`}
+          />
+          <span className="mt-0.5 text-[11px] text-slate-400">Hora de Argentina</span>
+        </div>
         <input
           type="number"
           min={0}

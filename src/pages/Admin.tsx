@@ -3,7 +3,7 @@ import { doc, getDoc, setDoc, updateDoc, writeBatch } from 'firebase/firestore'
 import { useFixtureData } from '../hooks/useFixtureData'
 import { db } from '../lib/firebase'
 import AdminMatchEditor from '../components/AdminMatchEditor'
-import { toDateTimeLocal } from '../lib/format'
+import { fromArgentinaDateTimeLocal, toDateTimeLocal } from '../lib/format'
 import { PREDICTION_LOCK_MINUTES } from '../lib/scoring'
 import { seedMatches, seedTeams } from '../data/seedData'
 import { PHASE_LABELS, type AppSettings, type Match, type MatchPhase } from '../types'
@@ -63,7 +63,7 @@ export default function Admin() {
     setSettingsMsg(null)
     try {
       await setDoc(doc(db, 'appSettings', 'main'), {
-        special_predictions_lock_at: new Date(lockAt).toISOString(),
+        special_predictions_lock_at: fromArgentinaDateTimeLocal(lockAt),
         champion_team_id: championId ? Number(championId) : null,
         runner_up_team_id: runnerUpId ? Number(runnerUpId) : null,
         top_scorer: topScorer.trim() || null,
@@ -182,6 +182,7 @@ export default function Admin() {
                 onChange={(e) => setLockAt(e.target.value)}
                 className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
               />
+              <p className="mt-1 text-xs text-slate-400">Hora de Argentina</p>
             </div>
 
             <h2 className="pt-2 font-semibold text-slate-800">Resultados finales del torneo</h2>
