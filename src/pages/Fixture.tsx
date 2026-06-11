@@ -7,9 +7,7 @@ const GROUP_LETTERS = 'ABCDEFGHIJKL'.split('')
 const KNOCKOUT_PHASES: MatchPhase[] = ['r32', 'r16', 'qf', 'sf', '3rd', 'final']
 
 function tabClass(active: boolean) {
-  return `rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-    active ? 'bg-primary text-white' : 'border border-slate-300 bg-white text-slate-600 hover:bg-slate-50'
-  }`
+  return active ? 'tab-active' : 'tab-inactive'
 }
 
 export default function Fixture() {

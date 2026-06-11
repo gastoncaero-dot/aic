@@ -10,7 +10,7 @@ export default function Countdown({ target, label }: { target: string; label: st
   }, [target])
 
   return (
-    <div className="rounded-lg bg-primary-dark px-4 py-3 text-center text-white">
+    <div className="rounded-lg bg-gradient-to-br from-primary-dark to-slate-900 px-4 py-3 text-center text-white shadow-md">
       <p className="text-xs uppercase tracking-wide text-emerald-200">{label}</p>
       <p className="font-mono text-2xl font-bold">{text}</p>
     </div>

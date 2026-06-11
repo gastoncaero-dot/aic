@@ -5,8 +5,8 @@ import { useAuth } from '../context/auth-context'
 import { auth } from '../lib/firebase'
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-  `rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-    isActive ? 'bg-primary text-white' : 'text-slate-700 hover:bg-slate-100'
+  `rounded-full px-3 py-2 text-sm font-medium transition-all ${
+    isActive ? 'bg-primary text-white shadow-sm' : 'text-slate-700 hover:bg-slate-100'
   }`
 
 export default function Layout() {
@@ -52,10 +52,15 @@ export default function Layout() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
           <Link to="/" className="flex items-center gap-2 text-lg font-bold text-primary-dark">
-            <span aria-hidden>🏆</span>
+            <span
+              aria-hidden
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-dark text-white shadow-sm"
+            >
+              🏆
+            </span>
             Prode Mundial 2026
           </Link>
 
@@ -84,7 +89,7 @@ export default function Layout() {
                 </Link>
                 <Link
                   to="/signup"
-                  className="rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-dark"
+                  className="rounded-full bg-primary px-3 py-1.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md"
                 >
                   Crear cuenta
                 </Link>
@@ -130,7 +135,7 @@ export default function Layout() {
                     <Link
                       to="/signup"
                       onClick={() => setOpen(false)}
-                      className="flex-1 rounded-md bg-primary px-3 py-2 text-center text-sm font-medium text-white"
+                      className="flex-1 rounded-full bg-primary px-3 py-2 text-center text-sm font-medium text-white shadow-sm"
                     >
                       Crear cuenta
                     </Link>

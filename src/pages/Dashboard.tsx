@@ -130,7 +130,7 @@ export default function Dashboard() {
             <Link
               key={league.id}
               to={`/leagues/${league.id}`}
-              className="rounded-xl border border-slate-200 bg-white p-4 transition-shadow hover:shadow-md"
+              className="card p-4 transition-shadow hover:shadow-md"
             >
               <h3 className="text-lg font-semibold text-slate-900">{league.name}</h3>
               <p className="mt-1 text-sm text-slate-500">
@@ -145,7 +145,7 @@ export default function Dashboard() {
       )}
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <form onSubmit={handleCreate} className="space-y-3 rounded-xl border border-slate-200 bg-white p-4">
+        <form onSubmit={handleCreate} className="card space-y-3 p-4">
           <h2 className="font-semibold text-slate-800">Crear liga nueva</h2>
           <input
             type="text"
@@ -158,13 +158,13 @@ export default function Dashboard() {
           <button
             type="submit"
             disabled={creating}
-            className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50"
+            className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md disabled:opacity-50"
           >
             {creating ? 'Creando...' : 'Crear liga'}
           </button>
         </form>
 
-        <form onSubmit={handleJoin} className="space-y-3 rounded-xl border border-slate-200 bg-white p-4">
+        <form onSubmit={handleJoin} className="card space-y-3 p-4">
           <h2 className="font-semibold text-slate-800">Sumarme a una liga</h2>
           <input
             type="text"
@@ -177,7 +177,7 @@ export default function Dashboard() {
           <button
             type="submit"
             disabled={joining}
-            className="w-full rounded-md border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-emerald-50 disabled:opacity-50"
+            className="w-full rounded-md border border-primary px-4 py-2 text-sm font-semibold text-primary transition-all hover:bg-emerald-50 hover:shadow-md disabled:opacity-50"
           >
             {joining ? 'Sumándote...' : 'Sumarme'}
           </button>

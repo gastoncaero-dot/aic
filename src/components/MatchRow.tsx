@@ -52,7 +52,7 @@ export default function MatchRow({ match, homeTeam, awayTeam, prediction, onSave
   }
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-sm">
+    <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-sm transition-shadow hover:shadow-md">
       <div className="mb-2 flex items-center justify-between text-xs text-slate-400">
         <span>{formatKickoff(match.kickoff_at)}</span>
         {finished && (

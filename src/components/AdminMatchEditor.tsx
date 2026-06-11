@@ -52,7 +52,7 @@ export default function AdminMatchEditor({ match, teams, onSave }: Props) {
   }
 
   return (
-    <div className="space-y-2 rounded-lg border border-slate-200 bg-white p-3">
+    <div className="space-y-2 rounded-lg border border-slate-200 bg-white p-3 shadow-sm transition-shadow hover:shadow-md">
       <p className="text-xs text-slate-400">
         #{match.id} · {PHASE_LABELS[match.phase]}
         {match.group_letter ? ` · Grupo ${match.group_letter}` : ''}

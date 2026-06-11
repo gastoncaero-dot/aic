@@ -12,9 +12,7 @@ const GROUP_LETTERS = 'ABCDEFGHIJKL'.split('')
 const KNOCKOUT_PHASES: MatchPhase[] = ['r32', 'r16', 'qf', 'sf', '3rd', 'final']
 
 function tabClass(active: boolean) {
-  return `rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-    active ? 'bg-primary text-white' : 'border border-slate-300 bg-white text-slate-600 hover:bg-slate-50'
-  }`
+  return active ? 'tab-active' : 'tab-inactive'
 }
 
 export default function Admin() {
@@ -155,7 +153,7 @@ export default function Admin() {
       {effectiveView === 'settings' && (
         <div className="space-y-4">
           {teams.length === 0 && (
-            <div className="max-w-lg space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-5">
+            <div className="max-w-lg space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-5 shadow-sm">
               <h2 className="font-semibold text-amber-900">Datos iniciales</h2>
               <p className="text-sm text-amber-800">
                 Todavía no hay equipos ni partidos cargados. Hacé click para cargar los 48 equipos y los 104
@@ -164,7 +162,7 @@ export default function Admin() {
               <button
                 onClick={handleSeed}
                 disabled={seeding}
-                className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50"
+                className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md disabled:opacity-50"
               >
                 {seeding ? 'Cargando...' : 'Cargar datos iniciales'}
               </button>
@@ -172,7 +170,7 @@ export default function Admin() {
             </div>
           )}
 
-          <form onSubmit={handleSaveSettings} className="max-w-lg space-y-4 rounded-xl border border-slate-200 bg-white p-5">
+          <form onSubmit={handleSaveSettings} className="card max-w-lg space-y-4 p-5">
             <h2 className="font-semibold text-slate-800">Pronósticos especiales</h2>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Cierre de pronósticos especiales</label>
@@ -238,7 +236,7 @@ export default function Admin() {
             <button
               type="submit"
               disabled={savingSettings}
-              className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50"
+              className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md disabled:opacity-50"
             >
               {savingSettings ? 'Guardando...' : 'Guardar configuración'}
             </button>

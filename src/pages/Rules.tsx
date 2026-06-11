@@ -17,7 +17,7 @@ export default function Rules() {
         </p>
       </div>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-5">
+      <section className="card p-5">
         <h2 className="mb-3 text-lg font-semibold text-slate-900">⚽ Puntaje por partido</h2>
         <ul className="space-y-2 text-sm text-slate-700">
           <li className="flex items-center justify-between rounded-lg bg-emerald-50 px-3 py-2">
@@ -40,7 +40,7 @@ export default function Rules() {
         </p>
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-5">
+      <section className="card p-5">
         <h2 className="mb-3 text-lg font-semibold text-slate-900">🌟 Pronósticos especiales</h2>
         <p className="mb-3 text-sm text-slate-600">
           Antes de que arranque el Mundial, además elegís tres pronósticos "macro" que suman puntos extra
@@ -62,7 +62,7 @@ export default function Rules() {
         </ul>
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-5">
+      <section className="card p-5">
         <h2 className="mb-3 text-lg font-semibold text-slate-900">⏱️ Plazos para pronosticar</h2>
         <p className="text-sm text-slate-700">
           Podés cargar o cambiar tu pronóstico de cada partido hasta{' '}
@@ -75,7 +75,7 @@ export default function Rules() {
         </p>
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-5">
+      <section className="card p-5">
         <h2 className="mb-3 text-lg font-semibold text-slate-900">🤝 Desempates</h2>
         <p className="mb-2 text-sm text-slate-600">
           Si dos o más participantes terminan con el mismo puntaje en una liga, se desempata en este
@@ -88,7 +88,7 @@ export default function Rules() {
         </ol>
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-5">
+      <section className="card p-5">
         <h2 className="mb-3 text-lg font-semibold text-slate-900">👥 Cómo jugar con amigos</h2>
         <ol className="list-decimal space-y-1 pl-5 text-sm text-slate-700">
           <li>Creá una cuenta.</li>

@@ -5,6 +5,7 @@
   --color-primary: #15803d;
   --color-primary-dark: #14532d;
   --color-accent: #facc15;
+  --color-accent-dark: #ca8a04;
 }
 
 html, body, #root {
@@ -13,6 +14,29 @@ html, body, #root {
 
 body {
   background-color: #f4f6f5;
+  background-image:
+    radial-gradient(circle at 8% -10%, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 40%),
+    radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 35%);
+  background-repeat: no-repeat;
   color: #0f172a;
   font-family: var(--font-sans);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-primary-dark);
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-slate-200 bg-white shadow-sm;
+  }
+
+  .tab-active {
+    @apply rounded-full bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm transition-all;
+  }
+
+  .tab-inactive {
+    @apply rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition-all hover:border-primary/30 hover:bg-slate-50;
+  }
 }

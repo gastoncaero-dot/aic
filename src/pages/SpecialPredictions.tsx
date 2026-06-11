@@ -81,7 +81,7 @@ export default function SpecialPredictions() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-slate-200 bg-white p-5">
+      <form onSubmit={handleSubmit} className="card space-y-5 p-5">
         <div>
           <label className="mb-1 flex items-center justify-between text-sm font-medium text-slate-700">
             <span>🏆 Campeón del Mundial</span>
@@ -146,7 +146,7 @@ export default function SpecialPredictions() {
         <button
           type="submit"
           disabled={saving || locked}
-          className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50"
+          className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md disabled:opacity-50"
         >
           {saving ? 'Guardando...' : 'Guardar pronósticos especiales'}
         </button>
