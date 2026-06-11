@@ -127,20 +127,20 @@ for (let md = 0; md < 3; md++) {
       // Matchday 1: Jun 11 (groups A-D), Jun 12 (E-H), Jun 13 (I-L)
       const day = 11 + Math.floor(g / 4)
       const slot = g % 4
-      kickoffA = dateUTC(2026, 6, day, 13 + slot * 3)
-      kickoffB = dateUTC(2026, 6, day, 13 + slot * 3)
+      kickoffA = dateUTC(2026, 6, day, 19 + slot * 3)
+      kickoffB = dateUTC(2026, 6, day, 19 + slot * 3)
     } else if (md === 1) {
       // Matchday 2: Jun 17 (A-D), Jun 18 (E-H), Jun 19 (I-L)
       const day = 17 + Math.floor(g / 4)
       const slot = g % 4
-      kickoffA = dateUTC(2026, 6, day, 13 + slot * 3)
-      kickoffB = dateUTC(2026, 6, day, 13 + slot * 3)
+      kickoffA = dateUTC(2026, 6, day, 19 + slot * 3)
+      kickoffB = dateUTC(2026, 6, day, 19 + slot * 3)
     } else {
       // Matchday 3: Jun 24 (A-C), Jun 25 (D-F), Jun 26 (G-I), Jun 27 (J-L)
       // Both matches of the same group kick off simultaneously.
       const day = 24 + Math.floor(g / 3)
       const slot = g % 3
-      const ko = dateUTC(2026, 6, day, 14 + slot * 3)
+      const ko = dateUTC(2026, 6, day, 20 + slot * 3)
       kickoffA = ko
       kickoffB = ko
     }
@@ -162,7 +162,7 @@ for (let n = 1; n <= 16; n++) {
   const month = day <= 30 ? 6 : 7
   const realDay = day <= 30 ? day : day - 30
   const slot = (n - 1) % 4
-  const ko = dateUTC(2026, month, realDay, 12 + slot * 3)
+  const ko = dateUTC(2026, month, realDay, 18 + slot * 3)
   pushMatch({ phase: 'r32', kickoff_at: ko, home_placeholder: 'Por definir', away_placeholder: 'Por definir' })
 }
 
@@ -170,7 +170,7 @@ for (let n = 1; n <= 16; n++) {
 for (let n = 1; n <= 8; n++) {
   const day = 4 + Math.floor((n - 1) / 2)
   const slot = (n - 1) % 2
-  const ko = dateUTC(2026, 7, day, 15 + slot * 4)
+  const ko = dateUTC(2026, 7, day, 21 + slot * 4)
   const r32a = 73 + (n - 1) * 2
   const r32b = r32a + 1
   pushMatch({ phase: 'r16', kickoff_at: ko, home_placeholder: `Ganador Partido ${r32a}`, away_placeholder: `Ganador Partido ${r32b}` })
@@ -180,7 +180,7 @@ for (let n = 1; n <= 8; n++) {
 for (let n = 1; n <= 4; n++) {
   const day = 9 + Math.floor((n - 1) / 2)
   const slot = (n - 1) % 2
-  const ko = dateUTC(2026, 7, day, 15 + slot * 4)
+  const ko = dateUTC(2026, 7, day, 21 + slot * 4)
   const r16a = 89 + (n - 1) * 2
   const r16b = r16a + 1
   pushMatch({ phase: 'qf', kickoff_at: ko, home_placeholder: `Ganador Partido ${r16a}`, away_placeholder: `Ganador Partido ${r16b}` })
@@ -189,17 +189,17 @@ for (let n = 1; n <= 4; n++) {
 // Semifinals: matches 101-102, Jul 14 and Jul 15
 for (let n = 1; n <= 2; n++) {
   const day = 14 + (n - 1)
-  const ko = dateUTC(2026, 7, day, 19)
+  const ko = dateUTC(2026, 7, day, 25)
   const qfa = 97 + (n - 1) * 2
   const qfb = qfa + 1
   pushMatch({ phase: 'sf', kickoff_at: ko, home_placeholder: `Ganador Partido ${qfa}`, away_placeholder: `Ganador Partido ${qfb}` })
 }
 
 // Third place: match 103, Jul 18
-pushMatch({ phase: '3rd', kickoff_at: dateUTC(2026, 7, 18, 16), home_placeholder: 'Perdedor Partido 101', away_placeholder: 'Perdedor Partido 102' })
+pushMatch({ phase: '3rd', kickoff_at: dateUTC(2026, 7, 18, 22), home_placeholder: 'Perdedor Partido 101', away_placeholder: 'Perdedor Partido 102' })
 
 // Final: match 104, Jul 19
-pushMatch({ phase: 'final', kickoff_at: dateUTC(2026, 7, 19, 16), home_placeholder: 'Ganador Partido 101', away_placeholder: 'Ganador Partido 102' })
+pushMatch({ phase: 'final', kickoff_at: dateUTC(2026, 7, 19, 22), home_placeholder: 'Ganador Partido 101', away_placeholder: 'Ganador Partido 102' })
 
 const ts = `// Datos iniciales (48 equipos + 104 partidos) del Prode Mundial 2026.
 // Generado por scripts/generate-seed.mjs - se carga una sola vez desde el
