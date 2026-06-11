@@ -26,6 +26,8 @@ export default function Admin() {
   const [settingsMsg, setSettingsMsg] = useState<string | null>(null)
   const [seeding, setSeeding] = useState(false)
   const [seedMsg, setSeedMsg] = useState<string | null>(null)
+  const [updatingTimes, setUpdatingTimes] = useState(false)
+  const [updateTimesMsg, setUpdateTimesMsg] = useState<string | null>(null)
 
   const effectiveView = !loading && teams.length === 0 ? 'settings' : view
 
@@ -108,6 +110,34 @@ export default function Admin() {
     }
   }
 
+  async function handleUpdateKickoffTimes() {
+    if (
+      !window.confirm(
+        'Esto actualiza la fecha y hora de los 104 partidos según el fixture (hora de Argentina), sin tocar resultados ni equipos ya cargados. ¿Continuar?'
+      )
+    ) {
+      return
+    }
+    setUpdatingTimes(true)
+    setUpdateTimesMsg(null)
+    try {
+      const batch = writeBatch(db)
+      for (const match of seedMatches) {
+        batch.update(doc(db, 'matches', match.id.toString()), {
+          kickoff_at: match.kickoff_at,
+          lock_at: match.lock_at,
+        })
+      }
+      await batch.commit()
+      setUpdateTimesMsg('✓ Horarios actualizados')
+      await reload()
+    } catch (err) {
+      setUpdateTimesMsg(err instanceof Error ? err.message : 'Error al actualizar los horarios')
+    } finally {
+      setUpdatingTimes(false)
+    }
+  }
+
   const groupedByGroup = useMemo(() => {
     const map = new Map<string, Match[]>()
     for (const letter of GROUP_LETTERS) map.set(letter, [])
@@ -169,6 +199,22 @@ export default function Admin() {
               {seedMsg && <p className="text-sm text-amber-800">{seedMsg}</p>}
             </div>
           )}
+
+          <div className="card max-w-lg space-y-3 p-5">
+            <h2 className="font-semibold text-slate-800">Horarios del fixture</h2>
+            <p className="text-sm text-slate-500">
+              Actualiza la fecha y hora de los 104 partidos según el fixture (hora de Argentina), sin
+              modificar resultados, equipos ni el cuadro de eliminación directa ya cargados.
+            </p>
+            <button
+              onClick={handleUpdateKickoffTimes}
+              disabled={updatingTimes}
+              className="rounded-md border border-primary px-4 py-2 text-sm font-semibold text-primary transition-all hover:bg-emerald-50 hover:shadow-md disabled:opacity-50"
+            >
+              {updatingTimes ? 'Actualizando...' : 'Actualizar horarios'}
+            </button>
+            {updateTimesMsg && <p className="text-sm text-slate-600">{updateTimesMsg}</p>}
+          </div>
 
           <form onSubmit={handleSaveSettings} className="card max-w-lg space-y-4 p-5">
             <h2 className="font-semibold text-slate-800">Pronósticos especiales</h2>
