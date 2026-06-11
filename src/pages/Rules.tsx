@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   POINTS_CHAMPION,
   POINTS_EXACT,
@@ -7,7 +8,17 @@ import {
   PREDICTION_LOCK_MINUTES,
 } from '../lib/scoring'
 
+const PAYMENT_ALIAS = 'prodeprimos'
+
 export default function Rules() {
+  const [copied, setCopied] = useState(false)
+
+  function handleCopy() {
+    navigator.clipboard.writeText(PAYMENT_ALIAS)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1500)
+  }
+
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
@@ -86,6 +97,23 @@ export default function Rules() {
           <li>Mayor cantidad de aciertos totales (exactos + resultados correctos)</li>
           <li>Haber acertado al campeón del Mundial</li>
         </ol>
+      </section>
+
+      <section className="card p-5">
+        <h2 className="mb-3 text-lg font-semibold text-slate-900">💰 Aporte para el pozo</h2>
+        <p className="mb-3 text-sm text-slate-600">
+          Para sumarte al pozo en juego, transferí tu aporte al siguiente alias:
+        </p>
+        <button
+          onClick={handleCopy}
+          className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 font-mono text-sm text-slate-700 hover:bg-slate-200"
+        >
+          Alias: <strong>{PAYMENT_ALIAS}</strong>
+          <span className="text-xs text-primary">{copied ? '¡Copiado!' : 'copiar'}</span>
+        </button>
+        <p className="mt-3 text-xs text-slate-500">
+          Coordiná el monto y la modalidad de pago con el organizador de tu liga.
+        </p>
       </section>
 
       <section className="card p-5">
