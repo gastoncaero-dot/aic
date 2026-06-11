@@ -32,13 +32,35 @@ const partsFormatter = new Intl.DateTimeFormat('en-CA', {
   hour12: false,
 })
 
+const chipWeekdayFormatter = new Intl.DateTimeFormat('es-AR', { timeZone: ARGENTINA_TZ, weekday: 'short' })
+const chipDayFormatter = new Intl.DateTimeFormat('es-AR', { timeZone: ARGENTINA_TZ, day: '2-digit' })
+const chipMonthFormatter = new Intl.DateTimeFormat('es-AR', { timeZone: ARGENTINA_TZ, month: 'short' })
+
+function capitalize(label: string): string {
+  return label.charAt(0).toUpperCase() + label.slice(1)
+}
+
 export function formatKickoff(iso: string): string {
   return dateFormatter.format(new Date(iso))
 }
 
 export function formatDay(iso: string): string {
-  const label = dayFormatter.format(new Date(iso))
-  return label.charAt(0).toUpperCase() + label.slice(1)
+  return capitalize(dayFormatter.format(new Date(iso)))
+}
+
+/** Devuelve { weekday, day, month } en hora de Argentina, para mostrar en un selector de fechas. */
+export function formatDateChip(iso: string): { weekday: string; day: string; month: string } {
+  const date = new Date(iso)
+  return {
+    weekday: capitalize(chipWeekdayFormatter.format(date).replace('.', '')),
+    day: chipDayFormatter.format(date),
+    month: capitalize(chipMonthFormatter.format(date).replace('.', '')),
+  }
+}
+
+/** Fecha de hoy ("YYYY-MM-DD") en hora de Argentina. */
+export function getArgentinaToday(): string {
+  return toDateTimeLocal(new Date().toISOString()).slice(0, 10)
 }
 
 export function formatTime(iso: string): string {

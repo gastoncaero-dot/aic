@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Match, Prediction, Team } from '../types'
-import { calculateMatchPoints, isPredictionLocked, POINTS_EXACT, POINTS_RESULT } from '../lib/scoring'
+import { calculateMatchPoints, isMatchLive, isPredictionLocked, POINTS_EXACT, POINTS_RESULT } from '../lib/scoring'
 import { formatKickoff } from '../lib/format'
 import TeamLabel from './TeamLabel'
 import ProbabilityBar from './ProbabilityBar'
@@ -21,6 +21,7 @@ export default function MatchRow({ match, homeTeam, awayTeam, prediction, onSave
 
   const locked = isPredictionLocked(match.kickoff_at)
   const finished = match.status === 'finished'
+  const live = isMatchLive(match)
   const editable = Boolean(onSave) && !locked
 
   const points =
@@ -53,7 +54,11 @@ export default function MatchRow({ match, homeTeam, awayTeam, prediction, onSave
   }
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-sm transition-shadow hover:shadow-md">
+    <div
+      className={`rounded-lg border bg-white p-3 shadow-sm transition-shadow hover:shadow-md ${
+        live ? 'border-red-200 ring-1 ring-red-100' : 'border-slate-200'
+      }`}
+    >
       <div className="mb-2 flex items-center justify-between text-xs text-slate-400">
         <span className="flex items-center gap-2">
           {formatKickoff(match.kickoff_at)}
@@ -62,6 +67,12 @@ export default function MatchRow({ match, homeTeam, awayTeam, prediction, onSave
         {finished && (
           <span className="font-semibold text-slate-500">
             Final: {match.home_score} - {match.away_score}
+          </span>
+        )}
+        {!finished && live && (
+          <span className="flex items-center gap-1.5 font-bold text-red-600">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-600" aria-hidden />
+            EN VIVO
           </span>
         )}
       </div>

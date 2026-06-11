@@ -11,6 +11,7 @@ import Predictions from './pages/Predictions'
 import SpecialPredictions from './pages/SpecialPredictions'
 import Dashboard from './pages/Dashboard'
 import LeagueDetail from './pages/LeagueDetail'
+import Profile from './pages/Profile'
 import Admin from './pages/Admin'
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
               <Route path="predictions" element={<Predictions />} />
               <Route path="predictions/especiales" element={<SpecialPredictions />} />
               <Route path="leagues/:id" element={<LeagueDetail />} />
+              <Route path="perfil" element={<Profile />} />
             </Route>
 
             <Route element={<AdminRoute />}>
