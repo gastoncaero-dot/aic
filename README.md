@@ -14,7 +14,7 @@ Authentication, plan gratuito Spark) y pensada para deployar gratis en **Netlify
 - **0 puntos**: no acertás ni el resultado ni el signo del partido.
 - En partidos de eliminación directa solo se evalúa el resultado de los 90 minutos
   (no se tienen en cuenta penales ni alargue).
-- Los pronósticos de un partido se cierran **60 minutos antes del kickoff**.
+- Los pronósticos de un partido se cierran **5 minutos antes del kickoff**.
 
 ### Pronósticos especiales (una vez por torneo)
 
@@ -86,6 +86,54 @@ Abrí la URL que te indica Vite (por defecto `http://localhost:5173`).
    [app.netlify.com/drop](https://app.netlify.com/drop).
 2. Netlify ya toma `npm run build` y la carpeta `dist` desde [`netlify.toml`](netlify.toml);
    no hace falta configurar variables de entorno.
+
+## Actualización automática de resultados (opcional, gratis)
+
+Por defecto, los resultados se cargan a mano desde **Admin** (ver paso 5 más arriba). De forma
+opcional se puede activar un **workflow de GitHub Actions** que, mientras un partido está en su
+horario de juego, consulta cada 5 minutos la API de [API-Football](https://www.api-football.com/)
+y carga solo el marcador y el estado "Finalizado" en Firestore — sin gastar cuota de API en los
+días sin partidos en vivo. El código vive en
+[`scripts/update-live-scores.mjs`](scripts/update-live-scores.mjs) y el workflow en
+[`.github/workflows/update-live-scores.yml`](.github/workflows/update-live-scores.yml).
+
+Esto es **100% gratis**: como este repo es público, GitHub Actions no cobra por los minutos de
+ejecución, y el script usa una cuenta de servicio de Firebase (no requiere el plan Blaze).
+
+### Requisitos
+
+- Una API key gratis de [API-Football](https://www.api-football.com/) (plan gratuito:
+  100 requests/día — el script solo consulta cuando hay un partido en vivo, así que alcanza de
+  sobra).
+- Una cuenta de servicio de Firebase (gratis, no requiere plan Blaze).
+
+### Pasos
+
+1. **Cuenta de servicio de Firebase**: en
+   [console.firebase.google.com](https://console.firebase.google.com), entrá al proyecto
+   `prodeprimos-7fb43` > ⚙️ **Configuración del proyecto > Cuentas de servicio** > **Generar
+   nueva clave privada**. Se descarga un archivo `.json`.
+2. **API key de API-Football**: creá una cuenta gratis en
+   [api-football.com](https://www.api-football.com/) (Dashboard > My Access > API-KEY).
+3. En GitHub, andá a **Settings > Secrets and variables > Actions** del repo y creá dos
+   "Repository secrets":
+   - `FIREBASE_SERVICE_ACCOUNT`: pegá el contenido completo del `.json` del paso 1.
+   - `API_FOOTBALL_KEY`: tu API key del paso 2.
+4. ¡Listo! El workflow corre solo cada 5 minutos. También podés dispararlo manualmente desde la
+   pestaña **Actions > Actualizar resultados en vivo > Run workflow** para probarlo, y revisar
+   los logs ahí mismo para ver qué partidos detectó y si pudo "matchear" los nombres de los
+   equipos contra la API.
+
+### Si los nombres de los equipos no matchean
+
+El script compara el nombre de cada selección (`teams.name`, en español) contra el nombre que
+devuelve API-Football usando
+[`scripts/team-name-aliases.mjs`](scripts/team-name-aliases.mjs). Si en los logs del workflow ves
+`no matchea ningún equipo de la API` para alguna selección, agregá el nombre exacto que usa la
+API a la lista de alias de ese equipo en ese archivo.
+
+La carga manual desde **Admin** sigue funcionando siempre como respaldo — este workflow solo
+automatiza lo mismo que harías a mano.
 
 ## Cómo jugar con amigos
 

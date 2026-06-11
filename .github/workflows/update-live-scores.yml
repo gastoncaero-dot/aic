@@ -1,0 +1,26 @@
+name: Actualizar resultados en vivo
+
+on:
+  schedule:
+    # Cada 5 minutos. Si no hay ningún partido en su horario de juego, el
+    # script no consulta la API (no gasta cuota) y termina enseguida.
+    - cron: '*/5 * * * *'
+  workflow_dispatch: {}
+
+jobs:
+  update-scores:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: node scripts/update-live-scores.mjs
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
