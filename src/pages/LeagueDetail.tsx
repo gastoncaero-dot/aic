@@ -4,6 +4,7 @@ import { collection, doc, documentId, getDoc, getDocs, query, where } from 'fire
 import { useAuth } from '../context/auth-context'
 import { useFixtureData } from '../hooks/useFixtureData'
 import { db } from '../lib/firebase'
+import { formatTime } from '../lib/format'
 import {
   calculateMatchPoints,
   POINTS_CHAMPION,
@@ -22,12 +23,13 @@ function chunk<T>(items: T[], size: number): T[][] {
 export default function LeagueDetail() {
   const { id } = useParams<{ id: string }>()
   const { user } = useAuth()
-  const { matches, loading: matchesLoading } = useFixtureData()
+  const { matches, loading: matchesLoading, reload: reloadMatches } = useFixtureData()
   const [league, setLeague] = useState<League | null>(null)
   const [rows, setRows] = useState<UserTotals[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
 
   useEffect(() => {
     if (!id || matchesLoading) return
@@ -145,6 +147,7 @@ export default function LeagueDetail() {
       setRows(totals)
       setError(null)
       setLoading(false)
+      setLastUpdated(new Date())
     }
 
     load()
@@ -160,7 +163,11 @@ export default function LeagueDetail() {
     setTimeout(() => setCopied(false), 1500)
   }
 
-  if (loading) return <div className="py-20 text-center text-slate-500">Cargando...</div>
+  function handleRefresh() {
+    reloadMatches()
+  }
+
+  if (loading && !league) return <div className="py-20 text-center text-slate-500">Cargando...</div>
   if (error || !league)
     return (
       <div className="py-20 text-center text-slate-500">
@@ -173,18 +180,32 @@ export default function LeagueDetail() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <Link to="/dashboard" className="text-sm text-primary">
-          ← Mis ligas
-        </Link>
-        <h1 className="mt-1 text-2xl font-bold text-slate-900">{league.name}</h1>
-        <button
-          onClick={handleCopy}
-          className="mt-2 inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 font-mono text-sm text-slate-700 hover:bg-slate-200"
-        >
-          Código de invitación: <strong>{league.code}</strong>
-          <span className="text-xs text-primary">{copied ? '¡Copiado!' : 'copiar'}</span>
-        </button>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <Link to="/dashboard" className="text-sm text-primary">
+            ← Mis ligas
+          </Link>
+          <h1 className="mt-1 text-2xl font-bold text-slate-900">{league.name}</h1>
+          <button
+            onClick={handleCopy}
+            className="mt-2 inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 font-mono text-sm text-slate-700 hover:bg-slate-200"
+          >
+            Código de invitación: <strong>{league.code}</strong>
+            <span className="text-xs text-primary">{copied ? '¡Copiado!' : 'copiar'}</span>
+          </button>
+        </div>
+        <div className="text-right">
+          <button
+            onClick={handleRefresh}
+            disabled={loading}
+            className="rounded-full border border-primary px-3 py-1.5 text-sm font-semibold text-primary transition-all hover:bg-emerald-50 hover:shadow-md disabled:opacity-50"
+          >
+            {loading ? 'Actualizando...' : '🔄 Actualizar ranking'}
+          </button>
+          {lastUpdated && (
+            <p className="mt-1 text-xs text-slate-400">Actualizado a las {formatTime(lastUpdated.toISOString())}</p>
+          )}
+        </div>
       </div>
 
       <div className="overflow-hidden card">
