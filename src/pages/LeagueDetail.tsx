@@ -209,16 +209,28 @@ export default function LeagueDetail() {
         </div>
       </div>
 
-      <div className="overflow-hidden card">
-        <table className="w-full text-sm">
-          <thead className="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
+      <div className="overflow-x-auto card">
+        <table className="w-full text-xs sm:text-sm">
+          <thead className="bg-slate-50 text-left text-[10px] uppercase tracking-wide text-slate-500 sm:text-xs">
             <tr>
-              <th className="px-4 py-3">#</th>
-              <th className="px-4 py-3">Jugador</th>
-              <th className="px-4 py-3 text-center">Exactos</th>
-              <th className="px-4 py-3 text-center">Aciertos</th>
-              <th className="px-4 py-3 text-center">Especiales</th>
-              <th className="px-4 py-3 text-right">Puntos</th>
+              <th className="px-2 py-2 sm:px-4 sm:py-3">#</th>
+              <th className="px-2 py-2 sm:px-4 sm:py-3">Jugador</th>
+              <th className="px-2 py-2 text-center sm:px-4 sm:py-3">
+                <span className="sm:hidden">Ex.</span>
+                <span className="hidden sm:inline">Exactos</span>
+              </th>
+              <th className="px-2 py-2 text-center sm:px-4 sm:py-3">
+                <span className="sm:hidden">Ac.</span>
+                <span className="hidden sm:inline">Aciertos</span>
+              </th>
+              <th className="px-2 py-2 text-center sm:px-4 sm:py-3">
+                <span className="sm:hidden">Esp.</span>
+                <span className="hidden sm:inline">Especiales</span>
+              </th>
+              <th className="px-2 py-2 text-right sm:px-4 sm:py-3">
+                <span className="sm:hidden">Pts</span>
+                <span className="hidden sm:inline">Puntos</span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -227,16 +239,18 @@ export default function LeagueDetail() {
                 key={row.user_id}
                 className={`border-t border-slate-100 ${row.user_id === user?.uid ? 'bg-emerald-50' : ''}`}
               >
-                <td className="px-4 py-3 font-semibold text-slate-500">{i + 1}</td>
-                <td className="px-4 py-3 font-medium text-slate-800">
+                <td className="px-2 py-2 font-semibold text-slate-500 sm:px-4 sm:py-3">{i + 1}</td>
+                <td className="px-2 py-2 font-medium text-slate-800 sm:px-4 sm:py-3">
                   {row.username}
                   {row.user_id === user?.uid && <span className="ml-1 text-xs text-primary">(vos)</span>}
                   {row.champion_hit && <span className="ml-1" title="Acertó al campeón">🏆</span>}
                 </td>
-                <td className="px-4 py-3 text-center text-slate-600">{row.exact_count}</td>
-                <td className="px-4 py-3 text-center text-slate-600">{row.hit_count}</td>
-                <td className="px-4 py-3 text-center text-slate-600">{row.special_points}</td>
-                <td className="px-4 py-3 text-right text-lg font-bold text-primary-dark">{row.total_points}</td>
+                <td className="px-2 py-2 text-center text-slate-600 sm:px-4 sm:py-3">{row.exact_count}</td>
+                <td className="px-2 py-2 text-center text-slate-600 sm:px-4 sm:py-3">{row.hit_count}</td>
+                <td className="px-2 py-2 text-center text-slate-600 sm:px-4 sm:py-3">{row.special_points}</td>
+                <td className="px-2 py-2 text-right text-base font-bold text-primary-dark sm:px-4 sm:py-3 sm:text-lg">
+                  {row.total_points}
+                </td>
               </tr>
             ))}
           </tbody>
