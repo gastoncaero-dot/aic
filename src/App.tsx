@@ -6,7 +6,6 @@ import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Rules from './pages/Rules'
-import Fixture from './pages/Fixture'
 import Predictions from './pages/Predictions'
 import SpecialPredictions from './pages/SpecialPredictions'
 import Dashboard from './pages/Dashboard'
@@ -22,7 +21,6 @@ export default function App() {
           <Route element={<Layout />}>
             <Route index element={<Landing />} />
             <Route path="reglas" element={<Rules />} />
-            <Route path="fixture" element={<Fixture />} />
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
 
