@@ -23,6 +23,9 @@ export default function Layout() {
       <NavLink to="/" end className={navLinkClass} onClick={() => setOpen(false)}>
         Inicio
       </NavLink>
+      <NavLink to="/fixture" className={navLinkClass} onClick={() => setOpen(false)}>
+        Fixture
+      </NavLink>
       <NavLink to="/reglas" className={navLinkClass} onClick={() => setOpen(false)}>
         Reglas
       </NavLink>

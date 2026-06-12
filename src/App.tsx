@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext'
 import { AdminRoute, ProtectedRoute } from './components/ProtectedRoute'
 import Layout from './components/Layout'
 import Landing from './pages/Landing'
+import Fixture from './pages/Fixture'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Rules from './pages/Rules'
@@ -20,6 +21,7 @@ export default function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<Landing />} />
+            <Route path="fixture" element={<Fixture />} />
             <Route path="reglas" element={<Rules />} />
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
