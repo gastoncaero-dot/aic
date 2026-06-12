@@ -125,6 +125,8 @@ export default function LeagueDetail() {
           }
         }
 
+        const adjustmentPoints = leagueData.point_adjustments?.[uid] ?? 0
+
         return {
           user_id: uid,
           username: usernames.get(uid) ?? uid,
@@ -133,7 +135,8 @@ export default function LeagueDetail() {
           hit_count: hitCount,
           special_points: specialPoints,
           champion_hit: championHit,
-          total_points: matchPoints + specialPoints,
+          adjustment_points: adjustmentPoints,
+          total_points: matchPoints + specialPoints + adjustmentPoints,
         }
       })
 
@@ -244,6 +247,17 @@ export default function LeagueDetail() {
                   {row.username}
                   {row.user_id === user?.uid && <span className="ml-1 text-xs text-primary">(vos)</span>}
                   {row.champion_hit && <span className="ml-1" title="Acertó al campeón">🏆</span>}
+                  {row.adjustment_points !== 0 && (
+                    <span
+                      className={`ml-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${
+                        row.adjustment_points > 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'
+                      }`}
+                      title="Ajuste manual del administrador"
+                    >
+                      {row.adjustment_points > 0 ? '+' : ''}
+                      {row.adjustment_points}
+                    </span>
+                  )}
                 </td>
                 <td className="px-2 py-2 text-center text-slate-600 sm:px-4 sm:py-3">{row.exact_count}</td>
                 <td className="px-2 py-2 text-center text-slate-600 sm:px-4 sm:py-3">{row.hit_count}</td>

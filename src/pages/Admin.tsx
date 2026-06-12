@@ -1,15 +1,32 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
-import { doc, getDoc, setDoc, updateDoc, writeBatch } from 'firebase/firestore'
+import {
+  collection,
+  doc,
+  documentId,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+  writeBatch,
+} from 'firebase/firestore'
 import { useFixtureData } from '../hooks/useFixtureData'
 import { db } from '../lib/firebase'
 import AdminMatchEditor from '../components/AdminMatchEditor'
 import { fromArgentinaDateTimeLocal, toDateTimeLocal } from '../lib/format'
 import { PREDICTION_LOCK_MINUTES } from '../lib/scoring'
 import { seedMatches, seedTeams } from '../data/seedData'
-import { PHASE_LABELS, type AppSettings, type Match, type MatchPhase } from '../types'
+import { PHASE_LABELS, type AppSettings, type League, type Match, type MatchPhase } from '../types'
 
 const GROUP_LETTERS = 'ABCDEFGHIJKL'.split('')
 const KNOCKOUT_PHASES: MatchPhase[] = ['r32', 'r16', 'qf', 'sf', '3rd', 'final']
+
+function chunk<T>(items: T[], size: number): T[][] {
+  const chunks: T[][] = []
+  for (let i = 0; i < items.length; i += size) chunks.push(items.slice(i, i + size))
+  return chunks
+}
 
 function tabClass(active: boolean) {
   return active ? 'tab-active' : 'tab-inactive'
@@ -17,7 +34,7 @@ function tabClass(active: boolean) {
 
 export default function Admin() {
   const { matches, teams, loading, error, reload } = useFixtureData()
-  const [view, setView] = useState<'group' | 'knockout' | 'settings'>('knockout')
+  const [view, setView] = useState<'group' | 'knockout' | 'settings' | 'leagues'>('knockout')
   const [lockAt, setLockAt] = useState('')
   const [championId, setChampionId] = useState('')
   const [runnerUpId, setRunnerUpId] = useState('')
@@ -33,6 +50,13 @@ export default function Admin() {
   const [lockMinutesMsg, setLockMinutesMsg] = useState<string | null>(null)
   const [recalculatingLocks, setRecalculatingLocks] = useState(false)
   const [recalculateLocksMsg, setRecalculateLocksMsg] = useState<string | null>(null)
+  const [leagues, setLeagues] = useState<League[]>([])
+  const [usernames, setUsernames] = useState<Map<string, string>>(new Map())
+  const [leaguesLoading, setLeaguesLoading] = useState(false)
+  const [leaguesLoaded, setLeaguesLoaded] = useState(false)
+  const [adjustments, setAdjustments] = useState<Map<string, Record<string, string>>>(new Map())
+  const [savingLeagueId, setSavingLeagueId] = useState<string | null>(null)
+  const [leagueMsg, setLeagueMsg] = useState<Record<string, string>>({})
 
   const effectiveView = !loading && teams.length === 0 ? 'settings' : view
 
@@ -53,6 +77,81 @@ export default function Admin() {
       cancelled = true
     }
   }, [])
+
+  useEffect(() => {
+    if (view !== 'leagues' || leaguesLoaded) return
+    let cancelled = false
+
+    async function loadLeagues() {
+      setLeaguesLoading(true)
+      const leaguesSnap = await getDocs(collection(db, 'leagues'))
+      const allLeagues = leaguesSnap.docs.map((d) => ({ ...(d.data() as League), id: d.id }))
+      if (cancelled) return
+
+      const memberIds = [...new Set(allLeagues.flatMap((l) => l.member_ids ?? []))]
+      const idChunks = chunk(memberIds, 30)
+      const profileSnaps = await Promise.all(
+        idChunks.map((ids) => getDocs(query(collection(db, 'users'), where(documentId(), 'in', ids))))
+      )
+      if (cancelled) return
+
+      const names = new Map<string, string>()
+      for (const snap of profileSnaps) {
+        for (const d of snap.docs) names.set(d.id, (d.data().username as string | undefined) ?? d.id)
+      }
+
+      const initialAdjustments = new Map<string, Record<string, string>>()
+      for (const l of allLeagues) {
+        const entries: Record<string, string> = {}
+        for (const uid of l.member_ids ?? []) entries[uid] = (l.point_adjustments?.[uid] ?? 0).toString()
+        initialAdjustments.set(l.id, entries)
+      }
+
+      setLeagues(allLeagues)
+      setUsernames(names)
+      setAdjustments(initialAdjustments)
+      setLeaguesLoading(false)
+      setLeaguesLoaded(true)
+    }
+
+    loadLeagues()
+    return () => {
+      cancelled = true
+    }
+  }, [view, leaguesLoaded])
+
+  function handleAdjustmentChange(leagueId: string, uid: string, value: string) {
+    setAdjustments((prev) => {
+      const next = new Map(prev)
+      next.set(leagueId, { ...next.get(leagueId), [uid]: value })
+      return next
+    })
+  }
+
+  async function handleSaveAdjustments(leagueId: string) {
+    const entries = adjustments.get(leagueId) ?? {}
+    const pointAdjustments: Record<string, number> = {}
+    for (const [uid, value] of Object.entries(entries)) {
+      const n = Number(value)
+      if (!Number.isFinite(n)) {
+        setLeagueMsg((prev) => ({ ...prev, [leagueId]: 'Hay un valor inválido.' }))
+        return
+      }
+      if (n !== 0) pointAdjustments[uid] = n
+    }
+
+    setSavingLeagueId(leagueId)
+    setLeagueMsg((prev) => ({ ...prev, [leagueId]: '' }))
+    try {
+      await updateDoc(doc(db, 'leagues', leagueId), { point_adjustments: pointAdjustments })
+      setLeagues((prev) => prev.map((l) => (l.id === leagueId ? { ...l, point_adjustments: pointAdjustments } : l)))
+      setLeagueMsg((prev) => ({ ...prev, [leagueId]: '✓ Ajustes guardados' }))
+    } catch (err) {
+      setLeagueMsg((prev) => ({ ...prev, [leagueId]: err instanceof Error ? err.message : 'Error al guardar' }))
+    } finally {
+      setSavingLeagueId(null)
+    }
+  }
 
   async function handleSaveMatch(matchId: number, updates: Partial<Match>) {
     const data: Partial<Match> = { ...updates }
@@ -238,6 +337,9 @@ export default function Admin() {
         <button onClick={() => setView('settings')} className={tabClass(view === 'settings')}>
           Configuración
         </button>
+        <button onClick={() => setView('leagues')} className={tabClass(view === 'leagues')}>
+          Ligas
+        </button>
       </div>
 
       {effectiveView === 'settings' && (
@@ -383,6 +485,45 @@ export default function Admin() {
               {savingSettings ? 'Guardando...' : 'Guardar configuración'}
             </button>
           </form>
+        </div>
+      )}
+
+      {effectiveView === 'leagues' && (
+        <div className="space-y-4">
+          <p className="text-sm text-slate-500">
+            Sumá o restá puntos manualmente a los jugadores de cada liga (ej: penalizaciones, bonus). El
+            ajuste se suma a los puntos por partidos y especiales en la tabla de posiciones.
+          </p>
+          {leaguesLoading && <p className="text-sm text-slate-500">Cargando ligas...</p>}
+          {!leaguesLoading && leagues.length === 0 && <p className="text-sm text-slate-500">No hay ligas creadas.</p>}
+          {leagues.map((league) => (
+            <div key={league.id} className="card max-w-lg space-y-3 p-5">
+              <h2 className="font-semibold text-slate-800">
+                {league.name} <span className="font-mono text-xs text-slate-400">({league.code})</span>
+              </h2>
+              <div className="space-y-2">
+                {(league.member_ids ?? []).map((uid) => (
+                  <div key={uid} className="flex items-center justify-between gap-2">
+                    <span className="text-sm text-slate-700">{usernames.get(uid) ?? uid}</span>
+                    <input
+                      type="number"
+                      value={adjustments.get(league.id)?.[uid] ?? '0'}
+                      onChange={(e) => handleAdjustmentChange(league.id, uid, e.target.value)}
+                      className="w-20 rounded-md border border-slate-300 px-2 py-1 text-center text-sm focus:border-primary focus:outline-none"
+                    />
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={() => handleSaveAdjustments(league.id)}
+                disabled={savingLeagueId === league.id}
+                className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md disabled:opacity-50"
+              >
+                {savingLeagueId === league.id ? 'Guardando...' : 'Guardar ajustes'}
+              </button>
+              {leagueMsg[league.id] && <p className="text-sm text-slate-600">{leagueMsg[league.id]}</p>}
+            </div>
+          ))}
         </div>
       )}
 

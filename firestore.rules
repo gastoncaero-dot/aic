@@ -85,8 +85,9 @@ service cloud.firestore {
     // Ligas privadas. member_ids es un array de uids.
     // Lectura abierta a usuarios logueados (necesario para buscar una
     // liga por código de invitación al sumarse). Crear: el dueño se
-    // suma a sí mismo como único miembro inicial. Actualizar: solo se
-    // permite agregar miembros (sumarse con un código), no sacarlos.
+    // suma a sí mismo como único miembro inicial. Actualizar: se
+    // permite agregar miembros (sumarse con un código), no sacarlos, o
+    // que el admin edite point_adjustments (ajustes manuales de puntos).
     // ---------------------------------------------------------
     match /leagues/{leagueId} {
       allow read: if isSignedIn();
@@ -94,9 +95,12 @@ service cloud.firestore {
         && request.resource.data.owner_id == request.auth.uid
         && request.resource.data.member_ids == [request.auth.uid];
       allow update: if isSignedIn()
-        && request.auth.uid in request.resource.data.member_ids
-        && request.resource.data.member_ids.hasAll(resource.data.member_ids)
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["member_ids"]);
+        && (
+          (request.auth.uid in request.resource.data.member_ids
+            && request.resource.data.member_ids.hasAll(resource.data.member_ids)
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["member_ids"]))
+          || (isAdmin() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["point_adjustments"]))
+        );
     }
   }
 }

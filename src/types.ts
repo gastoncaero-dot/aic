@@ -50,6 +50,7 @@ export interface League {
   owner_id: string
   member_ids: string[]
   created_at: string
+  point_adjustments?: Record<string, number>
 }
 
 export interface Prediction {
@@ -84,5 +85,6 @@ export interface UserTotals {
   hit_count: number
   special_points: number
   champion_hit: boolean
+  adjustment_points: number
   total_points: number
 }
