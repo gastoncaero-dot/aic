@@ -22,12 +22,17 @@ export default function Admin() {
   const [championId, setChampionId] = useState('')
   const [runnerUpId, setRunnerUpId] = useState('')
   const [topScorer, setTopScorer] = useState('')
+  const [lockMinutes, setLockMinutes] = useState(PREDICTION_LOCK_MINUTES.toString())
   const [savingSettings, setSavingSettings] = useState(false)
   const [settingsMsg, setSettingsMsg] = useState<string | null>(null)
   const [seeding, setSeeding] = useState(false)
   const [seedMsg, setSeedMsg] = useState<string | null>(null)
   const [updatingTimes, setUpdatingTimes] = useState(false)
   const [updateTimesMsg, setUpdateTimesMsg] = useState<string | null>(null)
+  const [savingLockMinutes, setSavingLockMinutes] = useState(false)
+  const [lockMinutesMsg, setLockMinutesMsg] = useState<string | null>(null)
+  const [recalculatingLocks, setRecalculatingLocks] = useState(false)
+  const [recalculateLocksMsg, setRecalculateLocksMsg] = useState<string | null>(null)
 
   const effectiveView = !loading && teams.length === 0 ? 'settings' : view
 
@@ -41,6 +46,7 @@ export default function Admin() {
         setChampionId(s.champion_team_id?.toString() ?? '')
         setRunnerUpId(s.runner_up_team_id?.toString() ?? '')
         setTopScorer(s.top_scorer ?? '')
+        setLockMinutes((s.prediction_lock_minutes ?? PREDICTION_LOCK_MINUTES).toString())
       }
     })
     return () => {
@@ -51,7 +57,8 @@ export default function Admin() {
   async function handleSaveMatch(matchId: number, updates: Partial<Match>) {
     const data: Partial<Match> = { ...updates }
     if (updates.kickoff_at) {
-      data.lock_at = new Date(new Date(updates.kickoff_at).getTime() - PREDICTION_LOCK_MINUTES * 60 * 1000).toISOString()
+      const minutes = Number(lockMinutes) || PREDICTION_LOCK_MINUTES
+      data.lock_at = new Date(new Date(updates.kickoff_at).getTime() - minutes * 60 * 1000).toISOString()
     }
     await updateDoc(doc(db, 'matches', matchId.toString()), data)
     await reload()
@@ -62,12 +69,16 @@ export default function Admin() {
     setSavingSettings(true)
     setSettingsMsg(null)
     try {
-      await setDoc(doc(db, 'appSettings', 'main'), {
-        special_predictions_lock_at: fromArgentinaDateTimeLocal(lockAt),
-        champion_team_id: championId ? Number(championId) : null,
-        runner_up_team_id: runnerUpId ? Number(runnerUpId) : null,
-        top_scorer: topScorer.trim() || null,
-      })
+      await setDoc(
+        doc(db, 'appSettings', 'main'),
+        {
+          special_predictions_lock_at: fromArgentinaDateTimeLocal(lockAt),
+          champion_team_id: championId ? Number(championId) : null,
+          runner_up_team_id: runnerUpId ? Number(runnerUpId) : null,
+          top_scorer: topScorer.trim() || null,
+        },
+        { merge: true }
+      )
       setSettingsMsg('✓ Configuración guardada')
     } catch (err) {
       setSettingsMsg(err instanceof Error ? err.message : 'Error al guardar')
@@ -135,6 +146,55 @@ export default function Admin() {
       setUpdateTimesMsg(err instanceof Error ? err.message : 'Error al actualizar los horarios')
     } finally {
       setUpdatingTimes(false)
+    }
+  }
+
+  async function handleSaveLockMinutes() {
+    const minutes = Number(lockMinutes)
+    if (!Number.isFinite(minutes) || minutes < 0) {
+      setLockMinutesMsg('Ingresá un número de minutos válido.')
+      return
+    }
+    setSavingLockMinutes(true)
+    setLockMinutesMsg(null)
+    try {
+      await setDoc(doc(db, 'appSettings', 'main'), { prediction_lock_minutes: minutes }, { merge: true })
+      setLockMinutesMsg('✓ Guardado. Usá "Recalcular cierres" para aplicarlo a los partidos ya cargados.')
+    } catch (err) {
+      setLockMinutesMsg(err instanceof Error ? err.message : 'Error al guardar')
+    } finally {
+      setSavingLockMinutes(false)
+    }
+  }
+
+  async function handleRecalculateLocks() {
+    const minutes = Number(lockMinutes)
+    if (!Number.isFinite(minutes) || minutes < 0) {
+      setRecalculateLocksMsg('Ingresá un número de minutos válido.')
+      return
+    }
+    if (
+      !window.confirm(
+        `Esto recalcula el cierre de pronósticos de los ${matches.length} partidos a ${minutes} minutos antes de cada kickoff. ¿Continuar?`
+      )
+    ) {
+      return
+    }
+    setRecalculatingLocks(true)
+    setRecalculateLocksMsg(null)
+    try {
+      const batch = writeBatch(db)
+      for (const match of matches) {
+        const lockAt = new Date(new Date(match.kickoff_at).getTime() - minutes * 60 * 1000).toISOString()
+        batch.update(doc(db, 'matches', match.id.toString()), { lock_at: lockAt })
+      }
+      await batch.commit()
+      setRecalculateLocksMsg('✓ Cierres de pronósticos recalculados')
+      await reload()
+    } catch (err) {
+      setRecalculateLocksMsg(err instanceof Error ? err.message : 'Error al recalcular')
+    } finally {
+      setRecalculatingLocks(false)
     }
   }
 
@@ -214,6 +274,42 @@ export default function Admin() {
               {updatingTimes ? 'Actualizando...' : 'Actualizar horarios'}
             </button>
             {updateTimesMsg && <p className="text-sm text-slate-600">{updateTimesMsg}</p>}
+          </div>
+
+          <div className="card max-w-lg space-y-3 p-5">
+            <h2 className="font-semibold text-slate-800">Cierre de pronósticos</h2>
+            <p className="text-sm text-slate-500">
+              Minutos antes del horario de cada partido en que se cierra la carga/edición de pronósticos.
+            </p>
+            <div className="flex items-end gap-2">
+              <div>
+                <label className="mb-1 block text-sm font-medium text-slate-700">Minutos antes del kickoff</label>
+                <input
+                  type="number"
+                  min={0}
+                  max={1440}
+                  value={lockMinutes}
+                  onChange={(e) => setLockMinutes(e.target.value)}
+                  className="w-24 rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                />
+              </div>
+              <button
+                onClick={handleSaveLockMinutes}
+                disabled={savingLockMinutes}
+                className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md disabled:opacity-50"
+              >
+                {savingLockMinutes ? 'Guardando...' : 'Guardar'}
+              </button>
+              <button
+                onClick={handleRecalculateLocks}
+                disabled={recalculatingLocks}
+                className="rounded-md border border-primary px-4 py-2 text-sm font-semibold text-primary transition-all hover:bg-emerald-50 hover:shadow-md disabled:opacity-50"
+              >
+                {recalculatingLocks ? 'Recalculando...' : 'Recalcular cierres'}
+              </button>
+            </div>
+            {lockMinutesMsg && <p className="text-sm text-slate-600">{lockMinutesMsg}</p>}
+            {recalculateLocksMsg && <p className="text-sm text-slate-600">{recalculateLocksMsg}</p>}
           </div>
 
           <form onSubmit={handleSaveSettings} className="card max-w-lg space-y-4 p-5">

@@ -8,6 +8,10 @@ export const POINTS_RESULT = 2
 export const POINTS_CHAMPION = 20
 export const POINTS_RUNNER_UP = 10
 export const POINTS_TOP_SCORER = 10
+// Valor por defecto de "minutos antes del kickoff" en que se cierran los
+// pronósticos. El admin puede cambiarlo desde el panel de Admin
+// (appSettings.main.prediction_lock_minutes); esta constante se usa como
+// valor inicial/fallback mientras esa configuración no esté cargada.
 export const PREDICTION_LOCK_MINUTES = 5
 
 // Duración estimada de un partido (90' + entretiempo + adicionales) para
@@ -29,12 +33,6 @@ export function isMatchLive(match: Pick<Match, 'kickoff_at' | 'status' | 'home_s
   const start = new Date(match.kickoff_at).getTime()
   const now = Date.now()
   return now >= start && now < start + MATCH_LIVE_MINUTES * 60 * 1000
-}
-
-/** Devuelve true si ya no se puede cargar/editar el pronóstico de un partido. */
-export function isPredictionLocked(kickoffAt: string): boolean {
-  const lockTime = new Date(kickoffAt).getTime() - PREDICTION_LOCK_MINUTES * 60 * 1000
-  return Date.now() >= lockTime
 }
 
 /** Devuelve true si ya pasó la fecha/hora límite indicada. */

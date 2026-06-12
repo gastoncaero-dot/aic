@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { doc, getDoc } from 'firebase/firestore'
 import { useAuth } from '../context/auth-context'
+import { useAppSettings } from '../hooks/useAppSettings'
 import { db } from '../lib/firebase'
 import Countdown from '../components/Countdown'
 import { POINTS_EXACT, POINTS_RESULT, PREDICTION_LOCK_MINUTES } from '../lib/scoring'
@@ -11,6 +12,8 @@ const FALLBACK_KICKOFF = '2026-06-11T13:00:00.000Z'
 
 export default function Landing() {
   const { user } = useAuth()
+  const { settings } = useAppSettings()
+  const lockMinutes = settings?.prediction_lock_minutes ?? PREDICTION_LOCK_MINUTES
   const [kickoff, setKickoff] = useState(FALLBACK_KICKOFF)
 
   useEffect(() => {
@@ -104,7 +107,7 @@ export default function Landing() {
               1
             </span>
             <p className="text-sm text-slate-600">
-              Cargá el resultado que creés para cada partido. Podés cambiarlo hasta {PREDICTION_LOCK_MINUTES} minutos
+              Cargá el resultado que creés para cada partido. Podés cambiarlo hasta {lockMinutes} minutos
               antes de que arranque.
             </p>
           </div>

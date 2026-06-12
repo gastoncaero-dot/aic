@@ -73,6 +73,7 @@ export interface AppSettings {
   champion_team_id: number | null
   runner_up_team_id: number | null
   top_scorer: string | null
+  prediction_lock_minutes?: number
 }
 
 export interface UserTotals {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Match, Prediction, Team } from '../types'
-import { calculateMatchPoints, isMatchFinished, isMatchLive, isPredictionLocked, POINTS_EXACT, POINTS_RESULT } from '../lib/scoring'
+import { calculateMatchPoints, isLockExpired, isMatchFinished, isMatchLive, POINTS_EXACT, POINTS_RESULT } from '../lib/scoring'
 import { formatKickoff } from '../lib/format'
 import TeamLabel from './TeamLabel'
 import ProbabilityBar from './ProbabilityBar'
@@ -19,7 +19,7 @@ export default function MatchRow({ match, homeTeam, awayTeam, prediction, onSave
   const [away, setAway] = useState(prediction?.away_score?.toString() ?? '')
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
 
-  const locked = isPredictionLocked(match.kickoff_at)
+  const locked = isLockExpired(match.lock_at)
   const finished = isMatchFinished(match)
   const live = isMatchLive(match)
   const editable = Boolean(onSave) && !locked

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore'
 import { useFixtureData } from '../hooks/useFixtureData'
+import { useAppSettings } from '../hooks/useAppSettings'
 import { useAuth } from '../context/auth-context'
 import { db } from '../lib/firebase'
 import MatchRow from '../components/MatchRow'
@@ -18,6 +19,8 @@ function tabClass(active: boolean) {
 export default function Predictions() {
   const { user } = useAuth()
   const { matches, teamsById, loading, error } = useFixtureData()
+  const { settings } = useAppSettings()
+  const lockMinutes = settings?.prediction_lock_minutes ?? PREDICTION_LOCK_MINUTES
   const [predictions, setPredictions] = useState<Map<number, Prediction>>(new Map())
   const [predLoading, setPredLoading] = useState(true)
   const [view, setView] = useState<'date' | 'group' | 'knockout'>('date')
@@ -87,7 +90,7 @@ export default function Predictions() {
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Mis pronósticos</h1>
         <p className="mt-1 text-sm text-slate-500">
-          {loaded} / {total} partidos pronosticados. Se cierran {PREDICTION_LOCK_MINUTES} minutos antes de cada partido.
+          {loaded} / {total} partidos pronosticados. Se cierran {lockMinutes} minutos antes de cada partido.
         </p>
         <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-200">
           <div

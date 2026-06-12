@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useAppSettings } from '../hooks/useAppSettings'
 import {
   POINTS_CHAMPION,
   POINTS_EXACT,
@@ -12,6 +13,8 @@ const PAYMENT_ALIAS = 'prodeprimos'
 
 export default function Rules() {
   const [copied, setCopied] = useState(false)
+  const { settings } = useAppSettings()
+  const lockMinutes = settings?.prediction_lock_minutes ?? PREDICTION_LOCK_MINUTES
 
   function handleCopy() {
     navigator.clipboard.writeText(PAYMENT_ALIAS)
@@ -77,7 +80,7 @@ export default function Rules() {
         <h2 className="mb-3 text-lg font-semibold text-slate-900">⏱️ Plazos para pronosticar</h2>
         <p className="text-sm text-slate-700">
           Podés cargar o cambiar tu pronóstico de cada partido hasta{' '}
-          <strong>{PREDICTION_LOCK_MINUTES} minutos antes</strong> de que arranque. Pasado ese momento
+          <strong>{lockMinutes} minutos antes</strong> de que arranque. Pasado ese momento
           el pronóstico queda bloqueado y se hace visible para el resto de tu liga.
         </p>
         <p className="mt-2 text-sm text-slate-700">
