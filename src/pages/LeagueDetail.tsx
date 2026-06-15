@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { collection, doc, documentId, getDoc, getDocs, query, where } from 'firebase/firestore'
 import { useAuth } from '../context/auth-context'
+import LeagueMatchPredictions from '../components/LeagueMatchPredictions'
+import LeagueRankingTable from '../components/LeagueRankingTable'
 import { useFixtureData } from '../hooks/useFixtureData'
 import { db } from '../lib/firebase'
 import { formatTime } from '../lib/format'
 import {
   calculateMatchPoints,
+  isLockExpired,
   isMatchFinished,
   POINTS_CHAMPION,
   POINTS_RESULT,
@@ -24,13 +27,17 @@ function chunk<T>(items: T[], size: number): T[][] {
 export default function LeagueDetail() {
   const { id } = useParams<{ id: string }>()
   const { user } = useAuth()
-  const { matches, loading: matchesLoading, reload: reloadMatches } = useFixtureData()
+  const { matches, teamsById, loading: matchesLoading, reload: reloadMatches } = useFixtureData()
   const [league, setLeague] = useState<League | null>(null)
   const [rows, setRows] = useState<UserTotals[]>([])
+  const [predictionsByUser, setPredictionsByUser] = useState<Map<string, Prediction[]>>(new Map())
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
+  const [view, setView] = useState<'table' | 'predictions'>('table')
+
+  const lockedMatches = useMemo(() => matches.filter((m) => isLockExpired(m.lock_at)), [matches])
 
   useEffect(() => {
     if (!id || matchesLoading) return
@@ -149,6 +156,7 @@ export default function LeagueDetail() {
 
       setLeague(leagueData)
       setRows(totals)
+      setPredictionsByUser(predictionsByUser)
       setError(null)
       setLoading(false)
       setLastUpdated(new Date())
@@ -212,68 +220,25 @@ export default function LeagueDetail() {
         </div>
       </div>
 
-      <div className="overflow-x-auto card">
-        <table className="w-full text-xs sm:text-sm">
-          <thead className="bg-slate-50 text-left text-[10px] uppercase tracking-wide text-slate-500 sm:text-xs">
-            <tr>
-              <th className="px-2 py-2 sm:px-4 sm:py-3">#</th>
-              <th className="px-2 py-2 sm:px-4 sm:py-3">Jugador</th>
-              <th className="px-2 py-2 text-center sm:px-4 sm:py-3">
-                <span className="sm:hidden">Ex.</span>
-                <span className="hidden sm:inline">Exactos</span>
-              </th>
-              <th className="px-2 py-2 text-center sm:px-4 sm:py-3">
-                <span className="sm:hidden">Ac.</span>
-                <span className="hidden sm:inline">Aciertos</span>
-              </th>
-              <th className="px-2 py-2 text-center sm:px-4 sm:py-3">
-                <span className="sm:hidden">Esp.</span>
-                <span className="hidden sm:inline">Especiales</span>
-              </th>
-              <th className="px-2 py-2 text-right sm:px-4 sm:py-3">
-                <span className="sm:hidden">Pts</span>
-                <span className="hidden sm:inline">Puntos</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, i) => (
-              <tr
-                key={row.user_id}
-                className={`border-t border-slate-100 ${row.user_id === user?.uid ? 'bg-emerald-50' : ''}`}
-              >
-                <td className="px-2 py-2 font-semibold text-slate-500 sm:px-4 sm:py-3">{i + 1}</td>
-                <td className="px-2 py-2 font-medium text-slate-800 sm:px-4 sm:py-3">
-                  {row.username}
-                  {row.user_id === user?.uid && <span className="ml-1 text-xs text-primary">(vos)</span>}
-                  {row.champion_hit && <span className="ml-1" title="Acertó al campeón">🏆</span>}
-                  {row.adjustment_points !== 0 && (
-                    <span
-                      className={`ml-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${
-                        row.adjustment_points > 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'
-                      }`}
-                      title="Ajuste manual del administrador"
-                    >
-                      {row.adjustment_points > 0 ? '+' : ''}
-                      {row.adjustment_points}
-                    </span>
-                  )}
-                </td>
-                <td className="px-2 py-2 text-center text-slate-600 sm:px-4 sm:py-3">{row.exact_count}</td>
-                <td className="px-2 py-2 text-center text-slate-600 sm:px-4 sm:py-3">{row.hit_count}</td>
-                <td className="px-2 py-2 text-center text-slate-600 sm:px-4 sm:py-3">{row.special_points}</td>
-                <td className="px-2 py-2 text-right text-base font-bold text-primary-dark sm:px-4 sm:py-3 sm:text-lg">
-                  {row.total_points}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="flex flex-wrap gap-2">
+        <button onClick={() => setView('table')} className={view === 'table' ? 'tab-active' : 'tab-inactive'}>
+          Tabla de posiciones
+        </button>
+        <button onClick={() => setView('predictions')} className={view === 'predictions' ? 'tab-active' : 'tab-inactive'}>
+          Pronósticos
+        </button>
       </div>
 
-      <p className="text-xs text-slate-400">
-        Desempate: 1) más resultados exactos, 2) más aciertos totales, 3) acertar al campeón.
-      </p>
+      {view === 'table' && <LeagueRankingTable rows={rows} currentUserId={user?.uid} />}
+
+      {view === 'predictions' && (
+        <LeagueMatchPredictions
+          matches={lockedMatches}
+          teamsById={teamsById}
+          rows={rows}
+          predictionsByUser={predictionsByUser}
+        />
+      )}
     </div>
   )
 }
