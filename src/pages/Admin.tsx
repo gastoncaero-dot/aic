@@ -153,6 +153,37 @@ export default function Admin() {
     }
   }
 
+  async function handleRemoveMember(leagueId: string, uid: string) {
+    const league = leagues.find((l) => l.id === leagueId)
+    if (!league) return
+    if (!window.confirm(`¿Sacar a ${usernames.get(uid) ?? uid} de la liga "${league.name}"?`)) return
+
+    const memberIds = (league.member_ids ?? []).filter((id) => id !== uid)
+    const pointAdjustments = { ...league.point_adjustments }
+    delete pointAdjustments[uid]
+
+    setSavingLeagueId(leagueId)
+    setLeagueMsg((prev) => ({ ...prev, [leagueId]: '' }))
+    try {
+      await updateDoc(doc(db, 'leagues', leagueId), { member_ids: memberIds, point_adjustments: pointAdjustments })
+      setLeagues((prev) =>
+        prev.map((l) => (l.id === leagueId ? { ...l, member_ids: memberIds, point_adjustments: pointAdjustments } : l))
+      )
+      setAdjustments((prev) => {
+        const next = new Map(prev)
+        const entries = { ...next.get(leagueId) }
+        delete entries[uid]
+        next.set(leagueId, entries)
+        return next
+      })
+      setLeagueMsg((prev) => ({ ...prev, [leagueId]: '✓ Jugador eliminado de la liga' }))
+    } catch (err) {
+      setLeagueMsg((prev) => ({ ...prev, [leagueId]: err instanceof Error ? err.message : 'Error al eliminar' }))
+    } finally {
+      setSavingLeagueId(null)
+    }
+  }
+
   async function handleSaveMatch(matchId: number, updates: Partial<Match>) {
     const data: Partial<Match> = { ...updates }
     if (updates.kickoff_at) {
@@ -491,8 +522,8 @@ export default function Admin() {
       {effectiveView === 'leagues' && (
         <div className="space-y-4">
           <p className="text-sm text-slate-500">
-            Sumá o restá puntos manualmente a los jugadores de cada liga (ej: penalizaciones, bonus). El
-            ajuste se suma a los puntos por partidos y especiales en la tabla de posiciones.
+            Sumá o restá puntos manualmente a los jugadores de cada liga (ej: penalizaciones, bonus), o
+            eliminalos de la liga con el botón "Eliminar".
           </p>
           {leaguesLoading && <p className="text-sm text-slate-500">Cargando ligas...</p>}
           {!leaguesLoading && leagues.length === 0 && <p className="text-sm text-slate-500">No hay ligas creadas.</p>}
@@ -504,13 +535,23 @@ export default function Admin() {
               <div className="space-y-2">
                 {(league.member_ids ?? []).map((uid) => (
                   <div key={uid} className="flex items-center justify-between gap-2">
-                    <span className="text-sm text-slate-700">{usernames.get(uid) ?? uid}</span>
-                    <input
-                      type="number"
-                      value={adjustments.get(league.id)?.[uid] ?? '0'}
-                      onChange={(e) => handleAdjustmentChange(league.id, uid, e.target.value)}
-                      className="w-20 rounded-md border border-slate-300 px-2 py-1 text-center text-sm focus:border-primary focus:outline-none"
-                    />
+                    <span className="truncate text-sm text-slate-700">{usernames.get(uid) ?? uid}</span>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="number"
+                        value={adjustments.get(league.id)?.[uid] ?? '0'}
+                        onChange={(e) => handleAdjustmentChange(league.id, uid, e.target.value)}
+                        className="w-20 rounded-md border border-slate-300 px-2 py-1 text-center text-sm focus:border-primary focus:outline-none"
+                      />
+                      <button
+                        onClick={() => handleRemoveMember(league.id, uid)}
+                        disabled={savingLeagueId === league.id}
+                        className="rounded-md border border-red-200 px-2 py-1 text-xs font-medium text-red-600 transition-all hover:bg-red-50 disabled:opacity-50"
+                        title="Sacar de la liga"
+                      >
+                        Eliminar
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>

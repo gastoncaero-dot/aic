@@ -100,6 +100,7 @@ service cloud.firestore {
             && request.resource.data.member_ids.hasAll(resource.data.member_ids)
             && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["member_ids"]))
           || (isAdmin() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["point_adjustments"]))
+          || (isAdmin() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["member_ids", "point_adjustments"]))
         );
     }
   }
