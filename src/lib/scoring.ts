@@ -19,12 +19,12 @@ export const PREDICTION_LOCK_MINUTES = 5
 const MATCH_LIVE_MINUTES = 125
 
 /**
- * Devuelve true si el partido ya tiene resultado cargado, ya sea porque el
- * admin lo marcó como "Finalizado" o porque ya cargó ambos goles (esto
- * último cubre el caso de que se cargue el resultado sin cambiar el estado).
+ * Devuelve true si el partido ya fue marcado como "Finalizado". No alcanza con
+ * tener los goles cargados: durante un partido en vivo el resultado se va
+ * actualizando con status todavía en "scheduled".
  */
 export function isMatchFinished(match: Pick<Match, 'status' | 'home_score' | 'away_score'>): boolean {
-  return match.status === 'finished' || (match.home_score !== null && match.away_score !== null)
+  return match.status === 'finished'
 }
 
 /** Devuelve true si el partido ya arrancó y todavía no se cargó como finalizado. */
