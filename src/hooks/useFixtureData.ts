@@ -37,6 +37,13 @@ export function useFixtureData() {
     }
   }, [reloadIndex])
 
+  // Refresca solo, cada poco, para reflejar los resultados en vivo que el
+  // workflow de GitHub Actions va actualizando en Firestore en segundo plano.
+  useEffect(() => {
+    const interval = setInterval(() => setReloadIndex((i) => i + 1), 60_000)
+    return () => clearInterval(interval)
+  }, [])
+
   const reload = useCallback(() => setReloadIndex((i) => i + 1), [])
 
   const teamsById = useMemo(() => new Map(teams.map((t) => [t.id, t])), [teams])
