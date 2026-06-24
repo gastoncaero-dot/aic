@@ -1,27 +1,26 @@
 // Actualiza automáticamente el resultado de los partidos del Mundial 2026
-// que están "en vivo" consultando la API de API-Football y escribiendo en
-// Firestore. Pensado para correr cada pocos minutos desde un workflow de
+// que están "en vivo" consultando la API de football-data.org y escribiendo
+// en Firestore. Pensado para correr cada pocos minutos desde un workflow de
 // GitHub Actions (gratis, sin necesidad del plan Blaze de Firebase).
 //
 // Variables de entorno requeridas:
 //   FIREBASE_SERVICE_ACCOUNT  JSON completo de una cuenta de servicio de
 //                             Firebase (Project Settings > Service accounts
 //                             > Generate new private key).
-//   API_FOOTBALL_KEY          API key de https://www.api-football.com/
-//                             (plan gratis: 100 requests/día).
+//   FOOTBALL_DATA_API_KEY     API key de https://www.football-data.org/
+//                             (plan gratis: incluye el Mundial, 10 requests/min).
 import { initializeApp, cert } from 'firebase-admin/app'
 import { getFirestore } from 'firebase-admin/firestore'
 import { isSameTeam } from './team-name-aliases.mjs'
 
-const WORLD_CUP_LEAGUE_ID = 1
-const WORLD_CUP_SEASON = 2026
+const WORLD_CUP_COMPETITION_CODE = 'WC'
 
 // Duración estimada de un partido (90' + entretiempo + adicionales) durante
 // la cual lo consideramos "en vivo" y vale la pena consultar la API.
 const MATCH_LIVE_MINUTES = 125
 
-// Estados de la API que indican que el partido terminó.
-const FINISHED_STATUSES = new Set(['FT', 'AET', 'PEN', 'AWD', 'WO'])
+// Estados de la API (football-data.org) que indican que el partido terminó.
+const FINISHED_STATUSES = new Set(['FINISHED', 'AWARDED'])
 
 function getEnv(name) {
   const value = process.env[name]
@@ -30,7 +29,7 @@ function getEnv(name) {
 }
 
 const serviceAccount = JSON.parse(getEnv('FIREBASE_SERVICE_ACCOUNT'))
-const apiFootballKey = getEnv('API_FOOTBALL_KEY')
+const footballDataApiKey = getEnv('FOOTBALL_DATA_API_KEY')
 
 initializeApp({ credential: cert(serviceAccount) })
 const db = getFirestore()
@@ -47,18 +46,17 @@ async function findLiveMatches() {
     })
 }
 
-async function fetchFixturesForDate(dateIso) {
-  const url = `https://v3.football.api-sports.io/fixtures?league=${WORLD_CUP_LEAGUE_ID}&season=${WORLD_CUP_SEASON}&date=${dateIso}`
-  const res = await fetch(url, { headers: { 'x-apisports-key': apiFootballKey } })
+/** Trae todos los partidos del Mundial entre las fechas dadas (inclusive), en formato YYYY-MM-DD. */
+async function fetchFixturesBetween(dateFromIso, dateToIso) {
+  const url = `https://api.football-data.org/v4/competitions/${WORLD_CUP_COMPETITION_CODE}/matches?dateFrom=${dateFromIso}&dateTo=${dateToIso}`
+  const res = await fetch(url, { headers: { 'X-Auth-Token': footballDataApiKey } })
   if (!res.ok) {
-    throw new Error(`API-Football respondió ${res.status} para la fecha ${dateIso}`)
+    const body = await res.text()
+    throw new Error(`football-data.org respondió ${res.status} para ${dateFromIso}..${dateToIso}: ${body}`)
   }
   const json = await res.json()
-  if (json.errors && Object.keys(json.errors).length > 0) {
-    console.warn(`API-Football devolvió errores para ${dateIso}:`, JSON.stringify(json.errors))
-  }
-  console.log(`API-Football results=${json.results} paging=${JSON.stringify(json.paging)} para ${dateIso}`)
-  return json.response ?? []
+  console.log(`football-data.org devolvió ${json.count ?? json.matches?.length ?? 0} partidos para ${dateFromIso}..${dateToIso}`)
+  return json.matches ?? []
 }
 
 async function main() {
@@ -79,14 +77,11 @@ async function main() {
     if (snap.exists) teamNameById.set(snap.data().id, snap.data().name)
   }
 
-  // Una sola consulta a la API por cada fecha (UTC) involucrada.
-  const dates = new Set(liveMatches.map(({ data }) => data.kickoff_at.slice(0, 10)))
-  const fixturesByDate = new Map()
-  for (const date of dates) {
-    const fixtures = await fetchFixturesForDate(date)
-    fixturesByDate.set(date, fixtures)
-    console.log(`API-Football devolvió ${fixtures.length} partidos para ${date}`)
-  }
+  // Una sola consulta a la API que cubra el rango de fechas (UTC) involucrado.
+  const dates = liveMatches.map(({ data }) => data.kickoff_at.slice(0, 10)).sort()
+  const dateFrom = dates[0]
+  const dateTo = dates[dates.length - 1]
+  const fixtures = await fetchFixturesBetween(dateFrom, dateTo)
 
   let updated = 0
   for (const { id, data } of liveMatches) {
@@ -95,19 +90,21 @@ async function main() {
     if (!homeName || !awayName) continue
 
     const date = data.kickoff_at.slice(0, 10)
-    const fixtures = fixturesByDate.get(date) ?? []
     const fixture = fixtures.find(
-      (f) => isSameTeam(homeName, f.teams.home.name) && isSameTeam(awayName, f.teams.away.name)
+      (f) =>
+        f.utcDate.slice(0, 10) === date &&
+        isSameTeam(homeName, f.homeTeam.name) &&
+        isSameTeam(awayName, f.awayTeam.name)
     )
     if (!fixture) {
       console.warn(`Partido #${id} (${homeName} vs ${awayName}, ${date}) no matchea ningún equipo de la API`)
       continue
     }
 
-    const { home: homeScore, away: awayScore } = fixture.goals
+    const { home: homeScore, away: awayScore } = fixture.score.fullTime
     if (homeScore === null || awayScore === null) continue
 
-    const isFinished = FINISHED_STATUSES.has(fixture.fixture.status.short)
+    const isFinished = FINISHED_STATUSES.has(fixture.status)
     const scoreChanged = data.home_score !== homeScore || data.away_score !== awayScore
     const statusChanged = isFinished && data.status !== 'finished'
     if (!scoreChanged && !statusChanged) continue

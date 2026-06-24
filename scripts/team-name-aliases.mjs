@@ -1,14 +1,14 @@
 /**
  * Mapeo entre los nombres de selecciones usados en este proyecto (campo
  * `name` de la colección `teams`, en español) y los nombres que devuelve
- * la API de API-Football para el Mundial 2026. Si un equipo no aparece acá
- * se usa su propio nombre como único alias.
+ * la API de football-data.org para el Mundial 2026. Si un equipo no aparece
+ * acá se usa su propio nombre como único alias.
  *
  * Si en los logs del workflow ves "no matchea ningún equipo de la API" para
  * una selección, agregá o corregí el alias correspondiente acá (podés ver
  * los nombres exactos que devuelve la API consultando
- * https://v3.football.api-sports.io/fixtures?league=1&season=2026 con tu
- * API key).
+ * https://api.football-data.org/v4/competitions/WC/matches con tu API key
+ * en el header X-Auth-Token).
  */
 export const TEAM_NAME_ALIASES = {
   'México': ['Mexico'],
