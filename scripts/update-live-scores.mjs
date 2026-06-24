@@ -54,6 +54,10 @@ async function fetchFixturesForDate(dateIso) {
     throw new Error(`API-Football respondió ${res.status} para la fecha ${dateIso}`)
   }
   const json = await res.json()
+  if (json.errors && Object.keys(json.errors).length > 0) {
+    console.warn(`API-Football devolvió errores para ${dateIso}:`, JSON.stringify(json.errors))
+  }
+  console.log(`API-Football results=${json.results} paging=${JSON.stringify(json.paging)} para ${dateIso}`)
   return json.response ?? []
 }
 
