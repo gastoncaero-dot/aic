@@ -21,7 +21,7 @@ export default function FixtureRow({ match, homeTeam, awayTeam }: Props) {
         ) : live ? (
           <span className="flex flex-col items-center gap-0.5 font-bold text-red-600 sm:flex-row sm:gap-1">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-600" aria-hidden />
-            EN VIVO
+            {match.minute != null ? `${match.minute}'` : 'EN VIVO'}
           </span>
         ) : (
           <span className="text-slate-500">{formatTime(match.kickoff_at)}</span>

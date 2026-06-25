@@ -22,6 +22,10 @@ const MATCH_LIVE_MINUTES = 125
 // Estados de la API (football-data.org) que indican que el partido terminó.
 const FINISHED_STATUSES = new Set(['FINISHED', 'AWARDED'])
 
+// Estados que indican que el partido está jugándose en este momento (para
+// mostrar el minuto en vivo en el frontend).
+const IN_PLAY_STATUSES = new Set(['IN_PLAY', 'PAUSED'])
+
 function getEnv(name) {
   const value = process.env[name]
   if (!value) throw new Error(`Falta la variable de entorno ${name}`)
@@ -105,15 +109,21 @@ async function main() {
     if (homeScore === null || awayScore === null) continue
 
     const isFinished = FINISHED_STATUSES.has(fixture.status)
+    const minute = IN_PLAY_STATUSES.has(fixture.status) ? fixture.minute ?? null : null
     const scoreChanged = data.home_score !== homeScore || data.away_score !== awayScore
     const statusChanged = isFinished && data.status !== 'finished'
-    if (!scoreChanged && !statusChanged) continue
+    const minuteChanged = data.minute !== minute
+    if (!scoreChanged && !statusChanged && !minuteChanged) continue
 
-    const updates = { home_score: homeScore, away_score: awayScore }
+    const updates = { home_score: homeScore, away_score: awayScore, minute }
     if (isFinished) updates.status = 'finished'
     await db.collection('matches').doc(id).update(updates)
     updated++
-    console.log(`Partido #${id} (${homeName} vs ${awayName}) actualizado: ${homeScore}-${awayScore}${isFinished ? ' (finalizado)' : ''}`)
+    console.log(
+      `Partido #${id} (${homeName} vs ${awayName}) actualizado: ${homeScore}-${awayScore}${
+        isFinished ? ' (finalizado)' : minute != null ? ` (min ${minute}')` : ''
+      }`
+    )
   }
 
   console.log(`Listo. Partidos en vivo: ${liveMatches.length}, actualizados: ${updated}.`)

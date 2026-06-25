@@ -72,7 +72,7 @@ export default function MatchRow({ match, homeTeam, awayTeam, prediction, onSave
         {!finished && live && (
           <span className="flex items-center gap-1.5 font-bold text-red-600">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-600" aria-hidden />
-            EN VIVO
+            {match.minute != null ? `${match.minute}'` : 'EN VIVO'}
             {match.home_score !== null && match.away_score !== null && (
               <span>
                 {match.home_score} - {match.away_score}
