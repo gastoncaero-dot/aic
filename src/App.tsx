@@ -6,6 +6,7 @@ import Landing from './pages/Landing'
 import Fixture from './pages/Fixture'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import ForgotPassword from './pages/ForgotPassword'
 import Rules from './pages/Rules'
 import Predictions from './pages/Predictions'
 import SpecialPredictions from './pages/SpecialPredictions'
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="reglas" element={<Rules />} />
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
+            <Route path="olvide-contrasena" element={<ForgotPassword />} />
 
             <Route element={<ProtectedRoute />}>
               <Route path="dashboard" element={<Dashboard />} />

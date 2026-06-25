@@ -53,7 +53,12 @@ export default function Login() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-700">Contraseña</label>
+            <div className="mb-1 flex items-center justify-between">
+              <label className="block text-sm font-medium text-slate-700">Contraseña</label>
+              <Link to="/olvide-contrasena" className="text-xs font-medium text-primary">
+                ¿Olvidaste tu contraseña?
+              </Link>
+            </div>
             <input
               type="password"
               required
