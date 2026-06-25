@@ -357,7 +357,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-11T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 2,
@@ -373,7 +374,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-12T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 3,
@@ -389,7 +391,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-12T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 4,
@@ -405,7 +408,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-13T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 5,
@@ -421,7 +425,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-13T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 6,
@@ -437,7 +442,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-14T00:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 7,
@@ -453,7 +459,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-13T00:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 8,
@@ -469,7 +476,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-14T03:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 9,
@@ -485,7 +493,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-14T16:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 10,
@@ -501,7 +510,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-14T22:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 11,
@@ -517,7 +527,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-14T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 12,
@@ -533,7 +544,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-15T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 13,
@@ -549,7 +561,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-15T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 14,
@@ -565,7 +578,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-16T03:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 15,
@@ -581,7 +595,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-15T15:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 16,
@@ -597,7 +612,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-15T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 17,
@@ -613,7 +629,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-16T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 18,
@@ -629,7 +646,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-16T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 19,
@@ -645,7 +663,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-17T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 20,
@@ -661,7 +680,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-17T03:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 21,
@@ -677,7 +697,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-17T17:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 22,
@@ -693,7 +714,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-18T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 23,
@@ -709,7 +731,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-17T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 24,
@@ -725,7 +748,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-17T22:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 25,
@@ -741,7 +765,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-19T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 26,
@@ -757,7 +782,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-18T15:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 27,
@@ -773,7 +799,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-18T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 28,
@@ -789,7 +816,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-18T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 29,
@@ -805,7 +833,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-20T00:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 30,
@@ -821,7 +850,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-19T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 31,
@@ -837,7 +867,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-19T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 32,
@@ -853,7 +884,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-20T03:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 33,
@@ -869,7 +901,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-20T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 34,
@@ -885,7 +918,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-20T23:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 35,
@@ -901,7 +935,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-20T16:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 36,
@@ -917,7 +952,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-21T03:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 37,
@@ -933,7 +969,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-21T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 38,
@@ -949,7 +986,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-22T00:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 39,
@@ -965,7 +1003,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-21T15:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 40,
@@ -981,7 +1020,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-21T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 41,
@@ -997,7 +1037,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-22T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 42,
@@ -1013,7 +1054,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-22T23:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 43,
@@ -1029,7 +1071,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-22T16:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 44,
@@ -1045,7 +1088,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-23T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 45,
@@ -1061,7 +1105,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-23T17:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 46,
@@ -1077,7 +1122,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-24T03:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 47,
@@ -1093,7 +1139,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-23T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 48,
@@ -1109,7 +1156,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-23T22:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 49,
@@ -1125,7 +1173,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-25T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 50,
@@ -1141,7 +1190,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-25T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 51,
@@ -1157,7 +1207,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-24T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 52,
@@ -1173,7 +1224,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-24T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 53,
@@ -1189,7 +1241,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-24T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 54,
@@ -1205,7 +1258,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-24T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 55,
@@ -1221,7 +1275,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-26T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 56,
@@ -1237,7 +1292,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-26T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 57,
@@ -1253,7 +1309,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-25T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 58,
@@ -1269,7 +1326,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-25T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 59,
@@ -1285,7 +1343,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-25T22:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 60,
@@ -1301,7 +1360,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-25T22:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 61,
@@ -1317,7 +1377,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-27T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 62,
@@ -1333,7 +1394,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-27T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 63,
@@ -1349,7 +1411,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-26T23:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 64,
@@ -1365,7 +1428,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-26T23:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 65,
@@ -1381,7 +1445,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-26T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 66,
@@ -1397,7 +1462,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-26T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 67,
@@ -1413,7 +1479,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-28T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 68,
@@ -1429,7 +1496,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-28T01:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 69,
@@ -1445,7 +1513,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-27T23:25:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 70,
@@ -1461,7 +1530,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-27T23:25:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 71,
@@ -1477,7 +1547,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-27T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 72,
@@ -1493,7 +1564,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-27T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 73,
@@ -1509,7 +1581,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-28T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 74,
@@ -1525,7 +1598,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-29T17:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 75,
@@ -1541,7 +1615,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-29T20:25:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 76,
@@ -1557,7 +1632,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-30T00:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 77,
@@ -1573,7 +1649,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-30T17:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 78,
@@ -1589,7 +1666,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-06-30T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 79,
@@ -1605,7 +1683,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-01T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 80,
@@ -1621,7 +1700,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-01T15:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 81,
@@ -1637,7 +1717,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-01T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 82,
@@ -1653,7 +1734,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-01T23:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 83,
@@ -1669,7 +1751,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-02T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 84,
@@ -1685,7 +1768,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-02T22:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 85,
@@ -1701,7 +1785,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-03T02:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 86,
@@ -1717,7 +1802,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-03T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 87,
@@ -1733,7 +1819,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-03T21:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 88,
@@ -1749,7 +1836,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-04T01:25:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 89,
@@ -1765,7 +1853,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-04T16:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 90,
@@ -1781,7 +1870,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-04T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 91,
@@ -1797,7 +1887,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-05T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 92,
@@ -1813,7 +1904,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-05T23:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 93,
@@ -1829,7 +1921,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-06T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 94,
@@ -1845,7 +1938,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-06T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 95,
@@ -1861,7 +1955,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-07T15:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 96,
@@ -1877,7 +1972,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-07T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 97,
@@ -1893,7 +1989,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-09T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 98,
@@ -1909,7 +2006,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-10T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 99,
@@ -1925,7 +2023,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-11T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 100,
@@ -1941,7 +2040,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-12T00:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 101,
@@ -1957,7 +2057,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-14T19:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 102,
@@ -1973,7 +2074,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-15T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 103,
@@ -1989,7 +2091,8 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-18T20:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   },
   {
     "id": 104,
@@ -2005,6 +2108,7 @@ export const seedMatches: Match[] = [
     "lock_at": "2026-07-19T18:55:00.000Z",
     "home_score": null,
     "away_score": null,
-    "status": "scheduled"
+    "status": "scheduled",
+    "minute": null
   }
 ]
