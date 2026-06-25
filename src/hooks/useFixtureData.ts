@@ -1,52 +1,53 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import type { Match, Team } from '../types'
 
+// Usa listeners en tiempo real en vez de volver a leer las colecciones
+// enteras a intervalos: Firestore solo cobra lectura por los documentos que
+// cambian, así que esto refleja los resultados en vivo (que el workflow de
+// GitHub Actions actualiza en segundo plano) sin repetir la lectura completa
+// cada minuto y sin agotar la cuota gratis.
 export function useFixtureData() {
   const [teams, setTeams] = useState<Team[]>([])
   const [matches, setMatches] = useState<Match[]>([])
-  const [loading, setLoading] = useState(true)
+  const [teamsLoaded, setTeamsLoaded] = useState(false)
+  const [matchesLoaded, setMatchesLoaded] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [reloadIndex, setReloadIndex] = useState(0)
 
   useEffect(() => {
-    let cancelled = false
+    const onError = (err: Error) => setError(err.message)
 
-    async function load() {
-      setLoading(true)
-      try {
-        const [teamsSnap, matchesSnap] = await Promise.all([
-          getDocs(query(collection(db, 'teams'), orderBy('id'))),
-          getDocs(query(collection(db, 'matches'), orderBy('id'))),
-        ])
-        if (cancelled) return
-        setTeams(teamsSnap.docs.map((d) => d.data() as Team))
-        setMatches(matchesSnap.docs.map((d) => d.data() as Match))
+    const unsubTeams = onSnapshot(
+      query(collection(db, 'teams'), orderBy('id')),
+      (snap) => {
+        setTeams(snap.docs.map((d) => d.data() as Team))
+        setTeamsLoaded(true)
         setError(null)
-      } catch (err) {
-        if (!cancelled) setError(err instanceof Error ? err.message : 'Error al cargar datos')
-      } finally {
-        if (!cancelled) setLoading(false)
-      }
-    }
+      },
+      onError
+    )
+    const unsubMatches = onSnapshot(
+      query(collection(db, 'matches'), orderBy('id')),
+      (snap) => {
+        setMatches(snap.docs.map((d) => d.data() as Match))
+        setMatchesLoaded(true)
+        setError(null)
+      },
+      onError
+    )
 
-    load()
     return () => {
-      cancelled = true
+      unsubTeams()
+      unsubMatches()
     }
-  }, [reloadIndex])
-
-  // Refresca solo, cada poco, para reflejar los resultados en vivo que el
-  // workflow de GitHub Actions va actualizando en Firestore en segundo plano.
-  useEffect(() => {
-    const interval = setInterval(() => setReloadIndex((i) => i + 1), 60_000)
-    return () => clearInterval(interval)
   }, [])
 
-  const reload = useCallback(() => setReloadIndex((i) => i + 1), [])
+  // Los listeners mantienen los datos al día solos; se conserva por
+  // compatibilidad con quienes esperan poder forzar un refresco.
+  const reload = useCallback(async () => {}, [])
 
   const teamsById = useMemo(() => new Map(teams.map((t) => [t.id, t])), [teams])
 
-  return { teams, matches, teamsById, loading, error, reload }
+  return { teams, matches, teamsById, loading: !teamsLoaded || !matchesLoaded, error, reload }
 }
