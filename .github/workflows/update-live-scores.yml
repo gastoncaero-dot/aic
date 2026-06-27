@@ -5,7 +5,12 @@ on:
     # Cada 5 minutos. Si no hay ningún partido en su horario de juego, el
     # script no consulta la API (no gasta cuota) y termina enseguida.
     - cron: '*/5 * * * *'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      bracket_assignments:
+        description: 'JSON con asignaciones de equipos a partidos de eliminación directa (opcional)'
+        required: false
+        default: ''
 
 jobs:
   update-scores:
@@ -24,3 +29,9 @@ jobs:
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+
+      - if: ${{ github.event.inputs.bracket_assignments != '' }}
+        run: node scripts/set-bracket-matches.mjs
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          BRACKET_ASSIGNMENTS: ${{ github.event.inputs.bracket_assignments }}
