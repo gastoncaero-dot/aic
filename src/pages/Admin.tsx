@@ -39,6 +39,7 @@ export default function Admin() {
   const [championId, setChampionId] = useState('')
   const [runnerUpId, setRunnerUpId] = useState('')
   const [topScorer, setTopScorer] = useState('')
+  const [bestPlayer, setBestPlayer] = useState('')
   const [lockMinutes, setLockMinutes] = useState(PREDICTION_LOCK_MINUTES.toString())
   const [savingSettings, setSavingSettings] = useState(false)
   const [settingsMsg, setSettingsMsg] = useState<string | null>(null)
@@ -70,6 +71,7 @@ export default function Admin() {
         setChampionId(s.champion_team_id?.toString() ?? '')
         setRunnerUpId(s.runner_up_team_id?.toString() ?? '')
         setTopScorer(s.top_scorer ?? '')
+        setBestPlayer(s.best_player ?? '')
         setLockMinutes((s.prediction_lock_minutes ?? PREDICTION_LOCK_MINUTES).toString())
       }
     })
@@ -206,6 +208,7 @@ export default function Admin() {
           champion_team_id: championId ? Number(championId) : null,
           runner_up_team_id: runnerUpId ? Number(runnerUpId) : null,
           top_scorer: topScorer.trim() || null,
+          best_player: bestPlayer.trim() || null,
         },
         { merge: true }
       )
@@ -238,6 +241,7 @@ export default function Admin() {
           champion_team_id: null,
           runner_up_team_id: null,
           top_scorer: null,
+          best_player: null,
         },
         { merge: true }
       )
@@ -498,6 +502,19 @@ export default function Admin() {
                 type="text"
                 value={topScorer}
                 onChange={(e) => setTopScorer(e.target.value)}
+                placeholder="Nombre y apellido del jugador"
+                className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
+              />
+              <p className="mt-1 text-xs text-slate-400">
+                Debe coincidir (sin importar mayúsculas) con lo que escribieron los jugadores.
+              </p>
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">🌟 Mejor jugador del torneo</label>
+              <input
+                type="text"
+                value={bestPlayer}
+                onChange={(e) => setBestPlayer(e.target.value)}
                 placeholder="Nombre y apellido del jugador"
                 className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
               />

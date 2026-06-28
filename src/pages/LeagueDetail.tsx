@@ -11,6 +11,7 @@ import {
   calculateMatchPoints,
   isLockExpired,
   isMatchFinished,
+  POINTS_BEST_PLAYER,
   POINTS_CHAMPION,
   POINTS_RESULT,
   POINTS_RUNNER_UP,
@@ -129,6 +130,13 @@ export default function LeagueDetail() {
             settings.top_scorer.trim().toLowerCase() === special.top_scorer.trim().toLowerCase()
           ) {
             specialPoints += POINTS_TOP_SCORER
+          }
+          if (
+            settings.best_player &&
+            special.best_player &&
+            settings.best_player.trim().toLowerCase() === special.best_player.trim().toLowerCase()
+          ) {
+            specialPoints += POINTS_BEST_PLAYER
           }
         }
 

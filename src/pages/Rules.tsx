@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAppSettings } from '../hooks/useAppSettings'
 import {
+  POINTS_BEST_PLAYER,
   POINTS_CHAMPION,
   POINTS_EXACT,
   POINTS_RESULT,
@@ -57,7 +58,7 @@ export default function Rules() {
       <section className="card p-5">
         <h2 className="mb-3 text-lg font-semibold text-slate-900">🌟 Pronósticos especiales</h2>
         <p className="mb-3 text-sm text-slate-600">
-          Antes de que arranque el Mundial, además elegís tres pronósticos "macro" que suman puntos extra
+          Antes de que arranque el Mundial, además elegís cuatro pronósticos "macro" que suman puntos extra
           al final del torneo:
         </p>
         <ul className="space-y-2 text-sm text-slate-700">
@@ -70,8 +71,12 @@ export default function Rules() {
             <span className="ml-3 shrink-0 font-bold text-amber-700">{POINTS_RUNNER_UP} pts</span>
           </li>
           <li className="flex items-center justify-between rounded-lg bg-sky-50 px-3 py-2">
-            <span>👟 Goleador / Balón de Oro del torneo</span>
+            <span>👟 Goleador del torneo</span>
             <span className="ml-3 shrink-0 font-bold text-sky-700">{POINTS_TOP_SCORER} pts</span>
+          </li>
+          <li className="flex items-center justify-between rounded-lg bg-violet-50 px-3 py-2">
+            <span>🌟 Mejor jugador del torneo</span>
+            <span className="ml-3 shrink-0 font-bold text-violet-700">{POINTS_BEST_PLAYER} pts</span>
           </li>
         </ul>
       </section>
@@ -84,8 +89,8 @@ export default function Rules() {
           el pronóstico queda bloqueado y se hace visible para el resto de tu liga.
         </p>
         <p className="mt-2 text-sm text-slate-700">
-          Los pronósticos especiales (campeón, subcampeón y goleador) se cierran cuando arranca el
-          partido inaugural del Mundial.
+          Los pronósticos especiales (campeón, subcampeón, goleador y mejor jugador) se cierran cuando
+          arranca el partido inaugural del Mundial.
         </p>
       </section>
 

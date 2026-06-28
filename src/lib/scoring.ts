@@ -8,6 +8,7 @@ export const POINTS_RESULT = 2
 export const POINTS_CHAMPION = 20
 export const POINTS_RUNNER_UP = 10
 export const POINTS_TOP_SCORER = 10
+export const POINTS_BEST_PLAYER = 10
 // Valor por defecto de "minutos antes del kickoff" en que se cierran los
 // pronósticos. El admin puede cambiarlo desde el panel de Admin
 // (appSettings.main.prediction_lock_minutes); esta constante se usa como
