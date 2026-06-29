@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 440" width="1180" height="440">
+  <g fill="none" stroke="#3B5BFE" stroke-width="30" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="172" cy="185" r="50"/>
+    <path d="M172 235 L168 330"/>
+    <path d="M150 258 L70 332"/>
+    <path d="M192 258 L274 322"/>
+    <path d="M160 330 L108 416"/>
+    <path d="M176 330 L244 406"/>
+  </g>
+  <g stroke="#3B5BFE" stroke-width="22" stroke-linecap="round">
+    <path d="M254 30 L254 116"/>
+    <path d="M216.8 51.5 L291.2 94.5"/>
+    <path d="M216.8 94.5 L291.2 51.5"/>
+  </g>
+  <text x="372" y="192" font-family="Liberation Sans, Arial, sans-serif" font-weight="bold" font-size="142" fill="#3B5BFE">MIRO</text>
+  <text x="372" y="334" font-family="Liberation Sans, Arial, sans-serif" font-weight="bold" font-size="142" fill="#3B5BFE">COLLEGE</text>
+  <text x="1150" y="404" text-anchor="end" font-family="Liberation Sans, Arial, sans-serif" font-weight="normal" font-size="70" fill="#6E86F7">San Vicente</text>
+</svg>
