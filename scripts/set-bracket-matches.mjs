@@ -31,6 +31,9 @@ for (const a of assignments) {
   }
   if (a.kickoff_at) update.kickoff_at = a.kickoff_at
   if (a.lock_at) update.lock_at = a.lock_at
+  if (a.status) update.status = a.status
+  if (a.home_score != null) update.home_score = a.home_score
+  if (a.away_score != null) update.away_score = a.away_score
   await db.doc(`matches/${a.id}`).update(update)
   console.log(`Partido ${a.id} actualizado: ${a.home_team_id} vs ${a.away_team_id}`)
 }
