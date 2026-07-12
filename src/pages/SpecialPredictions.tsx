@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react'
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { useAuth } from '../context/auth-context'
 import { useFixtureData } from '../hooks/useFixtureData'
 import { db } from '../lib/firebase'
@@ -49,6 +49,9 @@ export default function SpecialPredictions() {
   }, [user])
 
   const locked = settings ? isLockExpired(settings.special_predictions_lock_at) : false
+  const bestPlayerLocked = settings?.best_player_lock_at
+    ? isLockExpired(settings.best_player_lock_at)
+    : false
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -57,14 +60,22 @@ export default function SpecialPredictions() {
     setMessage(null)
 
     try {
-      await setDoc(doc(db, 'specialPredictions', user.uid), {
-        user_id: user.uid,
-        champion_team_id: championId ? Number(championId) : null,
-        runner_up_team_id: runnerUpId ? Number(runnerUpId) : null,
-        top_scorer: topScorer.trim() || null,
-        best_player: bestPlayer.trim() || null,
-        updated_at: new Date().toISOString(),
-      })
+      if (locked) {
+        // El cierre general ya pasó: solo actualizamos el mejor jugador
+        await updateDoc(doc(db, 'specialPredictions', user.uid), {
+          best_player: bestPlayer.trim() || null,
+          updated_at: new Date().toISOString(),
+        })
+      } else {
+        await setDoc(doc(db, 'specialPredictions', user.uid), {
+          user_id: user.uid,
+          champion_team_id: championId ? Number(championId) : null,
+          runner_up_team_id: runnerUpId ? Number(runnerUpId) : null,
+          top_scorer: topScorer.trim() || null,
+          best_player: bestPlayer.trim() || null,
+          updated_at: new Date().toISOString(),
+        })
+      }
       setMessage({ type: 'success', text: '¡Pronósticos especiales guardados!' })
     } catch (err) {
       setMessage({ type: 'error', text: err instanceof Error ? err.message : 'Error al guardar' })
@@ -82,11 +93,19 @@ export default function SpecialPredictions() {
         <p className="mt-1 text-sm text-slate-500">Tus apuestas grandes para todo el torneo.</p>
       </div>
 
-      {settings && (
-        <div className={`rounded-lg border px-4 py-3 text-sm ${locked ? 'border-amber-200 bg-amber-50 text-amber-800' : 'border-slate-200 bg-slate-50 text-slate-600'}`}>
-          {locked
-            ? '🔒 Los pronósticos especiales ya están cerrados.'
-            : `Se cierran el ${formatDay(settings.special_predictions_lock_at)} a las ${formatTime(settings.special_predictions_lock_at)} hs.`}
+      {settings && locked && (
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          🔒 Campeón, subcampeón y goleador ya están cerrados.
+          {settings.best_player_lock_at && !bestPlayerLocked
+            ? ` Podés cargar el mejor jugador hasta el ${formatDay(settings.best_player_lock_at)} a las ${formatTime(settings.best_player_lock_at)} hs.`
+            : bestPlayerLocked
+            ? ' El mejor jugador también está cerrado.'
+            : ''}
+        </div>
+      )}
+      {settings && !locked && (
+        <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+          {`Se cierran el ${formatDay(settings.special_predictions_lock_at)} a las ${formatTime(settings.special_predictions_lock_at)} hs.`}
         </div>
       )}
 
@@ -154,6 +173,7 @@ export default function SpecialPredictions() {
           <input
             type="text"
             value={bestPlayer}
+            disabled={bestPlayerLocked}
             onChange={(e) => setBestPlayer(e.target.value)}
             placeholder="Nombre y apellido del jugador"
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none disabled:bg-slate-100"
@@ -168,7 +188,7 @@ export default function SpecialPredictions() {
 
         <button
           type="submit"
-          disabled={saving}
+          disabled={saving || bestPlayerLocked}
           className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md disabled:opacity-50"
         >
           {saving ? 'Guardando...' : 'Guardar pronósticos especiales'}

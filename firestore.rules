@@ -70,14 +70,22 @@ service cloud.firestore {
     }
 
     // ---------------------------------------------------------
-    // Pronósticos especiales (campeón, subcampeón, goleador). Doc id = uid.
+    // Pronósticos especiales (campeón, subcampeón, goleador, mejor jugador). Doc id = uid.
     // ---------------------------------------------------------
     match /specialPredictions/{uid} {
       allow read: if isSignedIn();
+      // Guardado completo: antes del cierre general
       allow create, update: if isSignedIn() && uid == request.auth.uid
         && request.resource.data.user_id == uid
         && request.time < timestamp.value(
              get(/databases/$(database)/documents/appSettings/main).data.special_predictions_lock_at
+           );
+      // Solo actualizar best_player: después del cierre general pero antes del cierre de mejor jugador
+      allow update: if isSignedIn() && uid == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['best_player', 'updated_at'])
+        && get(/databases/$(database)/documents/appSettings/main).data.best_player_lock_at != null
+        && request.time < timestamp.value(
+             get(/databases/$(database)/documents/appSettings/main).data.best_player_lock_at
            );
     }
 

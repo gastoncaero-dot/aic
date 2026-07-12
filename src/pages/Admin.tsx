@@ -36,6 +36,7 @@ export default function Admin() {
   const { matches, teams, loading, error, reload } = useFixtureData()
   const [view, setView] = useState<'group' | 'knockout' | 'settings' | 'leagues'>('knockout')
   const [lockAt, setLockAt] = useState('')
+  const [bestPlayerLockAt, setBestPlayerLockAt] = useState('')
   const [championId, setChampionId] = useState('')
   const [runnerUpId, setRunnerUpId] = useState('')
   const [topScorer, setTopScorer] = useState('')
@@ -68,6 +69,7 @@ export default function Admin() {
       if (snap.exists()) {
         const s = snap.data() as AppSettings
         setLockAt(toDateTimeLocal(s.special_predictions_lock_at))
+        setBestPlayerLockAt(s.best_player_lock_at ? toDateTimeLocal(s.best_player_lock_at) : '')
         setChampionId(s.champion_team_id?.toString() ?? '')
         setRunnerUpId(s.runner_up_team_id?.toString() ?? '')
         setTopScorer(s.top_scorer ?? '')
@@ -205,6 +207,7 @@ export default function Admin() {
         doc(db, 'appSettings', 'main'),
         {
           special_predictions_lock_at: fromArgentinaDateTimeLocal(lockAt),
+          best_player_lock_at: bestPlayerLockAt ? fromArgentinaDateTimeLocal(bestPlayerLockAt) : null,
           champion_team_id: championId ? Number(championId) : null,
           runner_up_team_id: runnerUpId ? Number(runnerUpId) : null,
           top_scorer: topScorer.trim() || null,
@@ -457,6 +460,16 @@ export default function Admin() {
                 type="datetime-local"
                 value={lockAt}
                 onChange={(e) => setLockAt(e.target.value)}
+                className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
+              />
+              <p className="mt-1 text-xs text-slate-400">Hora de Argentina</p>
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Cierre de "Mejor jugador del torneo"</label>
+              <input
+                type="datetime-local"
+                value={bestPlayerLockAt}
+                onChange={(e) => setBestPlayerLockAt(e.target.value)}
                 className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
               />
               <p className="mt-1 text-xs text-slate-400">Hora de Argentina</p>

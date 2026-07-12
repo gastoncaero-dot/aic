@@ -73,6 +73,7 @@ export interface SpecialPrediction {
 
 export interface AppSettings {
   special_predictions_lock_at: string
+  best_player_lock_at?: string | null
   champion_team_id: number | null
   runner_up_team_id: number | null
   top_scorer: string | null
