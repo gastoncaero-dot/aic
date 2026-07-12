@@ -98,7 +98,7 @@ export default function SpecialPredictions() {
           </label>
           <select
             value={championId}
-            disabled={locked}
+            disabled
             onChange={(e) => setChampionId(e.target.value)}
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none disabled:bg-slate-100"
           >
@@ -118,7 +118,7 @@ export default function SpecialPredictions() {
           </label>
           <select
             value={runnerUpId}
-            disabled={locked}
+            disabled
             onChange={(e) => setRunnerUpId(e.target.value)}
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none disabled:bg-slate-100"
           >
@@ -139,7 +139,7 @@ export default function SpecialPredictions() {
           <input
             type="text"
             value={topScorer}
-            disabled={locked}
+            disabled
             onChange={(e) => setTopScorer(e.target.value)}
             placeholder="Nombre y apellido del jugador"
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none disabled:bg-slate-100"
