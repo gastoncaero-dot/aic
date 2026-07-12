@@ -11,6 +11,10 @@ on:
         description: 'JSON con asignaciones de equipos a partidos de eliminación directa (opcional)'
         required: false
         default: ''
+      app_settings_fields:
+        description: 'JSON con campos a actualizar en appSettings/main (opcional)'
+        required: false
+        default: ''
 
 jobs:
   update-scores:
@@ -35,3 +39,9 @@ jobs:
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           BRACKET_ASSIGNMENTS: ${{ github.event.inputs.bracket_assignments }}
+
+      - if: ${{ github.event.inputs.app_settings_fields != '' }}
+        run: node scripts/set-app-settings.mjs
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          APP_SETTINGS_FIELDS: ${{ github.event.inputs.app_settings_fields }}
