@@ -154,7 +154,6 @@ export default function SpecialPredictions() {
           <input
             type="text"
             value={bestPlayer}
-            disabled={locked}
             onChange={(e) => setBestPlayer(e.target.value)}
             placeholder="Nombre y apellido del jugador"
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-primary focus:outline-none disabled:bg-slate-100"
@@ -169,7 +168,7 @@ export default function SpecialPredictions() {
 
         <button
           type="submit"
-          disabled={saving || locked}
+          disabled={saving}
           className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md disabled:opacity-50"
         >
           {saving ? 'Guardando...' : 'Guardar pronósticos especiales'}
